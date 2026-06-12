@@ -1,19 +1,5 @@
 {
   "version": 2,
-  "routes": [
-    {
-      "src": "/",
-      "dest": "/Heph.html"
-    },
-    {
-      "src": "/index",
-      "dest": "/Heph.html"
-    },
-    {
-      "src": "/home",
-      "dest": "/Heph.html"
-    }
-  ],
   "headers": [
     {
       "source": "/(.*)",
@@ -32,10 +18,5 @@
         }
       ]
     }
-  ],
-  "functions": {
-    "api/*.js": {
-      "maxDuration": 10
-    }
-  }
+  ]
 } 

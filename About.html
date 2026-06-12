@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us - HephAuto</title>
+  <link rel="stylesheet" href="Heph.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+   <!-- Favicon for browser tab and localhost section -->
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/hephauto.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="assets/hephauto.png">
+  <link rel="shortcut icon" type="image/png" href="assets/hephauto.png">
+  <style>
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+    
+    main {
+      margin: 0;
+      padding: 0;
+    }
+    .about-hero {
+      background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('assets/assets1/ABOUT.jpg') no-repeat center center/cover;
+      padding: 180px 20px;
+      text-align: center;
+      color: white;
+      position: relative;
+    }
+    .about-hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(102, 126, 234, 0.8), rgba(118, 75, 162, 0.8));
+      z-index: 1;
+    }
+    .about-hero > * {
+      position: relative;
+      z-index: 2;
+    }
+    .about-hero h1 {
+      font-size: 3.5rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      background: linear-gradient(45deg, #fff, #f0f0f0);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .about-hero p {
+      font-size: 1.3rem;
+      max-width: 800px;
+      margin: 0 auto;
+      line-height: 1.6;
+      opacity: 0.95;
+    }
+    
+    .story-section, .mission-section, .team-section {
+      padding: 80px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .story-section h2, .mission-section h2, .team-section h2 {
+      text-align: center;
+      font-size: 2.8rem;
+      color: #1a2233;
+      margin-bottom: 60px;
+      font-weight: 700;
+    }
+    .story-content, .mission-content {
+      display: flex;
+      align-items: center;
+      gap: 60px;
+    }
+    .story-content img, .mission-content img {
+      width: 45%;
+      border-radius: 20px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+      transition: transform 0.3s ease;
+    }
+    .story-content img:hover, .mission-content img:hover {
+      transform: translateY(-5px);
+    }
+    .story-text, .mission-text {
+      flex: 1;
+    }
+    .story-text h3, .mission-text h3 {
+      font-size: 2rem;
+      color: #1a2233;
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+    .story-text p, .mission-text p {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: #555;
+      margin-bottom: 20px;
+    }
+    .mission-section {
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      margin-bottom: 0;
+    }
+    
+    .team-section-modern {
+      padding: 80px 20px;
+      color: #333;
+      overflow: hidden;
+      max-width: 1200px;
+      margin: 0 auto;
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      border-radius: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .team-header {
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto 30px;
+    }
+    .team-header h2 {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: #1a2233;
+    }
+    .team-header .highlight {
+      background: linear-gradient(45deg, #667eea, #764ba2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .team-subheading {
+      font-size: 1rem;
+      color: #000000;
+      line-height: 1.6;
+      opacity: 1;
+    }
+    
+    .team-cards-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px 0;
+      overflow: hidden;
+      min-height: 400px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .team-cards {
+      display: flex;
+      gap: 30px;
+      padding: 20px;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      max-width: 100%;
+      width: 100%;
+    }
+    .team-card {
+      background: #667eea;
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 30px;
+      text-align: center;
+      width: 250px;
+      height: 380px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      flex-shrink: 0;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+      color: white;
+    }
+    
+    .team-card:hover {
+      background: rgba(0, 0, 0, 0.4);
+      transform: translateY(-5px);
+      box-shadow: 0 12px 35px rgba(0,0,0,0.3);
+    }
+    /* Team card hover details restored, image always visible */
+    .team-card {
+      position: relative;
+    }
+    .team-card img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 20px;
+      border: 4px solid #667eea;
+      transition: transform 0.3s ease, border-color 0.3s ease, opacity 0.3s ease;
+      position: relative;
+      z-index: 2;
+    }
+    .team-card:hover img {
+      transform: scale(1.05);
+      border-color: #764ba2;
+      opacity: 0;
+    }
+    .team-card .team-info {
+      position: relative;
+      z-index: 2;
+      transition: all 0.3s ease;
+    }
+    .team-card:hover .team-info {
+      opacity: 0;
+    }
+    .team-socials {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 15px;
+      z-index: 3;
+      transition: opacity 0.3s ease;
+    }
+    .team-card:hover .team-socials {
+      opacity: 0;
+    }
+    .team-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      border-radius: 20px;
+      z-index: 1;
+    }
+    .team-card::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 20px;
+      right: 20px;
+      transform: translateY(-50%);
+      color: white;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 2;
+      text-align: center;
+      white-space: pre-line;
+    }
+    .team-card[data-member="michael"]::before {
+      content: 'Education: Lead City University - Computer Science & Experience: 3+ years in fintech\A\ Achievements: Founded 3 successful SaaS startups\A\AExpertise: Product Strategy, Team Leadership';
+    }
+    .team-card[data-member="sophie"]::before {
+      content: 'Education: Stanford University - AI & ML\A\AExperience: 6+ years in product development\A\APrevious: AI Engineer at Notion & Figma\A\AAchievements: Built 10+ AI-powered products\A\AExpertise: Machine Learning, UX Design';
+    }
+    .team-card[data-member="leo"]::before {
+      content: 'Education: UC Berkeley - Computer Science\A\AExperience: 7+ years in startup ecosystem\A\APrevious: Product Lead at Google\A\AAchievements: Launched 5+ SaaS products\A\AExpertise: Go-to-Market Strategy, Y Combinator alum';
+    }
+    .team-card[data-member="emma"]::before {
+      content: 'Education: Harvard Business School - MBA\A\AExperience: 12+ years in automotive industry\A\APrevious: Operations Director at Tesla & Ford\A\AAchievements: Managed 1000+ vehicle deliveries\A\AExpertise: Supply Chain, Operations Management';
+    }
+    .team-card:hover::after {
+      opacity: 0.95;
+    }
+    .team-card:hover::before {
+      opacity: 1;
+    }
+    .team-info h3 {
+      color: white;
+      font-size: 1.5rem;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+    
+    .team-role {
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 1.1rem;
+      margin-bottom: 12px;
+      font-weight: 500;
+    }
+    
+    .team-exp {
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+    .team-socials {
+      position: absolute;
+      bottom: -50px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 15px;
+      z-index: 3;
+    }
+    
+    .team-socials a {
+      color: white;
+      margin: 0;
+      font-size: 1.2rem;
+      transition: all 0.3s ease;
+      background: rgba(255, 255, 255, 0.2);
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      text-decoration: none;
+    }
+    
+    .team-socials a:hover {
+      color: #ff6b35;
+      background: rgba(255, 255, 255, 0.3);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+    
+    /* Different colors when hovering over team section */
+    .team-section-modern:hover .team-socials a {
+      color: #ffd700;
+    }
+    
+    .team-section-modern:hover .team-socials a:hover {
+      color: #ff6b35;
+    }
+    
+    /* Team modal CSS removed - no longer needed */
+    
+    /* Desktop: Side by side layout like image sample */
+    @media (min-width: 1025px) {
+      .team-cards {
+        flex-wrap: nowrap;
+        justify-content: center;
+        gap: 20px;
+        max-width: 100%;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      .team-card {
+        width: 240px;
+        height: 360px;
+        flex-shrink: 0;
+      }
+    }
+
+    
+    
+  </style>
+</head>
+<body>
+  <!-- Header from Heph.html will be dynamically loaded or copied here -->
+  <header class="navbar">
+    <!-- Company Logo - Links back to homepage -->
+    <div class="logo">
+        <a href="Heph.html">
+          <img src="assets/hephauto.png" alt="HephAuto Logo" class="logo-image">
+        </a>
+      </div>
+    
+    <!-- Primary Navigation Menu - Desktop Version -->
+    <!-- Contains main site navigation links with dropdown functionality -->
+    <nav class="nav-links">
+       <!-- Home dropdown -->
+       <a href="Heph.html" class="dropdown-link">
+        <div class="dropdown">Home</div>
+      </a>
+      <!-- Products dropdown -->
+      <a href="buy.html" class="dropdown-link">
+        <div class="dropdown">Buy</div>
+      </a>
+      <!-- Sell dropdown -->
+      <a href="sell.html" class="dropdown-link">
+        <div class="dropdown">Sell</div>
+      </a>
+      <!-- Solutions dropdown -->
+      <a href="services.html" class="dropdown-link" id="solutionsDropdown">
+        <div class="dropdown">Services</div>
+      </a>
+      <!-- Contact dropdown -->
+      <div class="dropdown-link dropdown-parent" id="contactDropdownWrapper">
+        <div class="dropdown" id="contactDropdownBtn">
+          Contact <i class="fas fa-chevron-down contact-chevron"></i>
+        </div>
+        <div class="custom-dropdown-menu" id="contactDropdownMenu">
+          <a href="Contact.html" class="dropdown-item"><i class="fas fa-envelope"></i> Contact Us</a>
+          <a href="About.html" class="dropdown-item"><i class="fas fa-info-circle"></i> About</a>
+        </div>
+      </div>
+    </nav>
+    
+    <!-- Search Functionality -->
+    <!-- Allows users to search for specific vehicles or parts -->
+    <div class="search_wrapper">
+      <i class="fas fa-search search-icon"></i>
+      <input type="text" id="searchInput" placeholder="Search for vehicles..." aria-label="Search vehicles">
+    </div>
+
+    <!-- User Actions Section -->
+    <!-- Contains login/user profile controls and main call-to-action button -->
+    <div class="actions">
+      <!-- Login/User section -->
+      <div id="userSection">
+        <!-- This will be populated by JavaScript based on login status -->
+      </div>
+      <!-- Call to action button -->
+      <a href="productshow.html" class="cta-btn">Discover Now</a>
+    </div> 
+    <!-- Hamburger icon for mobile -->
+    <button class="hamburger-icon" id="menuToggle">
+      <i class="fas fa-bars"></i>
+    </button>
+  </header>
+
+  <!-- Mobile Menu Overlay - Darkens background when menu is open -->
+  <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+
+  <!-- Collapsible Mobile Menu - Slides in from right side -->
+  <div class="mobile-menu" id="mobileMenu">
+    <!-- Close button for mobile menu -->
+    <button class="close-icon" id="closeMenu">
+      <i class="fas fa-times"></i>
+    </button>
+    <!-- Navigation links for mobile menu -->
+    <nav class="nav-links">
+      <!-- Search bar at the top of mobile menu -->
+      <div class="mobile-menu-search" style="padding: 0 0 8px 0;">
+        <div style="display: flex; align-items: center; background: #f3f6fd; border-radius: 12px; padding: 6px 0 6px 16px; width: 90%; margin-left: 16px;">
+          <i class="fas fa-search" id="mobileMenuSearchIcon" style="font-size: 1.1rem; color: #000000; margin-right: 8px; cursor: pointer;"></i>
+          <input type="text" id="mobileMenuSearchInput" placeholder="Search..." style="border: none; outline: none; background: transparent; font-size: 1.2rem; width: 100%; padding: 6px 0; text-align: left;">
+        </div>
+      </div>
+      <a href="Heph.html" class="dropdown-link">
+        <div class="dropdown">Home</div>
+      </a>
+      <a href="buy.html" class="dropdown-link">
+        <div class="dropdown">Products</div>
+      </a>
+      <a href="sell.html" class="dropdown-link">
+        <div class="dropdown">Sell</div>
+      </a>
+      <a href="services.html" class="dropdown-link" id="solutionsDropdown">
+        <div class="dropdown">Services</div>
+      </a>
+      <!-- Contact dropdown -->
+      <div class="dropdown-link dropdown-parent" id="contactDropdownWrapperMobile">
+        <div class="dropdown" id="contactDropdownBtnMobile">
+          Contact <i class="fas fa-chevron-down contact-chevron"></i>
+        </div>
+        <div class="custom-dropdown-menu" id="contactDropdownMenuMobile">
+          <a href="Contact.html" class="dropdown-item"><i class="fas fa-envelope"></i> Contact Us</a>
+          <a href="About.html" class="dropdown-item"><i class="fas fa-info-circle"></i> About</a>
+        </div>
+      </div>
+    </nav>
+    <!-- Action buttons section for mobile -->
+    <div class="mobile-menu-bottom">
+      <div id="mobileUserSection"><!-- Populated by JS --></div>
+      <div class="mobile-social-icons">
+        <a href="#" class="facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="twitter"><i class="fab fa-x-twitter"></i></a>
+        <a href="#" class="instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" class="youtube"><i class="fab fa-youtube"></i></a>
+        <a href="#" class="tiktok"><i class="fab fa-tiktok"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <main>
+        <!-- ...existing code above... -->
+    
+    <main>
+      <!-- ====== ABOUT SECTION (HephAuto, Automobile Focus) ====== -->
+      <section class="about-hero" style="background:#181c1f;padding:110px 0 40px 0;text-align:center; ">
+         <button style="margin-bottom:48px;background:linear-gradient(90deg,#764ba2,#667eea);color:#fff;font-weight:600;font-size:1.05rem;padding:10px 32px;border:none;border-radius:24px;box-shadow:0 2px 12px rgba(118,75,162,0.10);cursor:pointer;letter-spacing:0.02em;">ABOUT US</button>
+        <h1 style="font-size:3.2rem;font-weight:700;margin-bottom:36px;letter-spacing:-2px;line-height:1.1;">
+          We Deliver <span style="background:linear-gradient(90deg,#a18cd1,#fbc2eb,#fa709a,#f857a6,#ff5858);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Automotive Excellence</span><br>for Everyone
+        </h1>
+        <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:60px;max-width:1200px;margin:0 auto; align-items: center; text-align: center;">
+          <!-- Left column -->
+          <div style="flex:1 1 340px;min-width:320px;max-width:540px;text-align:left;">
+            <div style="color:#bdbdbd;font-size:1.02rem;font-weight:600;margin-bottom:18px;letter-spacing:0.03em;">ABOUT HEPHAUTO</div>
+            <div style="color:#fff;font-size:1.08rem;line-height:1.7;margin-bottom:28px;">
+              HephAuto is a next-generation automobile technology platform dedicated to transforming the way people buy, sell, and experience vehicles. Our mission is to make the process of owning and enjoying a car seamless, transparent, and enjoyable for everyone.<br><br>
+              We recognized that the traditional car market is filled with uncertainty, lack of trust, and limited access to quality vehicles. HephAuto bridges this gap by connecting buyers and sellers with verified listings, expert guidance, and innovative digital tools.<br><br>
+              At HephAuto, we believe that every journey should begin with confidence. Our platform empowers users to explore a wide range of vehicles, compare options, and make informed decisions—all from the comfort of their device.
+            </div>
+            <div style="color:#bdbdbd;font-size:1.02rem;font-weight:600;margin-bottom:8px;">OUR MISSION</div>
+            <div style="color:#fff;font-size:1.08rem;line-height:1.7;margin-bottom:18px;">
+              To redefine the automobile experience by making car buying, selling, and ownership simple, secure, and satisfying for all.
+            </div>
+            <div style="color:#bdbdbd;font-size:1.02rem;font-weight:600;margin-bottom:8px;">OUR VISION</div>
+            <div style="color:#fff;font-size:1.08rem;line-height:1.7;">
+              To be Africa’s most trusted and innovative automotive platform, where every customer finds their perfect ride and enjoys world-class support.
+            </div>
+          </div>
+          <!-- Right column -->
+          <div style="flex:1 1 340px;min-width:320px;max-width:540px;text-align:left;">
+            <div style="color:#bdbdbd;font-size:1.02rem;font-weight:600;margin-bottom:18px;letter-spacing:0.03em;">WHY HEPHAUTO WAS BUILT</div>
+            <div style="color:#fff;font-size:1.08rem;line-height:1.7;margin-bottom:32px;">
+              The inspiration for HephAuto came from the challenges faced by everyday car buyers and sellers—uncertainty, hidden costs, and a lack of reliable information. Our founders envisioned a platform where transparency, technology, and trust drive every transaction.<br><br>
+              HephAuto was created to empower individuals and businesses to access quality vehicles, expert advice, and a supportive community. Whether you’re a first-time buyer, a car enthusiast, or a dealer, HephAuto is your partner on the road ahead.<br><br>
+              Our commitment is to innovation, customer satisfaction, and making automotive dreams a reality for everyone.
+            </div>
+            <div style="display:flex;align-items:center;gap:14px;margin-top:18px;">
+              <img src="assets/assets1/Leadceo's.jpg" alt="HephAuto CEO" style="width:48px;height:48px;border-radius:50%;object-fit:cover;">
+              <span style="color:#fff;font-size:1.08rem;font-weight:600;">E.O. Great, <span style="color:#bdbdbd;font-weight:400;">CEO</span></span>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- ====== END ABOUT SECTION ====== -->
+    
+      <!-- ...team-section-modern follows here... -->
+
+    <section class="team-section-modern">
+      <div class="team-header">
+        <h2>Meet the <span class="highlight">HephAuto</span> Team</h2>
+        <p class="team-subheading">
+          We've lived the problems our product solves and we're building it with love, speed, and obsession.
+        </p>
+      </div>
+      <div class="team-cards-container">
+      <div class="team-cards">
+          <div class="team-card" data-member="michael">
+            <img src="assets/assets1/Leadceo's.jpg" alt="Michael Torre">
+          <div class="team-info">
+            <h3>Ezenewu Great</h3>
+            <p class="team-role">Co-Founder & CEO</p>
+            <div class="team-socials">
+              <a href="#"><i class="fab fa-linkedin-in"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-github"></i></a>
+              </div>
+            </div>
+          </div>
+          <div class="team-card" data-member="sophie">
+            <img src="assets/assets1/Leadceo's.jpg" alt="Sophie Becker">
+          <div class="team-info">
+            <h3>Paul James</h3>
+              <p class="team-role">Product & AI Expert</p>
+            <div class="team-socials">
+              <a href="#"><i class="fab fa-linkedin-in"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-github"></i></a>
+              </div>
+            </div>
+          </div>
+          <div class="team-card" data-member="leo">
+            <img src="assets/assets1/Leadceo's.jpg" alt="Leo Carter">
+          <div class="team-info">
+            <h3>Temi Ayomide</h3>
+            <p class="team-role">Launch Lead for SaaS</p>
+              <div class="team-socials">
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-github"></i></a>
+              </div>
+            </div>
+          </div>
+          <div class="team-card" data-member="emma">
+            <img src="assets/assets1/Leadceo's.jpg" alt="Emma Rodriguez">
+            <div class="team-info">
+              <h3>Emma Rodri</h3>
+              <p class="team-role">Head of Operations</p>
+            <div class="team-socials">
+              <a href="#"><i class="fab fa-linkedin-in"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-github"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <button id="backToTopBtn" title="Go to top"><i class="fas fa-arrow-up"></i></button>
+  <!-- Footer from Heph.html -->
+  <footer data-aos="fade-up">
+    <div class="footer-top">
+      <!-- Footer logo and social media -->
+      <div class="footer-logo">
+        <h3>HephAuto</h3>
+        <p>Your partner on the road ahead.</p>
+        <div class="footer-follow-label">Follow us</div>
+        <div class="footer-social">
+          <a href="#" class="youtube"><i class="fab fa-youtube"></i></a>
+          <a href="#" class="facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="twitter"><i class="fab fa-x-twitter"></i></a>
+          <a href="#" class="tiktok"><i class="fab fa-tiktok"></i></a>
+        </div>
+      </div>
+  
+      <!-- Footer navigation links -->
+      <div class="footer-links">
+        <div>
+          <a href="Heph.html">Home</a>
+          <a href="buy.html">buy</a>
+          <a href="sell.html">Sell</a>
+        </div>
+        <div>
+          <a href="services.html">Services</a>
+          <a href="About.html">About Us</a>
+          <a href="Contact.html">Contact Us</a>
+        </div>
+        <div>          
+          <a href="#">Support</a>
+          <a href="#">Dealer & Brand Partners</a>
+          <a href="#">Careers</a>
+        </div>
+      </div>
+
+      <!-- Newsletter Section -->
+      <div class="newsletter">
+        <h4>Join Our Newsletter</h4>
+        <p>Stay updated with our latest job postings and career tips.</p>
+        <form action="#" method="post">
+          <input type="email" placeholder="Enter your email" required>
+          <button type="submit" class="newsletter-btn">
+            <i class="fas fa-arrow-right"></i>
+          </button>
+        </form>
+      </div>
+    </div>
+  
+    <!-- Footer bottom legal bar -->
+    <div class="footer-bottom">
+      &copy; <span id="current-year"></span> HephAuto. All rights reserved.
+      <div class="footer-legal-links">
+        <a href="#">Terms and Conditions</a> |
+        <a href="#">Privacy</a> |
+        <a href="#">Cookies</a> |
+        <a href="#">Accessibility</a>
+      </div>
+    </div>
+  </footer>
+  <!-- Floating Chat Icon -->
+  <div class="floating-chat" id="floatingChat">
+    <div class="chat-icon" id="chatIcon">
+      <i class="fas fa-comments"></i>
+      <span class="chat-badge">1</span>
+    </div>
+    <!-- Chat Interface -->
+    <div class="chat-interface" id="chatInterface">
+      <div class="chat-header">
+        <div class="chat-user-info">
+          <img src="assets/profile.png" alt="Seller" class="chat-avatar">
+          <div>
+            <h4>HephAuto Seller</h4>
+            <span class="online-status">Online</span>
+          </div>
+        </div>
+        <button class="close-chat" id="closeChat">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="chat-messages" id="chatMessages">
+        <div class="message seller-message">
+          <div class="message-content">
+            <p>Hi! Welcome to HephAuto. How can I help you today?</p>
+            <span class="message-time">2:30 PM</span>
+          </div>
+        </div>
+      </div>
+      <div class="chat-input">
+        <input type="text" id="messageInput" placeholder="Type your message...">
+        <button id="sendMessage">
+          <i class="fas fa-paper-plane"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+  <script src="Heph.js"></script>
+  <script>
+    // Team modal functionality - REMOVED
+    // No modal functionality - cards only show hover effects
+
+    // Search functionality
+document.addEventListener("DOMContentLoaded", function() {
+  const searchInput = document.querySelector('.search-bar input, .search_wrapper input');
+  if (!searchInput) return;
+
+  const productCards = document.querySelectorAll('.product-card');
+  let noResultsMsg = document.getElementById('noResultsMsg');
+  if (!noResultsMsg) {
+    noResultsMsg = document.createElement('div');
+    noResultsMsg.id = 'noResultsMsg';
+    noResultsMsg.textContent = 'No products found.';
+    noResultsMsg.style.display = 'none';
+    noResultsMsg.style.textAlign = 'center';
+    noResultsMsg.style.padding = '40px 0';
+    noResultsMsg.style.fontSize = '1.2rem';
+    noResultsMsg.style.color = '#888';
+    searchInput.parentElement.parentElement.appendChild(noResultsMsg);
+  }
+
+  function normalize(str) {
+    return str.toLowerCase().replace(/\s+/g, ' ').trim();
+  }
+
+  function filterProducts() {
+    const query = normalize(searchInput.value);
+    let visibleCount = 0;
+    productCards.forEach(card => {
+      const name = card.querySelector('h3')?.textContent || '';
+      const details = card.querySelector('.details')?.textContent || '';
+      const searchable = normalize(name + ' ' + details);
+      if (searchable.includes(query)) {
+        card.style.display = '';
+        visibleCount++;
+      } else {
+        card.style.display = 'none';
+      }
+    });
+    noResultsMsg.style.display = visibleCount > 0 ? 'none' : 'block';
+    if (visibleCount === 0) {
+      setTimeout(() => {
+        if (document.referrer) {
+          window.location.href = document.referrer;
+        } else {
+          window.location.href = 'Heph.html';
+        }
+      }, 1500);
+    }
+  }
+
+  searchInput.addEventListener('input', filterProducts);
+  searchInput.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') filterProducts();
+  });
+});
+</script>
+</body>
+</html>

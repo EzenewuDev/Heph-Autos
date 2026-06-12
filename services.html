@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Services - HephAuto</title>
+  <link rel="stylesheet" href="Heph.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+   <!-- Favicon for browser tab and localhost section -->
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/hephauto.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="assets/hephauto.png">
+  <link rel="shortcut icon" type="image/png" href="assets/hephauto.png">
+  <style>
+    .services-hero {
+      background: linear-gradient(
+        135deg,
+        #0a0e1a 0%,
+        #0d2137 25%,
+        #1a3a5c 50%,
+        #0d2137 75%,
+        #0a0e1a 100%
+      );
+      background-size: 200% 200%;
+      animation: serviceBluePulse 10s ease infinite;
+      padding: 100px 20px 0 20px;
+      text-align: center;
+      color: white;
+      position: relative;
+      overflow: hidden;
+      min-height: 60vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-top: 80px;
+    }
+    @keyframes serviceBluePulse {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .services-hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(ellipse at 40% 50%, rgba(66, 145, 224, 0.2) 0%, transparent 60%),
+                  radial-gradient(ellipse at 80% 30%, rgba(13, 55, 94, 0.3) 0%, transparent 50%);
+      z-index: 1;
+    }
+    .services-hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    .services-hero h1 {
+      font-size: 3rem;
+      font-weight: 700;
+    }
+    .services-hero p {
+      font-size: 1.2rem;
+      max-width: 700px;
+      margin: 10px auto 0;
+    }
+    .services-section {
+      padding: 60px 20px;
+    }
+    .services-section h2 {
+      text-align: center;
+      font-size: 2.5rem;
+      color: #222;
+      margin-bottom: 40px;
+    }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .service-card {
+      background: #f5f5fa;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+      text-align: center;
+    }
+    .service-card .icon {
+      font-size: 2.5rem;
+      color: #4291e0;
+      margin-bottom: 20px;
+    }
+    .service-card h3 {
+      font-size: 1.5rem;
+      color: #333;
+      margin-bottom: 15px;
+    }
+    .service-card p {
+      color: #666;
+      line-height: 1.6;
+    }
+    .how-it-works-section {
+      padding: 60px 20px;
+      background: #fcfcf6;
+    }
+    .how-it-works-section h2 {
+      text-align: center;
+      font-size: 2.5rem;
+      color: #222;
+      margin-bottom: 40px;
+    }
+    .timeline {
+      display: flex;
+      justify-content: center;
+      gap: 50px;
+      flex-wrap: wrap;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .timeline-item {
+      text-align: center;
+      max-width: 250px;
+    }
+    .timeline-item .step {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: #4291e0;
+      color: white;
+      font-size: 1.5rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+    }
+    .timeline-item h3 {
+      font-size: 1.2rem;
+      color: #333;
+      margin-bottom: 10px;
+    }
+    .dropdown-parent { position: relative; }
+    .custom-dropdown-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      min-width: 180px;
+      background: #fff;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+      border-radius: 12px;
+      z-index: 1002;
+      padding: 10px 0;
+      margin-top: 8px;
+      animation: fadeInUp 0.25s;
+    }
+    .dropdown-parent.open .custom-dropdown-menu {
+      display: block;
+    }
+    .custom-dropdown-menu .dropdown-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 24px;
+      color: #222;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 500;
+      border-radius: 8px;
+      transition: background 0.18s, color 0.18s;
+    }
+    .custom-dropdown-menu .dropdown-item:hover {
+      background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+      color: #fff;
+    }
+    .custom-dropdown-menu .dropdown-item i {
+      color: #ff6b35;
+      font-size: 1.1em;
+      transition: color 0.18s;
+    }
+    .custom-dropdown-menu .dropdown-item:hover i {
+      color: #fff;
+    }
+    .services-chevron {
+      font-size: 0.7em !important;
+      margin-left: 6px !important;
+      position: relative;
+      top: 3px;
+      vertical-align: middle;
+      color: #666;
+      transition: color 0.2s;
+    }
+    #servicesDropdownBtn:hover .services-chevron {
+      color: #4291e0;
+    }
+    .contact-chevron {
+      font-size: 0.7em !important;
+      margin-left: 6px !important;
+      position: relative;
+      top: 3px;
+      vertical-align: middle;
+      color: #666;
+      transition: color 0.2s;
+    }
+    #contactDropdownBtn:hover .contact-chevron {
+      color: #4291e0;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="navbar">
+    <!-- Company Logo - Links back to homepage -->
+    <div class="logo">
+        <a href="Heph.html">
+          <img src="assets/hephauto.png" alt="HephAuto Logo" class="logo-image">
+        </a>
+      </div>
+    
+    <!-- Primary Navigation Menu - Desktop Version -->
+    <!-- Contains main site navigation links with dropdown functionality -->
+    <nav class="nav-links">
+       <!-- Home dropdown -->
+       <a href="Heph.html" class="dropdown-link">
+        <div class="dropdown">Home</div>
+      </a>
+      <!-- Products dropdown -->
+      <a href="buy.html" class="dropdown-link">
+        <div class="dropdown">Buy</div>
+      </a>
+      <!-- Sell dropdown -->
+      <a href="sell.html" class="dropdown-link">
+        <div class="dropdown">Sell</div>
+      </a>
+        <!-- Solutions dropdown -->
+      <div class="dropdown-link dropdown-parent" id="servicesDropdownWrapper">
+        <div class="dropdown" id="servicesDropdownBtn">Services <i class="fas fa-chevron-down services-chevron"></i></div>
+        <div class="custom-dropdown-menu" id="servicesDropdownMenu">
+          <a href="reviews.html" class="dropdown-item"><i class="fas fa-star"></i> Reviews</a>
+          <a href="news.html" class="dropdown-item"><i class="fas fa-newspaper"></i> News</a>
+        </div>
+      </div>
+      <!-- Contact dropdown -->
+      <div class="dropdown-link dropdown-parent" id="contactDropdownWrapper">
+        <div class="dropdown" id="contactDropdownBtn">
+          Contact <i class="fas fa-chevron-down contact-chevron"></i>
+        </div>
+        <div class="custom-dropdown-menu" id="contactDropdownMenu">
+          <a href="Contact.html" class="dropdown-item"><i class="fas fa-envelope"></i> Contact Us</a>
+          <a href="About.html" class="dropdown-item"><i class="fas fa-info-circle"></i> About</a>
+        </div>
+      </div>
+      <!-- Resources dropdown -->
+
+      <!-- Pricing dropdown -->
+     
+    </nav>
+    
+    <!-- Search Functionality -->
+    <!-- Allows users to search for specific vehicles or parts -->
+    <div class="search_wrapper">
+      <i class="fas fa-search search-icon"></i>
+      <input type="text" id="searchInput" placeholder="Search for vehicles..." aria-label="Search vehicles">
+    </div>
+
+    <!-- User Actions Section -->
+    <!-- Contains login/user profile controls and main call-to-action button -->
+    <div class="actions">
+      <!-- Login/User section -->
+      <div id="userSection">
+        <!-- This will be populated by JavaScript based on login status -->
+      </div>
+      <!-- Call to action button -->
+      <a href="productshow.html" class="cta-btn">Discover Now</a>
+    </div> 
+    <!-- Hamburger icon for mobile -->
+    <button class="hamburger-icon" id="menuToggle">
+      <i class="fas fa-bars"></i>
+    </button>
+  </header>
+
+  <!-- Mobile Menu Overlay - Darkens background when menu is open -->
+  <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+
+  <!-- Collapsible Mobile Menu - Slides in from right side -->
+  <div class="mobile-menu" id="mobileMenu">
+    <!-- Close button for mobile menu -->
+    <button class="close-icon" id="closeMenu">
+      <i class="fas fa-times"></i>
+    </button>
+    <!-- Navigation links for mobile menu -->
+    <nav class="nav-links">
+      <!-- Search bar at the top of mobile menu -->
+      <div class="mobile-menu-search" style="padding: 0 0 8px 0;">
+        <div style="display: flex; align-items: center; background: #f3f6fd; border-radius: 12px; padding: 6px 0 6px 16px; width: 90%; margin-left: 16px;">
+          <i class="fas fa-search" id="mobileMenuSearchIcon" style="font-size: 1.1rem; color: #000000; margin-right: 8px; cursor: pointer;"></i>
+          <input type="text" id="mobileMenuSearchInput" placeholder="Search..." style="border: none; outline: none; background: transparent; font-size: 1.2rem; width: 100%; padding: 6px 0; text-align: left;">
+        </div>
+      </div>
+      <a href="Heph.html" class="dropdown-link">
+        <div class="dropdown">Home</div>
+      </a>
+      <a href="buy.html" class="dropdown-link">
+        <div class="dropdown">Buy</div>
+      </a>
+      <a href="sell.html" class="dropdown-link">
+        <div class="dropdown">Sell</div>
+      </a>
+      <a href="services.html" class="dropdown-link" id="solutionsDropdown">
+        <div class="dropdown">Services</div>
+      </a>
+      <a href="About.html" class="dropdown-link">
+        <div class="dropdown">About</div>
+      </a>
+      <a href="Contact.html" class="dropdown-link">
+        <div class="dropdown">Contact</div>
+      </a>
+    </nav>
+    <!-- Action buttons section for mobile -->
+    <div class="mobile-menu-bottom">
+      <div id="mobileUserSection"><!-- Populated by JS --></div>
+      <div class="mobile-social-icons">
+        <a href="#" class="facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="twitter"><i class="fab fa-x-twitter"></i></a>
+        <a href="#" class="instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" class="youtube"><i class="fab fa-youtube"></i></a>
+        <a href="#" class="tiktok"><i class="fab fa-tiktok"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <main>
+    <section class="services-hero">
+      <!-- Deep blue gradient background replaces whyworry.mp4 video -->
+      <div class="services-hero-content">
+        <h1>Why worry about your vehicles?</h1>
+        <p>Let HephAuto handle every detail, so you can enjoy the journey. Experience peace of mind with our expert automotive solutions.</p>
+      </div>
+    </section>
+
+    <section class="services-section">
+      <h2>What We Offer</h2>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="icon"><i class="fas fa-car"></i></div>
+          <h3>Vehicle Sales</h3>
+          <p>Explore a vast inventory of new and foreign-used vehicles. Our platform makes it easy to find, compare, and purchase the car of your dreams with complete confidence.</p>
+        </div>
+        <div class="service-card">
+          <div class="icon"><i class="fas fa-hand-holding-usd"></i></div>
+          <h3>Auto Financing</h3>
+          <p>We provide flexible and competitive financing options to help you get behind the wheel faster. Our partnerships with leading financial institutions ensure a smooth and transparent process.</p>
+        </div>
+        <div class="service-card">
+          <div class="icon"><i class="fas fa-search-dollar"></i></div>
+          <h3>Trade-In & Sourcing</h3>
+          <p>Looking to upgrade? We offer fair and transparent trade-in valuations. Can't find what you're looking for? Our expert team can source specific vehicles to meet your unique requirements.</p>
+        </div>
+        <div class="service-card">
+          <div class="icon"><i class="fas fa-shield-alt"></i></div>
+          <h3>Vehicle Inspections</h3>
+          <p>Our certified technicians conduct comprehensive pre-purchase inspections to give you complete peace of mind. Receive a detailed report covering all major aspects of the vehicle's condition.</p>
+        </div>
+        <div class="service-card">
+          <div class="icon"><i class="fas fa-globe-africa"></i></div>
+          <h3>Nationwide Delivery</h3>
+          <p>Purchase any vehicle from our inventory and have it delivered safely to your doorstep, anywhere in Nigeria. We handle all the logistics for a hassle-free experience.</p>
+        </div>
+        <div class="service-card">
+          <div class="icon"><i class="fas fa-headset"></i></div>
+          <h3>Consultation Services</h3>
+          <p>Our experienced automotive consultants are here to provide expert advice, whether you're a first-time buyer or a seasoned car owner. We help you make informed decisions.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="how-it-works-section">
+      <h2>How It Works</h2>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="step">1</div>
+          <h3>Browse & Discover</h3>
+          <p>Explore our extensive inventory with powerful search and filter tools.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="step">2</div>
+          <h3>Get Pre-Approved</h3>
+          <p>Apply for financing online and get a decision in minutes.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="step">3</div>
+          <h3>Finalize & Pay</h3>
+          <p>Complete your purchase securely online with our guidance and support.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="step">4</div>
+          <h3>Receive Your Car</h3>
+          <p>Choose to pick up your vehicle or have it delivered directly to you.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <button id="backToTopBtn" title="Go to top"><i class="fas fa-arrow-up"></i></button>
+  <!-- Footer from Heph.html -->
+  <footer data-aos="fade-up">
+    <div class="footer-top">
+      <!-- Footer logo and social media -->
+      <div class="footer-logo">
+        <h3>HephAuto</h3>
+        <p>Your partner on the road ahead.</p>
+        <div class="footer-follow-label">Follow us</div>
+        <div class="footer-social">
+          <a href="#" class="youtube"><i class="fab fa-youtube"></i></a>
+          <a href="#" class="facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="twitter"><i class="fab fa-x-twitter"></i></a>
+          <a href="#" class="tiktok"><i class="fab fa-tiktok"></i></a>
+        </div>
+      </div>
+  
+      <!-- Footer navigation links -->
+      <div class="footer-links">
+        <div>
+          <a href="Heph.html">Home</a>
+          <a href="buy.html">buy</a>
+          <a href="sell.html">Sell</a>
+        </div>
+        <div>
+          <a href="services.html">Services</a>
+          <a href="About.html">About Us</a>
+          <a href="Contact.html">Contsct Us</a>
+        </div>
+        <div>          
+          <a href="#">Support</a>
+          <a href="#">Dealer & Brand Partners</a>
+          <a href="#">Careers</a>
+        </div>
+      </div>
+
+      <!-- Newsletter Section -->
+      <div class="newsletter">
+        <h4>Join Our Newsletter</h4>
+        <p>Stay updated with our latest job postings and career tips.</p>
+        <form action="#" method="post">
+          <input type="email" placeholder="Enter your email" required>
+          <button type="submit" class="newsletter-btn">
+            <i class="fas fa-arrow-right"></i>
+          </button>
+        </form>
+      </div>
+    </div>
+  
+    <!-- Footer bottom legal bar -->
+    <div class="footer-bottom">
+      &copy; <span id="current-year"></span> HephAuto. All rights reserved.
+      <div class="footer-legal-links">
+        <a href="#">Terms and Conditions</a> |
+        <a href="#">Privacy</a> |
+        <a href="#">Cookies</a> |
+        <a href="#">Accessibility</a>
+      </div>
+    </div>
+  </footer>
+  <!-- Floating Chat Icon -->
+  <div class="floating-chat" id="floatingChat">
+    <div class="chat-icon" id="chatIcon">
+      <i class="fas fa-comments"></i>
+      <span class="chat-badge">1</span>
+    </div>
+    <!-- Chat Interface -->
+    <div class="chat-interface" id="chatInterface">
+      <div class="chat-header">
+        <div class="chat-user-info">
+          <img src="assets/profile.png" alt="Seller" class="chat-avatar">
+          <div>
+            <h4>HephAuto Seller</h4>
+            <span class="online-status">Online</span>
+          </div>
+        </div>
+        <button class="close-chat" id="closeChat">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="chat-messages" id="chatMessages">
+        <div class="message seller-message">
+          <div class="message-content">
+            <p>Hi! Welcome to HephAuto. How can I help you today?</p>
+            <span class="message-time">2:30 PM</span>
+          </div>
+        </div>
+      </div>
+      <div class="chat-input">
+        <input type="text" id="messageInput" placeholder="Type your message...">
+        <button id="sendMessage">
+          <i class="fas fa-paper-plane"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+  <script src="Heph.js"></script>
+  <!-- Logout Confirmation Modal (hidden by default) -->
+  <div id="logoutConfirmModal" class="logout-modal" style="display:none;">
+    <div class="logout-modal-backdrop"></div>
+    <div class="logout-modal-content">
+      <button class="logout-close-btn" aria-label="Close">&times;</button>
+      <div class="logout-icon">⚠️</div>
+      <h2>Logout Account</h2>
+      <p>You are about to log out of your account.</p>
+      <div class="logout-modal-buttons">
+        <button class="logout-cancel-btn">No, keep me logged in</button>
+        <button class="logout-confirm-btn">Yes, Logout</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

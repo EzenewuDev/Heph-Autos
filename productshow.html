@@ -1,0 +1,1081 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Featured Showroom - HephAuto</title>
+    <link rel="stylesheet" href="Heph.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+     <!-- Favicon for browser tab and localhost section -->
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/hephauto.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="assets/hephauto.png">
+  <link rel="shortcut icon" type="image/png" href="assets/hephauto.png">
+  
+  <style>
+  /* Showroom Page Custom Styling */
+  body {
+    background-color: #09090b !important;
+    color: #f4f4f5 !important;
+  }
+  
+  .showroom-section {
+    background: radial-gradient(circle at top, #18181b 0%, #09090b 100%) !important;
+    padding: 80px 24px 80px 24px !important;
+  }
+  
+  /* Showroom Header */
+  .showroom-badge {
+    display: inline-block;
+    background: linear-gradient(90deg, #ef4444, #f97316);
+    color: #fff;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border-radius: 30px;
+    padding: 6px 20px;
+    font-size: 0.75rem;
+    margin-bottom: 16px;
+    box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
+  }
+  
+  .showroom-title {
+    font-size: 3rem;
+    font-weight: 900;
+    color: #fff;
+    letter-spacing: -1px;
+    margin-bottom: 16px;
+    line-height: 1.1;
+  }
+  
+  .showroom-subtitle {
+    color: #a1a1aa;
+    font-size: 1.15rem;
+    max-width: 650px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+  
+  /* Showroom Grid */
+  .showroom-featured-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 32px;
+    max-width: 1200px;
+    margin: 60px auto 80px auto;
+  }
+  
+  /* Showroom Card */
+  .showroom-card {
+    background: rgba(20, 20, 25, 0.7) !important;
+    border: 1px solid rgba(255, 255, 255, 0.06) !important;
+    border-radius: 24px !important;
+    overflow: hidden !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5) !important;
+    position: relative;
+  }
+  
+  .showroom-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; height: 100%;
+    background: linear-gradient(180deg, rgba(239, 68, 68, 0.05) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+    z-index: 1;
+  }
+  
+  .showroom-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(239, 68, 68, 0.12), 0 0 30px rgba(239, 68, 68, 0.05) !important;
+    border-color: rgba(239, 68, 68, 0.3) !important;
+  }
+  
+  .showroom-card:hover::before {
+    opacity: 1;
+  }
+  
+  .showroom-img-container {
+    position: relative;
+    width: 100%;
+    height: 240px;
+    overflow: hidden;
+  }
+  
+  .showroom-card img {
+    width: 100% !important;
+    height: 100% !important;
+    max-height: none !important;
+    object-fit: cover !important;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  }
+  
+  .showroom-card:hover img {
+    transform: scale(1.06);
+  }
+  
+  .showroom-card-tag {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    background: rgba(9, 9, 11, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(8px);
+    color: #ef4444;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    padding: 6px 14px;
+    border-radius: 30px;
+    z-index: 2;
+  }
+  
+  .showroom-card-body {
+    padding: 28px 24px 28px 24px !important;
+    text-align: left !important;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+  
+  .showroom-card-title {
+    font-size: 1.5rem !important;
+    color: #fff !important;
+    font-weight: 800 !important;
+    margin: 0 !important;
+  }
+  
+  .showroom-card-desc {
+    color: #a1a1aa !important;
+    font-size: 0.95rem !important;
+    margin: 0 !important;
+    line-height: 1.5;
+  }
+  
+  /* Quick Specs Grid */
+  .showroom-specs-inline {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255,255,255,0.05);
+    padding: 12px;
+    border-radius: 12px;
+  }
+  
+  .spec-inline-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    text-align: center;
+  }
+  
+  .spec-inline-label {
+    font-size: 0.7rem;
+    color: #71717a;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  .spec-inline-val {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #f4f4f5;
+  }
+  
+  .showroom-card .cta-btn.primary {
+    background: linear-gradient(90deg, #ef4444, #dc2626) !important;
+    color: #fff !important;
+    padding: 12px 24px !important;
+    border-radius: 30px !important;
+    font-weight: 700 !important;
+    border: none !important;
+    cursor: pointer !important;
+    box-shadow: 0 4px 15px rgba(239, 68, 68, 0.2) !important;
+    transition: all 0.3s ease !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    text-decoration: none;
+  }
+  
+  .showroom-card .cta-btn.primary:hover {
+    transform: scale(1.02);
+    box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4) !important;
+    background: linear-gradient(90deg, #f87171, #ef4444) !important;
+  }
+  
+  /* Interactive Showcase Perks */
+  .showroom-perks-section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 24px;
+  }
+  
+  .perks-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+    margin-top: 40px;
+  }
+  
+  .perk-card {
+    background: rgba(20, 20, 25, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 18px;
+    padding: 28px 24px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .perk-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; width: 100%; height: 3px;
+    background: #ef4444;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+  }
+  
+  .perk-card:hover {
+    background: rgba(30, 30, 35, 0.7);
+    border-color: rgba(239, 68, 68, 0.2);
+    transform: translateY(-4px);
+  }
+  
+  .perk-card:hover::after {
+    transform: scaleX(1);
+  }
+  
+  .perk-icon-wrapper {
+    width: 48px;
+    height: 48px;
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.2);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ef4444;
+    font-size: 1.4rem;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.08);
+  }
+  
+  .perk-title {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 10px;
+  }
+  
+  .perk-desc {
+    color: #71717a;
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+  
+  /* Glassmorphic Feature Overlay */
+  .feature-overlay {
+    background: rgba(9, 9, 11, 0.92) !important;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  
+  .feature-overlay-content {
+    background: #18181b !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    color: #fff !important;
+    max-width: 600px !important;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5) !important;
+  }
+  
+  .feature-overlay-content h2 {
+    color: #ef4444 !important;
+    font-size: 1.8rem !important;
+    margin-bottom: 24px !important;
+  }
+  
+  .feature-overlay-content ul {
+    color: #d4d4d8 !important;
+    padding-left: 24px !important;
+  }
+  
+  .feature-overlay-content li {
+    margin-bottom: 12px !important;
+  }
+  
+  .feature-overlay-note {
+    background: rgba(239, 68, 68, 0.05) !important;
+    border-left: 3px solid #ef4444 !important;
+    border-radius: 6px !important;
+    color: #a1a1aa !important;
+    font-size: 0.95rem !important;
+  }
+  
+  .close-feature-overlay {
+    color: #71717a !important;
+  }
+  
+  .close-feature-overlay:hover {
+    color: #ef4444 !important;
+  }
+  </style>
+</head>
+<body>
+    <header class="navbar">
+            <!-- Company logo section -->
+    <div class="logo">
+        <a href="Heph.html">
+          <img src="assets/hephauto.png" alt="HephAuto Logo" class="logo-image">
+        </a>
+      </div>
+        <!-- Navigation menu with dropdowns (Desktop) -->
+        <nav class="nav-links">
+           <!-- Home dropdown -->
+           <a href="Heph.html" class="dropdown-link">
+            <div class="dropdown">Home</div>
+          </a>
+          <!-- Products dropdown -->
+          <a href="buy.html" class="dropdown-link">
+            <div class="dropdown">Buy</div>
+          </a>
+          <!-- Sell dropdown -->
+          <a href="sell.html" class="dropdown-link">
+            <div class="dropdown">Sell</div>
+          </a>
+            <!-- Solutions dropdown -->
+          <a href="services.html" class="dropdown-link" id="solutionsDropdown">
+            <div class="dropdown">Services</div>
+          </a>
+          <!-- Contact dropdown -->
+          <div class="dropdown-link dropdown-parent" id="contactDropdownWrapper">
+            <div class="dropdown" id="contactDropdownBtn">
+              Contact <i class="fas fa-chevron-down contact-chevron"></i>
+            </div>
+            <div class="custom-dropdown-menu" id="contactDropdownMenu">
+              <a href="Contact.html" class="dropdown-item"><i class="fas fa-envelope"></i> Contact Us</a>
+              <a href="About.html" class="dropdown-item"><i class="fas fa-info-circle"></i> About</a>
+            </div>
+          </div>
+        </nav>
+        
+        <!-- Search bar section -->
+        <div class="search_wrapper">
+          <input type="text" id="searchInput" placeholder="Search for vehicles..." aria-label="Search vehicles">
+          <i class="fas fa-search search-icon"></i>
+        </div>
+    
+      <!-- User Actions Section -->
+      <div class="actions">
+        <!-- Login/User section -->
+        <div id="userSection">
+          <!-- This will be populated by JavaScript based on login status -->
+        </div>
+        <!-- Call to action button -->
+        <a href="productshow.html" class="cta-btn">Discover Now</a>
+      </div> 
+      <!-- Hamburger icon for mobile -->
+      <button class="hamburger-icon" id="menuToggle">
+        <i class="fas fa-bars"></i>
+      </button>
+    </header>
+
+    <!-- Mobile Menu Overlay - Darkens background when menu is open -->
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+
+    <!-- Collapsible Mobile Menu - Slides in from right side -->
+    <div class="mobile-menu" id="mobileMenu">
+      <!-- Close button for mobile menu -->
+      <button class="close-icon" id="closeMenu">
+        <i class="fas fa-times"></i>
+      </button>
+      <!-- Navigation links for mobile menu -->
+      <nav class="nav-links">
+        <!-- Search bar at the top of mobile menu -->
+        <div class="mobile-menu-search" style="padding: 0 0 8px 0;">
+          <div style="display: flex; align-items: center; background: #f3f6fd; border-radius: 12px; padding: 6px 0 6px 16px; width: 90%; margin-left: 16px;">
+            <i class="fas fa-search" id="mobileMenuSearchIcon" style="font-size: 1.1rem; color: #000000; margin-right: 8px; cursor: pointer;"></i>
+            <input type="text" id="mobileMenuSearchInput" placeholder="Search..." style="border: none; outline: none; background: transparent; font-size: 1.2rem; width: 100%; padding: 6px 0; text-align: left;">
+          </div>
+        </div>
+        <a href="Heph.html" class="dropdown-link">
+          <div class="dropdown">Home</div>
+        </a>
+        <a href="buy.html" class="dropdown-link">
+          <div class="dropdown">Buy</div>
+        </a>
+        <a href="sell.html" class="dropdown-link">
+          <div class="dropdown">Sell</div>
+        </a>
+        <a href="services.html" class="dropdown-link" id="solutionsDropdown">
+          <div class="dropdown">Services</div>
+        </a>
+        <!-- Contact dropdown -->
+        <div class="dropdown-link dropdown-parent" id="contactDropdownWrapperMobile">
+          <div class="dropdown" id="contactDropdownBtnMobile">
+            Contact <i class="fas fa-chevron-down contact-chevron"></i>
+          </div>
+          <div class="custom-dropdown-menu" id="contactDropdownMenuMobile">
+            <a href="Contact.html" class="dropdown-item"><i class="fas fa-envelope"></i> Contact Us</a>
+            <a href="About.html" class="dropdown-item"><i class="fas fa-info-circle"></i> About</a>
+          </div>
+        </div>
+      </nav>
+      <!-- Action buttons section for mobile -->
+      <div class="mobile-menu-bottom">
+        <div id="mobileUserSection"><!-- Populated by JS --></div>
+        <div class="mobile-social-icons">
+          <a href="#" class="facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="twitter"><i class="fab fa-x-twitter"></i></a>
+          <a href="#" class="instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="youtube"><i class="fab fa-youtube"></i></a>
+          <a href="#" class="tiktok"><i class="fab fa-tiktok"></i></a>
+        </div>
+      </div>
+    </div>
+    
+    
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <main>
+        <!-- Featured Vehicles Showroom Section -->
+        <section class="showroom-section">
+            <div class="showroom-header" style="text-align:center; margin-bottom:48px;">
+                <span class="showroom-badge">Featured Showroom</span>
+                <h2 class="showroom-title">Premium & Luxury Showcase</h2>
+                <p class="showroom-subtitle">Step into our virtual showroom and explore a curated selection of our most exclusive, high-performance vehicles. Each car is handpicked for its luxury, innovation, and style.</p>
+            </div>
+            
+            <div class="showroom-featured-grid">
+                <!-- Lamborghini Aventador -->
+                <div class="showroom-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="showroom-img-container">
+                        <span class="showroom-card-tag">V12 Beast</span>
+                        <img src="assets/assets1/lambo/lambo1.JPG" alt="Lamborghini Aventador">
+                    </div>
+                    <div class="showroom-card-body">
+                        <h3 class="showroom-card-title">Lamborghini Aventador</h3>
+                        <p class="showroom-card-desc">Step into Italian carbon-fiber track luxury, powered by a roaring V12 engine and advanced ISR transmission.</p>
+                        <div class="showroom-specs-inline">
+                            <div class="spec-inline-item">
+                                <span class="spec-inline-label">Engine</span>
+                                <span class="spec-inline-val">6.5L V12</span>
+                            </div>
+                            <div class="spec-inline-item">
+                                <span class="spec-inline-label">Power</span>
+                                <span class="spec-inline-val">770 HP</span>
+                            </div>
+                            <div class="spec-inline-item">
+                                <span class="spec-inline-label">0-100</span>
+                                <span class="spec-inline-val">2.9s</span>
+                            </div>
+                        </div>
+                        <button onclick="openFeatureOverlay('lambo')" class="cta-btn primary">
+                            <span>Explore Features</span>
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Mercedes G63 AMG -->
+                <div class="showroom-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="showroom-img-container">
+                        <span class="showroom-card-tag">AMG Legend</span>
+                        <img src="assets/assets1/mercedes/2021 G63 12K MILES 290M/G63a.JPG" alt="2021 Mercedes G63">
+                    </div>
+                    <div class="showroom-card-body">
+                        <h3 class="showroom-card-title">2021 Mercedes G63</h3>
+                        <p class="showroom-card-desc">The ultimate high-performance off-roader, featuring handbuilt biturbo V8 power and handcrafted Nappa comfort.</p>
+                        <div class="showroom-specs-inline">
+                            <div class="spec-inline-item">
+                                <span class="spec-inline-label">Engine</span>
+                                <span class="spec-inline-val">4.0L V8</span>
+                            </div>
+                            <div class="spec-inline-item">
+                                <span class="spec-inline-label">Power</span>
+                                <span class="spec-inline-val">577 HP</span>
+                            </div>
+                            <div class="spec-inline-item">
+                                <span class="spec-inline-label">0-100</span>
+                                <span class="spec-inline-val">4.5s</span>
+                            </div>
+                        </div>
+                        <button onclick="openFeatureOverlay('g63')" class="cta-btn primary">
+                            <span>Explore Features</span>
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Lexus RX350 -->
+                <div class="showroom-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="showroom-img-container">
+                        <span class="showroom-card-tag">Elite AWD</span>
+                        <img src="assets/assets1/lexus/2019 LEXUS RX350   69M/rx.JPG" alt="2019 Lexus RX350">
+                    </div>
+                    <div class="showroom-card-body">
+                        <h3 class="showroom-card-title">2019 Lexus RX350</h3>
+                        <p class="showroom-card-desc">Luxury meets legendary engineering. A quiet, smooth benchmark SUV with premium Mark Levinson audio.</p>
+                        <div class="showroom-specs-inline">
+                            <div class="spec-inline-item">
+                                <span class="spec-inline-label">Engine</span>
+                                <span class="spec-inline-val">3.5L V6</span>
+                            </div>
+                            <div class="spec-inline-item">
+                                <span class="spec-inline-label">Drive</span>
+                                <span class="spec-inline-val">AWD</span>
+                            </div>
+                            <div class="spec-inline-item">
+                                <span class="spec-inline-label">Audio</span>
+                                <span class="spec-inline-val">15-Spk</span>
+                            </div>
+                        </div>
+                        <button onclick="openFeatureOverlay('lexus')" class="cta-btn primary">
+                            <span>Explore Features</span>
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Interactive Showcase Perks -->
+            <div class="showroom-perks-section">
+                <div style="text-align: center; margin-top: 40px;">
+                    <span class="showroom-badge" style="background: rgba(239,68,68,0.1); color: #ef4444; box-shadow: none;">Showroom Privileges</span>
+                    <h3 style="font-size: 2.2rem; color: #fff; font-weight: 800; margin-top: 10px; letter-spacing: -0.5px;">Why Purchase From Our Showroom?</h3>
+                </div>
+                <div class="perks-grid">
+                    <div class="perk-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="perk-icon-wrapper"><i class="fas fa-coffee"></i></div>
+                        <h4 class="perk-title">VIP Lounge Concierge</h4>
+                        <p class="perk-desc">Enjoy complimentary fine refreshments and private consultations in our state-of-the-art lounge area.</p>
+                    </div>
+                    <div class="perk-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="perk-icon-wrapper"><i class="fas fa-percentage"></i></div>
+                        <h4 class="perk-title">Bespoke Financing</h4>
+                        <p class="perk-desc">Gain access to highly competitive luxury auto leases, low APR financing, and customized payment templates.</p>
+                    </div>
+                    <div class="perk-card" data-aos="fade-up" data-aos-delay="300">
+                        <div class="perk-icon-wrapper"><i class="fas fa-shield-halved"></i></div>
+                        <h4 class="perk-title">Elite Warranty Protection</h4>
+                        <p class="perk-desc">Receive direct dealer backed premium warranties and priority maintenance checkups from certified master mechanics.</p>
+                    </div>
+                    <div class="perk-card" data-aos="fade-up" data-aos-delay="400">
+                        <div class="perk-icon-wrapper"><i class="fas fa-rotate"></i></div>
+                        <h4 class="perk-title">Instant Valuation Trade-In</h4>
+                        <p class="perk-desc">Trade your vehicle instantly. Utilize our valuation systems to get immediate equity checkouts for any showroom car.</p>
+                    </div>
+                    <div class="perk-card" data-aos="fade-up" data-aos-delay="500">
+                        <div class="perk-icon-wrapper"><i class="fas fa-gauge-high"></i></div>
+                        <h4 class="perk-title">Priority Road Test</h4>
+                        <p class="perk-desc">Schedule premium private driving tours with a professional driving advisor to experience the performance.</p>
+                    </div>
+                    <div class="perk-card" data-aos="fade-up" data-aos-delay="600">
+                        <div class="perk-icon-wrapper"><i class="fas fa-wand-magic-sparkles"></i></div>
+                        <h4 class="perk-title">Custom Configurations</h4>
+                        <p class="perk-desc">Personalize your purchase with custom ceramic coatings, dynamic performance wraps, or parts configurations.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- End Showroom Section -->
+
+        <!-- Vehicle Feature Overlays -->
+        <div id="featureOverlay-lambo" class="feature-overlay" style="display:none;">
+            <div class="feature-overlay-content">
+                <button class="close-feature-overlay" onclick="closeFeatureOverlay('lambo')">&times;</button>
+                <h2>Lamborghini Aventador: Signature Features</h2>
+                <ul>
+                    <li>6.5L Naturally Aspirated V12 Engine – 770 HP, 720 Nm torque</li>
+                    <li>Carbon Fiber Monocoque Chassis for extreme rigidity and lightness</li>
+                    <li>ISR 7-Speed Automated Manual Transmission for lightning-fast shifts</li>
+                    <li>Pushrod Magneto-Rheological Suspension for race-inspired handling</li>
+                    <li>Dynamic Steering and Rear-Wheel Steering for ultimate agility</li>
+                    <li>Active Aerodynamics with electronically controlled rear wing</li>
+                    <li>Full LED Headlights and Y-shaped DRLs for iconic presence</li>
+                    <li>Forged Alloy Wheels and Carbon Ceramic Brakes</li>
+                    <li>Luxurious Alcantara & Leather Interior with customizable options</li>
+                    <li>0-100 km/h in 2.9 seconds, Top Speed: 350+ km/h</li>
+                </ul>
+                <div class="feature-overlay-note">The Aventador is the ultimate expression of Italian supercar passion, blending breathtaking performance with unmistakable style and exclusivity.</div>
+            </div>
+        </div>
+        <div id="featureOverlay-g63" class="feature-overlay" style="display:none;">
+            <div class="feature-overlay-content">
+                <button class="close-feature-overlay" onclick="closeFeatureOverlay('g63')">&times;</button>
+                <h2>2021 Mercedes G63 AMG: Signature Features</h2>
+                <ul>
+                    <li>Handcrafted AMG 4.0L Biturbo V8 – 577 HP, 850 Nm torque</li>
+                    <li>AMG Performance 4MATIC All-Wheel Drive with 3 Locking Differentials</li>
+                    <li>9-Speed AMG SPEEDSHIFT TCT Transmission</li>
+                    <li>AMG RIDE CONTROL Adaptive Suspension for on/off-road mastery</li>
+                    <li>Luxurious Nappa Leather Interior with Multicontour Massage Seats</li>
+                    <li>Burmester Surround Sound System & 64-Color Ambient Lighting</li>
+                    <li>Panoramic Sunroof and 360° Camera System</li>
+                    <li>Distinctive Boxy Design with AMG Night Package</li>
+                    <li>0-100 km/h in 4.5 seconds, Top Speed: 220 km/h (electronically limited)</li>
+                </ul>
+                <div class="feature-overlay-note">The G63 AMG is a legend reborn, combining iconic off-road heritage with modern luxury and supercar performance.</div>
+            </div>
+        </div>
+        <div id="featureOverlay-lexus" class="feature-overlay" style="display:none;">
+            <div class="feature-overlay-content">
+                <button class="close-feature-overlay" onclick="closeFeatureOverlay('lexus')">&times;</button>
+                <h2>2019 Lexus RX350: Signature Features</h2>
+                <ul>
+                    <li>3.5L V6 Engine – 295 HP, 8-Speed Automatic Transmission</li>
+                    <li>All-Wheel Drive (AWD) with Dynamic Torque Control</li>
+                    <li>Lexus Safety System+ (Pre-Collision, Lane Keep, Radar Cruise)</li>
+                    <li>Mark Levinson 15-Speaker Premium Audio System</li>
+                    <li>Panoramic Glass Roof and Power Rear Door</li>
+                    <li>Heated & Ventilated Leather Seats, Power-Folding Rear Seats</li>
+                    <li>12.3" Touchscreen Navigation & Apple CarPlay/Android Auto</li>
+                    <li>Adaptive Variable Suspension for smooth, quiet ride</li>
+                    <li>Head-Up Display and 360° Panoramic View Monitor</li>
+                </ul>
+                <div class="feature-overlay-note">The RX350 is the benchmark for luxury SUVs, offering comfort, technology, and reliability in a beautifully crafted package.</div>
+            </div>
+        </div>
+
+        <script>
+        function openFeatureOverlay(key) {
+            document.body.style.overflow = 'hidden';
+            document.getElementById('featureOverlay-' + key).style.display = 'flex';
+        }
+        function closeFeatureOverlay(key) {
+            document.body.style.overflow = 'auto';
+            document.getElementById('featureOverlay-' + key).style.display = 'none';
+        }
+        </script>
+
+        <!-- Floating Back to Top Button -->
+        <button id="backToTopBtn" title="Go to top"><i class="fas fa-arrow-up"></i></button>
+    </main>
+
+    <!-- Image View Modal -->
+    <div id="imageViewModal" class="image-view-modal" style="display:none;">
+        <span class="close-modal" id="closeImageViewModal">&times;</span>
+        <span class="modal-arrow modal-arrow-left" id="modalArrowLeft"><i class="fas fa-chevron-left"></i></span>
+        <img class="modal-image" id="modalImage" src="" alt="Product Image" />
+        <span class="modal-arrow modal-arrow-right" id="modalArrowRight"><i class="fas fa-chevron-right"></i></span>
+    </div>
+
+    <!-- Vehicle Details Modal -->
+    <div id="vehicleDetailsModal" class="vehicle-details-modal" style="display:none;">
+        <div class="vehicle-details-content">
+            <div class="vehicle-details-header">
+                <h2 id="modalVehicleTitle"></h2>
+                <button class="close-vehicle-modal" id="closeVehicleModal">&times;</button>
+            </div>
+            <div class="vehicle-details-body">
+                <div class="vehicle-details-grid">
+                    <div class="vehicle-details-left">
+                        <div class="vehicle-main-image">
+                            <img id="modalVehicleImage" src="" alt="Vehicle Image">
+                        </div>
+                        <div class="vehicle-price">
+                            <span id="modalVehiclePrice"></span>
+                        </div>
+                    </div>
+                    <div class="vehicle-details-right">
+                        <div class="vehicle-specs">
+                            <h3>Vehicle Specifications</h3>
+                            <div class="specs-grid" id="modalVehicleSpecs">
+                                <!-- Specs will be populated by JavaScript -->
+                            </div>
+                        </div>
+                        <div class="vehicle-features">
+                            <h3>Key Features</h3>
+                            <div class="features-list" id="modalVehicleFeatures">
+                                <!-- Features will be populated by JavaScript -->
+                            </div>
+                        </div>
+                        <div class="vehicle-description">
+                            <h3>Description</h3>
+                            <p id="modalVehicleDescription"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="vehicle-details-actions">
+                    <button class="cta-btn primary" onclick="contactSeller()">Contact Seller</button>
+                    <button class="cta-btn secondary" onclick="scheduleTestDrive()">Schedule Test Drive</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer data-aos="fade-up">
+      <div class="footer-top">
+        <!-- Footer logo and social media -->
+        <div class="footer-logo">
+          <h3>HephAuto</h3>
+          <p>Your partner on the road ahead.</p>
+          <div class="footer-follow-label">Follow us</div>
+          <div class="footer-social">
+            <a href="#" class="youtube"><i class="fab fa-youtube"></i></a>
+            <a href="#" class="facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="twitter"><i class="fab fa-x-twitter"></i></a>
+            <a href="#" class="tiktok"><i class="fab fa-tiktok"></i></a>
+          </div>
+        </div>
+
+        <!-- Footer navigation links -->
+        <div class="footer-links">
+          <div>
+            <a href="Heph.html">Home</a>
+            <a href="buy.html">buy</a>
+            <a href="sell.html">Sell</a>
+          </div>
+          <div>
+            <a href="services.html">Services</a>
+            <a href="About.html">About Us</a>
+            <a href="Contact.html">Contsct Us</a>
+          </div>
+          <div>          
+            <a href="#">Support</a>
+            <a href="#">Dealer & Brand Partners</a>
+            <a href="#">Careers</a>
+          </div>
+        </div>
+
+        <!-- Newsletter Section -->
+        <div class="newsletter">
+          <h4>Join Our Newsletter</h4>
+          <p>Stay updated with our latest job postings and career tips.</p>
+          <form action="#" method="post">
+            <input type="email" placeholder="Enter your email" required>
+            <button type="submit" class="newsletter-btn">
+              <i class="fas fa-arrow-right"></i>
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Footer bottom legal bar -->
+      <div class="footer-bottom">
+        &copy; <span id="current-year"></span> HephAuto. All rights reserved.
+        <div class="footer-legal-links">
+          <a href="#">Terms and Conditions</a> |
+          <a href="#">Privacy</a> |
+          <a href="#">Cookies</a> |
+          <a href="#">Accessibility</a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="Heph.js"></script>
+    
+    <!-- Vehicle Details Modal JavaScript -->
+    <script>
+        // Vehicle data for the showroom
+        const vehicleData = {
+            lambo: {
+                title: "Lamborghini Aventador",
+                image: "assets/assets1/lambo/lambo1.JPG",
+                price: "₦250,000,000",
+                specs: {
+                    "Year": "2022",
+                    "Make": "Lamborghini",
+                    "Model": "Aventador",
+                    "Engine": "6.5L V12",
+                    "Power": "700+ HP",
+                    "Transmission": "7-Speed ISR",
+                    "0-100 km/h": "2.9 seconds",
+                    "Top Speed": "350+ km/h",
+                    "Fuel Type": "Petrol",
+                    "Drivetrain": "AWD",
+                    "Seats": "2"
+                },
+                features: [
+                    "Carbon fiber monocoque chassis",
+                    "Adaptive suspension system",
+                    "Carbon ceramic brakes",
+                    "Pushrod suspension",
+                    "Dynamic steering",
+                    "Lamborghini Dynamic Steering",
+                    "Magnetic ride control",
+                    "Sport exhaust system"
+                ],
+                description: "The Lamborghini Aventador represents the pinnacle of automotive engineering and design. This Italian supercar combines breathtaking performance with stunning aesthetics, featuring a naturally aspirated V12 engine that delivers an unforgettable driving experience. Every detail has been crafted to perfection, from the aerodynamic bodywork to the luxurious interior."
+            },
+            mercedesg63: {
+                title: "2021 Mercedes G63",
+                image: "assets/assets1/mercedes/2021 G63 12K MILES 290M/G63a.JPG",
+                price: "₦290,000,000",
+                specs: {
+                    "Year": "2021",
+                    "Make": "Mercedes-Benz",
+                    "Model": "G-Class G63",
+                    "Engine": "4.0L Biturbo V8",
+                    "Power": "577 HP",
+                    "Transmission": "9-Speed Automatic",
+                    "0-100 km/h": "4.5 seconds",
+                    "Top Speed": "220 km/h",
+                    "Fuel Type": "Petrol",
+                    "Drivetrain": "4MATIC AWD",
+                    "Seats": "5"
+                },
+                features: [
+                    "AMG Performance steering wheel",
+                    "AMG Ride Control suspension",
+                    "AMG Dynamic Plus package",
+                    "Burmester surround sound system",
+                    "Panoramic sunroof",
+                    "AMG Night package",
+                    "AMG carbon fiber trim",
+                    "Off-road capabilities"
+                ],
+                description: "The Mercedes G63 is the ultimate expression of luxury and capability. This iconic SUV combines the legendary off-road prowess of the G-Class with the high-performance engineering of AMG. The handcrafted 4.0L biturbo V8 engine delivers exhilarating power while the sophisticated 4MATIC all-wheel drive system ensures confidence in any driving condition."
+            },
+            lexus2019: {
+                title: "2019 Lexus RX350",
+                image: "assets/assets1/lexus/2019 LEXUS RX350   69M/rx.JPG",
+                price: "₦69,000,000",
+                specs: {
+                    "Year": "2019",
+                    "Make": "Lexus",
+                    "Model": "RX350",
+                    "Engine": "3.5L V6",
+                    "Power": "295 HP",
+                    "Transmission": "8-Speed Automatic",
+                    "0-100 km/h": "7.9 seconds",
+                    "Top Speed": "200 km/h",
+                    "Fuel Type": "Petrol",
+                    "Drivetrain": "AWD",
+                    "Seats": "5"
+                },
+                features: [
+                    "Lexus Safety System+",
+                    "Mark Levinson premium audio",
+                    "Heated and ventilated seats",
+                    "Panoramic glass roof",
+                    "Wireless charging pad",
+                    "Head-up display",
+                    "360-degree camera",
+                    "Adaptive cruise control"
+                ],
+                description: "The 2019 Lexus RX350 represents the perfect balance of luxury, comfort, and reliability. This premium SUV offers a refined driving experience with advanced safety features and cutting-edge technology. The spacious interior provides exceptional comfort for all passengers, while the smooth V6 engine delivers confident performance for daily driving and long journeys."
+            }
+        };
+
+        // Function to show vehicle details modal
+        function showVehicleDetails(vehicleKey) {
+            const vehicle = vehicleData[vehicleKey];
+            if (!vehicle) return;
+
+            // Populate modal content
+            document.getElementById('modalVehicleTitle').textContent = vehicle.title;
+            document.getElementById('modalVehicleImage').src = vehicle.image;
+            document.getElementById('modalVehiclePrice').textContent = vehicle.price;
+            
+            // Populate specifications
+            const specsContainer = document.getElementById('modalVehicleSpecs');
+            specsContainer.innerHTML = '';
+            Object.entries(vehicle.specs).forEach(([key, value]) => {
+                specsContainer.innerHTML += `
+                    <div class="spec-item">
+                        <span class="spec-label">${key}:</span>
+                        <span class="spec-value">${value}</span>
+                    </div>
+                `;
+            });
+
+            // Populate features
+            const featuresContainer = document.getElementById('modalVehicleFeatures');
+            featuresContainer.innerHTML = '';
+            vehicle.features.forEach(feature => {
+                featuresContainer.innerHTML += `
+                    <div class="feature-item">
+                        <i class="fas fa-check"></i>
+                        <span>${feature}</span>
+                    </div>
+                `;
+            });
+
+            // Populate description
+            document.getElementById('modalVehicleDescription').textContent = vehicle.description;
+
+            // Show modal
+            document.getElementById('vehicleDetailsModal').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Close modal function
+        function closeVehicleModal() {
+            document.getElementById('vehicleDetailsModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Event listeners for modal
+        document.addEventListener('DOMContentLoaded', function() {
+            const closeBtn = document.getElementById('closeVehicleModal');
+            const modal = document.getElementById('vehicleDetailsModal');
+            
+            if (closeBtn) {
+                closeBtn.addEventListener('click', closeVehicleModal);
+            }
+            
+            if (modal) {
+                modal.addEventListener('click', function(e) {
+                    if (e.target === modal) {
+                        closeVehicleModal();
+                    }
+                });
+            }
+
+            // Close modal on Escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && modal.style.display === 'flex') {
+                    closeVehicleModal();
+                }
+            });
+        });
+
+        // Action functions
+        function contactSeller() {
+            alert('Contact form will be implemented here. For now, please call +234 801 234 5678 or email sales@hephauto.com');
+        }
+
+        function scheduleTestDrive() {
+            alert('Test drive scheduling will be implemented here. Please contact us to arrange a test drive.');
+        }
+    </script>
+
+    <!-- Floating Chat Icon -->
+    <div class="floating-chat" id="floatingChat">
+        <div class="chat-icon" id="chatIcon">
+            <i class="fas fa-comments"></i>
+            <span class="chat-badge">1</span>
+        </div>
+        <!-- Chat Interface -->
+        <div class="chat-interface" id="chatInterface">
+            <div class="chat-header">
+                <div class="chat-user-info">
+                    <img src="assets/profile.png" alt="Seller" class="chat-avatar">
+                    <div>
+                        <h4>HephAuto Seller</h4>
+                        <span class="online-status">Online</span>
+                    </div>
+                </div>
+                <button class="close-chat" id="closeChat">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="chat-messages" id="chatMessages">
+                <div class="message seller-message">
+                    <div class="message-content">
+                        <p>Hi! Welcome to HephAuto. How can I help you today?</p>
+                        <span class="message-time">2:30 PM</span>
+                    </div>
+                </div>
+            </div>
+            <div class="chat-input">
+                <input type="text" id="messageInput" placeholder="Type your message...">
+                <button id="sendMessage">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <button id="backToTopBtn" title="Go to top"><i class="fas fa-arrow-up"></i></button>
+    
+    <!-- Demo Modal -->
+    <div id="demoModal" class="demo-modal">
+        <div class="demo-content">
+            <div class="demo-header">
+                <h3>Welcome to HephAuto</h3>
+                <button class="close-demo" id="closeDemo">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="demo-video">
+                <video controls>
+                    <source src="assets/assets1/2075170-hd_1920_1080_25fps.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            <div class="demo-info">
+                <h4>Discover Your Perfect Vehicle</h4>
+                <p>See how easy it is to find, compare, and purchase your dream car with HephAuto's streamlined platform.</p>
+                <a href="buy.html" class="demo-cta">Start Shopping Now</a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Image View Modal -->
+    <div id="imageViewModal" class="image-view-modal" style="display:none;">
+        <span class="close-modal" id="closeImageViewModal">&times;</span>
+        <span class="modal-arrow modal-arrow-left" id="modalArrowLeft"><i class="fas fa-chevron-left"></i></span>
+        <img class="modal-image" id="modalImage" src="" alt="Product Image" />
+        <span class="modal-arrow modal-arrow-right" id="modalArrowRight"><i class="fas fa-chevron-right"></i></span>
+    </div>
+    <!-- Gallery Lightbox -->
+    <div id="galleryLightbox" class="image-view-modal" style="display:none;">
+        <span class="close-modal" id="closeGalleryLightbox">&times;</span>
+        <span class="modal-arrow modal-arrow-left" id="galleryArrowLeft"><i class="fas fa-chevron-left"></i></span>
+        <div class="lightbox-content">
+            <!-- Image or Video will be injected here by JS -->
+        </div>
+        <span class="modal-arrow modal-arrow-right" id="galleryArrowRight"><i class="fas fa-chevron-right"></i></span>
+    </div>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <!-- Mobile Bottom Navigation Bar -->
+    <nav class="mobile-bottom-nav">
+      <a href="Heph.html" class="mobile-bottom-nav__item">
+        <i class="fas fa-home"></i>
+        <span>Home</span>
+      </a>
+      <a href="buy.html" class="mobile-bottom-nav__item">
+        <i class="fas fa-car"></i>
+        <span>Buy</span>
+      </a>
+      <a href="sell.html" class="mobile-bottom-nav__item">
+        <i class="fas fa-tag"></i>
+        <span>Sell</span>
+      </a>
+      <a href="saved.html" class="mobile-bottom-nav__item">
+        <i class="fas fa-bookmark"></i>
+        <span>Saved</span>
+      </a>
+      <a href="messages.html" class="mobile-bottom-nav__item">
+        <i class="fas fa-comment-dots"></i>
+        <span>Messages</span>
+      </a>
+      <a href="settings.html" class="mobile-bottom-nav__item">
+        <i class="fas fa-user"></i>
+        <span>Profile</span>
+      </a>
+    </nav>
+
+    <!-- Logout Confirmation Modal (hidden by default) -->
+    <div id="logoutConfirmModal" class="logout-modal" style="display:none;">
+    <div class="logout-modal-backdrop"></div>
+    <div class="logout-modal-content">
+      <button class="logout-close-btn" aria-label="Close">&times;</button>
+      <div class="logout-icon">⚠️</div>
+      <h2>Logout Account</h2>
+      <p>You are about to log out of your account.</p>
+      <div class="logout-modal-buttons">
+        <button class="logout-cancel-btn">No, keep me logged in</button>
+        <button class="logout-confirm-btn">Yes, Logout</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html> 

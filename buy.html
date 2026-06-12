@@ -1,0 +1,1219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Products - HephAuto</title>
+  <link rel="stylesheet" href="Heph.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+   <!-- Favicon for browser tab and localhost section -->
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/hephauto.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="assets/hephauto.png">
+  <link rel="shortcut icon" type="image/png" href="assets/hephauto.png">
+  <style>
+    .product-cards-container {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 30px;
+      justify-content: center;
+    }
+    @media (max-width: 1200px) {
+      .product-cards-container {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    @media (max-width: 900px) {
+      .product-cards-container {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (max-width: 600px) {
+      .product-cards-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+  </style>
+</head>
+<body>
+  <header class="navbar">
+    <!-- Company Logo - Links back to homepage -->
+    <div class="logo">
+        <a href="Heph.html">
+          <img src="assets/hephauto.png" alt="HephAuto Logo" class="logo-image">
+        </a>
+      </div>
+    
+    <!-- Primary Navigation Menu - Desktop Version -->
+    <!-- Contains main site navigation links with dropdown functionality -->
+    <nav class="nav-links">
+       <!-- Home dropdown -->
+       <a href="Heph.html" class="dropdown-link">
+        <div class="dropdown">Home</div>
+      </a>
+      <!-- Products dropdown -->
+      <a href="buy.html" class="dropdown-link">
+        <div class="dropdown">Buy</div>
+      </a>
+      <!-- Sell dropdown -->
+      <a href="sell.html" class="dropdown-link">
+        <div class="dropdown">Sell</div>
+      </a>
+        <!-- Solutions dropdown -->
+      <a href="services.html" class="dropdown-link" id="solutionsDropdown">
+        <div class="dropdown">Services</div>
+      </a>
+      <!-- Resources dropdown -->
+      <!-- Contact dropdown -->
+      <div class="dropdown-link dropdown-parent" id="contactDropdownWrapper">
+        <div class="dropdown" id="contactDropdownBtn">
+          Contact <i class="fas fa-chevron-down contact-chevron"></i>
+        </div>
+        <div class="custom-dropdown-menu" id="contactDropdownMenu">
+          <a href="Contact.html" class="dropdown-item"><i class="fas fa-envelope"></i> Contact Us</a>
+          <a href="About.html" class="dropdown-item"><i class="fas fa-info-circle"></i> About</a>
+        </div>
+      </div>
+    </nav>
+    
+    <!-- Search Functionality -->
+    <!-- Allows users to search for specific vehicles or parts -->
+    <div class="search_wrapper">
+      <i class="fas fa-search search-icon"></i>
+      <input type="text" id="searchInput" placeholder="Search for vehicles..." aria-label="Search vehicles">
+    </div>
+
+    <!-- User Actions Section -->
+    <!-- Contains login/user profile controls and main call-to-action button -->
+    <div class="actions">
+      <!-- Login/User section -->
+      <div id="userSection">
+        <!-- This will be populated by JavaScript based on login status -->
+      </div>
+      <!-- Call to action button -->
+      <a href="productshow.html" class="cta-btn">Discover Now</a>
+    </div> 
+    <!-- Hamburger icon for mobile -->
+    <button class="hamburger-icon" id="menuToggle">
+      <i class="fas fa-bars"></i>
+    </button>
+  </header>
+
+  <!-- Mobile Menu Overlay - Darkens background when menu is open -->
+  <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+
+  <!-- Collapsible Mobile Menu - Slides in from right side -->
+  <div class="mobile-menu" id="mobileMenu">
+    <!-- Close button for mobile menu -->
+    <button class="close-icon" id="closeMenu">
+      <i class="fas fa-times"></i>
+    </button>
+    <!-- Navigation links for mobile menu -->
+    <nav class="nav-links">
+      <!-- Search bar at the top of mobile menu -->
+      <div class="mobile-menu-search" style="padding: 0 0 8px 0;">
+        <div style="display: flex; align-items: center; background: #f3f6fd; border-radius: 12px; padding: 6px 0 6px 16px; width: 90%; margin-left: 16px;">
+          <i class="fas fa-search" id="mobileMenuSearchIcon" style="font-size: 1.1rem; color: #000000; margin-right: 8px; cursor: pointer;"></i>
+          <input type="text" id="mobileMenuSearchInput" placeholder="Search..." style="border: none; outline: none; background: transparent; font-size: 1.2rem; width: 100%; padding: 6px 0; text-align: left;">
+        </div>
+      </div>
+      <a href="Heph.html" class="dropdown-link">
+        <div class="dropdown">Home</div>
+      </a>
+      <a href="buy.html" class="dropdown-link">
+        <div class="dropdown">Buy</div>
+      </a>
+      <a href="sell.html" class="dropdown-link">
+        <div class="dropdown">Sell</div>
+      </a>
+      <a href="services.html" class="dropdown-link" id="solutionsDropdown">
+        <div class="dropdown">Services</div>
+      </a>
+      <!-- Contact dropdown -->
+      <div class="dropdown-link dropdown-parent" id="contactDropdownWrapperMobile">
+        <div class="dropdown" id="contactDropdownBtnMobile">
+          Contact <i class="fas fa-chevron-down contact-chevron"></i>
+        </div>
+        <div class="custom-dropdown-menu" id="contactDropdownMenuMobile">
+          <a href="Contact.html" class="dropdown-item"><i class="fas fa-envelope"></i> Contact Us</a>
+          <a href="About.html" class="dropdown-item"><i class="fas fa-info-circle"></i> About</a>
+        </div>
+      </div>
+    </nav>
+    <!-- Action buttons section for mobile -->
+    <div class="mobile-menu-bottom">
+      <div id="mobileUserSection"><!-- Populated by JS --></div>
+      <div class="mobile-social-icons">
+        <a href="#" class="facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="twitter"><i class="fab fa-x-twitter"></i></a>
+        <a href="#" class="instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" class="youtube"><i class="fab fa-youtube"></i></a>
+        <a href="#" class="tiktok"><i class="fab fa-tiktok"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <main>
+    <div class="section-header" style="justify-content:center; text-align:center;">
+      <button class="our-products-btn">Our Products</button>
+    </div>
+
+    <!-- Search Results Indicator -->
+    <div id="searchResultsIndicator" style="display: none; text-align: center; margin: 20px 0; padding: 15px; background: #f8f9fa; border-radius: 10px; border-left: 4px solid #667eea;">
+      <div style="display: flex; align-items: center; justify-content: center; gap: 10px;">
+        <i class="fas fa-search" style="color: #667eea;"></i>
+        <span id="searchResultsText" style="font-weight: 600; color: #333;">Search Results</span>
+        <button id="clearSearchBtn" style="background: none; border: none; color: #667eea; cursor: pointer; font-size: 1.1rem; margin-left: 10px;" title="Clear Search">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="product-cards-container">
+      
+      <!-- Product Card 1 -->
+      <div class="product-card"
+        data-make="Daihatsu"
+        data-model="Hijet"
+        data-year="2018"
+        data-color="White"
+        data-condition="Foreign Used"
+        data-transmission="Manual"
+        data-fuel="Petrol"
+        data-engine-size="1.0"
+        data-seats="6-8"
+        data-mileage="32000"
+        data-price="₦4,000,000"
+        data-images="assets/assets1/hijet-truck.jpg,assets/assets1/Hijetpickup1.jpg,assets/assets1/Hijetpickup2.jpg,assets/assets1/Hijetpickup3.jpg,assets/assets1/Hijetpickup4.jpg,assets/assets1/Hijetpickup5.jpg"
+      >
+        <div class="image-gallery">
+          <div class="view-image-icon">
+            <i class="fas fa-expand"></i>
+          </div>
+        </div>
+        <div class="card-navigation-dots"></div>
+        <div class="product-info">
+          <div class="product-info-top">
+            <span class="location"><i class="fas fa-map-marker-alt"></i> Ibadan, OYO</span>
+            <div class="card-actions">
+              <button class="action-btn message-btn"><i class="far fa-comment-dots"></i></button>
+              <button class="action-btn like-btn"><i class="far fa-heart"></i></button>
+              <button class="action-btn bookmark-btn"><i class="far fa-bookmark"></i></button>
+              <button class="action-btn share-btn"><i class="far fa-paper-plane"></i></button>
+            </div>
+          </div>
+          <span class="status for-sale">Foreign-Used</span>
+          <h3>Hijet Pickup</h3>
+          <h1>₦4,000,000</h1>
+          <div class="details">
+            <span><i class="fas fa-briefcase"></i> Transport</span>
+            <span><i class="fas fa-users"></i> 6-8 Passengers</span>
+            <a href="Viewdetails.html" class="buy-now-btn">Details</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product Card 2 -->
+      <div class="product-card"
+        data-make="Toyota"
+        data-model="Coaster"
+        data-year="2017"
+        data-color="Gold"
+        data-condition="Foreign Used"
+        data-transmission="Automatic"
+        data-fuel="Diesel"
+        data-engine-size="4.0"
+        data-seats="16"
+        data-mileage="1500"
+        data-price="₦40,000,000"
+        data-images="assets/assets1/coasterbus.jpg,assets/assets1/coasterbus1.jpg,assets/assets1/coasterbus2.jpg,assets/assets1/coasterbus3.jpg,assets/assets1/coasterbus4.jpg,assets/assets1/coasterbus5.jpg,assets/assets1/coasterbus6.jpg,assets/assets1/coasterbus7.jpg,assets/assets1/coasterbus8.jpg"
+      >
+        <div class="image-gallery">
+          <div class="view-image-icon">
+            <i class="fas fa-expand"></i>
+          </div>
+        </div>
+        <div class="card-navigation-dots"></div>
+        <div class="product-info">
+          <div class="product-info-top">
+            <span class="location"><i class="fas fa-map-marker-alt"></i> Ibadan, OYO</span>
+            <div class="card-actions">
+              <button class="action-btn message-btn"><i class="far fa-comment-dots"></i></button>
+              <button class="action-btn like-btn"><i class="far fa-heart"></i></button>
+              <button class="action-btn bookmark-btn"><i class="far fa-bookmark"></i></button>
+              <button class="action-btn share-btn"><i class="far fa-paper-plane"></i></button>
+            </div>
+          </div>
+          <span class="status for-invest">Foreign Used</span>
+          <h3>Coaster bus</h3>
+          <h1>₦40,000,000</h1>
+          <div class="details">
+            <span><i class="fas fa-briefcase"></i> Transport</span>
+            <span><i class="fas fa-users"></i> 20-30 Passengers</span>
+            <a href="Viewdetails.html" class="buy-now-btn">Details</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product Card 3 -->
+      <div class="product-card"
+        data-make="DAF"
+        data-model="XF"
+        data-year="2017"
+        data-color="White"
+        data-condition="Foreign Used"
+        data-transmission="Manual"
+        data-fuel="Diesel"
+        data-engine-size="12.9"
+        data-seats="6-8"
+        data-mileage="80000"
+        data-price="₦35,000,000"
+        data-images="assets/assets1/DAF.jpg,assets/assets1/DAF-1.jpg,assets/assets1/DAF-2.jpg,assets/assets1/DAF-3.jpg,assets/assets1/DAF-4.jpg,assets/assets1/DAF-5.jpg"
+      >
+        <div class="image-gallery">
+          <div class="view-image-icon">
+            <i class="fas fa-expand"></i>
+          </div>
+        </div>
+        <div class="card-navigation-dots"></div>
+        <div class="product-info">
+          <div class="product-info-top">
+            <span class="location"><i class="fas fa-map-marker-alt"></i> Ibadan, OYO</span>
+            <div class="card-actions">
+              <button class="action-btn message-btn"><i class="far fa-comment-dots"></i></button>
+              <button class="action-btn like-btn"><i class="far fa-heart"></i></button>
+              <button class="action-btn bookmark-btn"><i class="far fa-bookmark"></i></button>
+              <button class="action-btn share-btn"><i class="far fa-paper-plane"></i></button>
+            </div>
+          </div>
+          <span class="status for-sale">Foreign-Used</span>
+          <h3>DAF Truck</h3>
+          <h1>₦35,000,000</h1>
+          <div class="details">
+            <span><i class="fas fa-briefcase"></i> Transport</span>
+            <span><i class="fas fa-users"></i> 6-8 Passengers</span>
+            <a href="Viewdetails.html" class="buy-now-btn">Details</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product Card 4 -->
+      <div class="product-card"
+        data-make="DAF"
+        data-model="CF Blue"
+        data-year="2019"
+        data-color="Blue"
+        data-condition="Foreign Used"
+        data-transmission="Manual"
+        data-fuel="Diesel"
+        data-engine-size="12.9"
+        data-seats="6-8"
+        data-mileage="60000"
+        data-price="₦35,000,000"
+        data-images="assets/assets1/DAF-BLUE2.jpg,assets/assets1/DAF-BLUE1.jpg,assets/assets1/DAF-BLUE3.jpg,assets/assets1/DAF-BLUE4.jpg"
+      >
+        <div class="image-gallery">
+          <div class="view-image-icon">
+            <i class="fas fa-expand"></i>
+          </div>
+        </div>
+        <div class="card-navigation-dots"></div>
+        <div class="product-info">
+          <div class="product-info-top">
+            <span class="location"><i class="fas fa-map-marker-alt"></i> Ibadan, OYO</span>
+            <div class="card-actions">
+              <button class="action-btn message-btn"><i class="far fa-comment-dots"></i></button>
+              <button class="action-btn like-btn"><i class="far fa-heart"></i></button>
+              <button class="action-btn bookmark-btn"><i class="far fa-bookmark"></i></button>
+              <button class="action-btn share-btn"><i class="far fa-paper-plane"></i></button>
+            </div>
+          </div>
+          <span class="status for-sale">Foreign-Used</span>
+          <h3>DAF Blue Truck</h3>
+          <h1>₦35,000,000</h1>
+          <div class="details">
+            <span><i class="fas fa-briefcase"></i> Transport</span>
+            <span><i class="fas fa-users"></i> 6-8 Passengers</span>
+            <a href="Viewdetails.html" class="buy-now-btn">Details</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product Card: 2016 Lexus RX350 -->
+      <div class="product-card"
+        data-make="Lexus"
+        data-model="RX350"
+        data-year="2016"
+        data-color="Silver"
+        data-condition="Foreign Used"
+        data-transmission="Automatic"
+        data-fuel="Petrol"
+        data-engine-size="3.5"
+        data-seats="5"
+        data-mileage="42000"
+        data-price="₦39,500,000"
+        data-images="assets/assets1/lexus/2016 RX350  39.5M/rx191.JPG,assets/assets1/lexus/2016 RX350  39.5M/rx192.JPG,assets/assets1/lexus/2016 RX350  39.5M/rx193.JPG,assets/assets1/lexus/2016 RX350  39.5M/rx194.JPG,assets/assets1/lexus/2016 RX350  39.5M/rx195.JPG"
+      >
+        <div class="image-gallery">
+          <div class="view-image-icon">
+            <i class="fas fa-expand"></i>
+          </div>
+        </div>
+        <div class="card-navigation-dots"></div>
+        <div class="product-info">
+          <div class="product-info-top">
+            <span class="location"><i class="fas fa-map-marker-alt"></i> Lagos, NG</span>
+            <div class="card-actions">
+              <button class="action-btn message-btn"><i class="far fa-comment-dots"></i></button>
+              <button class="action-btn like-btn"><i class="far fa-heart"></i></button>
+              <button class="action-btn bookmark-btn"><i class="far fa-bookmark"></i></button>
+              <button class="action-btn share-btn"><i class="far fa-paper-plane"></i></button>
+            </div>
+          </div>
+          <span class="status for-sale">Foreign-Used</span>
+          <h3>2016 Lexus RX350</h3>
+          <h1>₦39,500,000</h1>
+          <div class="details">
+            <span><i class="fas fa-tachometer-alt"></i> V6 Engine</span>
+            <span><i class="fas fa-couch"></i> Leather Seats</span>
+            <a href="Viewdetails.html" class="buy-now-btn">Details</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product Card: 2018 Lexus RX350 -->
+      <div class="product-card"
+        data-make="Lexus"
+        data-model="RX350"
+        data-year="2018"
+        data-color="White"
+        data-condition="Foreign Used"
+        data-transmission="Automatic"
+        data-fuel="Petrol"
+        data-engine-size="3.5"
+        data-seats="5"
+        data-mileage="31000"
+        data-price="₦45,500,000"
+        data-images="assets/assets1/lexus/2018 LEXUS RX350   45.5M/rx191.JPG,assets/assets1/lexus/2018 LEXUS RX350   45.5M/rx192.JPG,assets/assets1/lexus/2018 LEXUS RX350   45.5M/rx193.JPG,assets/assets1/lexus/2018 LEXUS RX350   45.5M/rx194.JPG,assets/assets1/lexus/2018 LEXUS RX350   45.5M/rx195.JPG"
+      >
+        <div class="image-gallery">
+          <div class="view-image-icon">
+            <i class="fas fa-expand"></i>
+          </div>
+        </div>
+        <div class="card-navigation-dots"></div>
+        <div class="product-info">
+          <div class="product-info-top">
+            <span class="location"><i class="fas fa-map-marker-alt"></i> Abuja, NG</span>
+            <div class="card-actions">
+              <button class="action-btn message-btn"><i class="far fa-comment-dots"></i></button>
+              <button class="action-btn like-btn"><i class="far fa-heart"></i></button>
+              <button class="action-btn bookmark-btn"><i class="far fa-bookmark"></i></button>
+              <button class="action-btn share-btn"><i class="far fa-paper-plane"></i></button>
+            </div>
+          </div>
+          <span class="status for-sale">Foreign-Used</span>
+          <h3>2018 Lexus RX350</h3>
+          <h1>₦45,500,000</h1>
+          <div class="details">
+            <span><i class="fas fa-sun"></i> Panoramic Roof</span>
+            <span><i class="fas fa-volume-up"></i> Premium Sound</span>
+            <a href="Viewdetails.html" class="buy-now-btn">Details</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product Card: 2019 Lexus RX350 -->
+      <div class="product-card"
+        data-make="Lexus"
+        data-model="RX350"
+        data-year="2019"
+        data-color="Black"
+        data-condition="Foreign Used"
+        data-transmission="Automatic"
+        data-fuel="Petrol"
+        data-engine-size="3.5"
+        data-seats="5"
+        data-mileage="24000"
+        data-price="₦69,000,000"
+        data-images="assets/assets1/lexus/2019 LEXUS RX350   69M/rx.JPG,assets/assets1/lexus/2019 LEXUS RX350   69M/rx1.JPG,assets/assets1/lexus/2019 LEXUS RX350   69M/rx2.JPG,assets/assets1/lexus/2019 LEXUS RX350   69M/rx3.JPG,assets/assets1/lexus/2019 LEXUS RX350   69M/rx4.JPG,assets/assets1/lexus/2019 LEXUS RX350   69M/rx5.JPG,assets/assets1/lexus/2019 LEXUS RX350   69M/rx6.JPG,assets/assets1/lexus/2019 LEXUS RX350   69M/rx7.JPG,assets/assets1/lexus/2019 LEXUS RX350   69M/rx8.JPG,assets/assets1/lexus/2019 LEXUS RX350   69M/rx9.JPG"
+      >
+        <div class="image-gallery">
+          <div class="view-image-icon">
+            <i class="fas fa-expand"></i>
+          </div>
+        </div>
+        <div class="card-navigation-dots"></div>
+        <div class="product-info">
+          <div class="product-info-top">
+            <span class="location"><i class="fas fa-map-marker-alt"></i> Lagos, NG</span>
+            <div class="card-actions">
+              <button class="action-btn message-btn"><i class="far fa-comment-dots"></i></button>
+              <button class="action-btn like-btn"><i class="far fa-heart"></i></button>
+              <button class="action-btn bookmark-btn"><i class="far fa-bookmark"></i></button>
+              <button class="action-btn share-btn"><i class="far fa-paper-plane"></i></button>
+            </div>
+          </div>
+          <span class="status for-sale">Foreign-Used</span>
+          <h3>2019 Lexus RX350</h3>
+          <h1>₦69,000,000</h1>
+          <div class="details">
+            <span><i class="fas fa-cogs"></i> AWD</span>
+            <span><i class="fas fa-car"></i> Luxury SUV</span>
+            <a href="Viewdetails.html" class="buy-now-btn">Details</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product Card: Lamborghini Huracan -->
+      <div class="product-card"
+        data-make="Lamborghini"
+        data-model="Huracan"
+        data-year="2021"
+        data-color="Green"
+        data-condition="Foreign Used"
+        data-transmission="Automatic"
+        data-fuel="Petrol"
+        data-engine-size="5.2"
+        data-seats="2"
+        data-mileage="8000"
+        data-price="₦250,000,000"
+        data-images="assets/assets1/lambo/lambo1.JPG,assets/assets1/lambo/lambo2.JPG,assets/assets1/lambo/lambo3.JPG,assets/assets1/lambo/lambo4.JPG,assets/assets1/lambo/lambo5.JPG,assets/assets1/lambo/lambo6.JPG,assets/assets1/lambo/lambo7.JPG,assets/assets1/lambo/lambo8.JPG"
+      >
+        <div class="image-gallery">
+          <div class="view-image-icon">
+            <i class="fas fa-expand"></i>
+          </div>
+        </div>
+        <div class="card-navigation-dots"></div>
+        <div class="product-info">
+          <div class="product-info-top">
+            <span class="location"><i class="fas fa-map-marker-alt"></i> Lagos, NG</span>
+            <div class="card-actions">
+              <button class="action-btn message-btn"><i class="far fa-comment-dots"></i></button>
+              <button class="action-btn like-btn"><i class="far fa-heart"></i></button>
+              <button class="action-btn bookmark-btn"><i class="far fa-bookmark"></i></button>
+              <button class="action-btn share-btn"><i class="far fa-paper-plane"></i></button>
+            </div>
+          </div>
+          <span class="status for-sale">Foreign-Used</span>
+          <h3>Lamborghini Huracan</h3>
+          <h1>₦250,000,000</h1>
+          <div class="details">
+            <span><i class="fas fa-tachometer-alt"></i> V10 Engine</span>
+            <span><i class="fas fa-cogs"></i> AWD</span>
+            <a href="Viewdetails.html" class="buy-now-btn">Details</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product Card: 2017 Dodge Challenger -->
+      <div class="product-card"
+        data-make="Dodge"
+        data-model="Challenger"
+        data-year="2017"
+        data-color="Grey"
+        data-condition="Foreign Used"
+        data-transmission="Automatic"
+        data-fuel="Petrol"
+        data-engine-size="5.7"
+        data-seats="4"
+        data-mileage="25000"
+        data-price="₦53,000,000"
+        data-images="assets/assets1/DODGE/2017 DODGE CHALL   53M/do1.JPG,assets/assets1/DODGE/2017 DODGE CHALL   53M/do2.JPG,assets/assets1/DODGE/2017 DODGE CHALL   53M/do3.JPG,assets/assets1/DODGE/2017 DODGE CHALL   53M/do4.JPG,assets/assets1/DODGE/2017 DODGE CHALL   53M/do5.JPG,assets/assets1/DODGE/2017 DODGE CHALL   53M/do6.JPG,assets/assets1/DODGE/2017 DODGE CHALL   53M/do7.JPG"
+      >
+        <div class="image-gallery">
+          <div class="view-image-icon">
+            <i class="fas fa-expand"></i>
+          </div>
+        </div>
+        <div class="card-navigation-dots"></div>
+        <div class="product-info">
+          <div class="product-info-top">
+            <span class="location"><i class="fas fa-map-marker-alt"></i> Abuja, NG</span>
+            <div class="card-actions">
+              <button class="action-btn message-btn"><i class="far fa-comment-dots"></i></button>
+              <button class="action-btn like-btn"><i class="far fa-heart"></i></button>
+              <button class="action-btn bookmark-btn"><i class="far fa-bookmark"></i></button>
+              <button class="action-btn share-btn"><i class="far fa-paper-plane"></i></button>
+            </div>
+          </div>
+          <span class="status for-sale">Foreign-Used</span>
+          <h3>2017 Dodge Challenger</h3>
+          <h1>₦53,000,000</h1>
+          <div class="details">
+            <span><i class="fas fa-tachometer-alt"></i> V8 Hemi</span>
+            <span><i class="fas fa-chair"></i> Sport Seats</span>
+            <a href="Viewdetails.html" class="buy-now-btn">Details</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product Card: Dodge Challenger -->
+      <div class="product-card"
+        data-make="Dodge"
+        data-model="Challenger"
+        data-year="2019"
+        data-color="Black"
+        data-condition="Foreign Used"
+        data-transmission="Automatic"
+        data-fuel="Petrol"
+        data-engine-size="6.2"
+        data-seats="4"
+        data-mileage="19000"
+        data-price="₦57,00,000"
+        data-images="assets/assets1/DODGE/DODGE CHALLENGER        57M/dod1.JPG,assets/assets1/DODGE/DODGE CHALLENGER        57M/dod2.JPG,assets/assets1/DODGE/DODGE CHALLENGER        57M/dod3.JPG,assets/assets1/DODGE/DODGE CHALLENGER        57M/dod4.JPG,assets/assets1/DODGE/DODGE CHALLENGER        57M/dod5.JPG,assets/assets1/DODGE/DODGE CHALLENGER        57M/dod6.JPG,assets/assets1/DODGE/DODGE CHALLENGER        57M/dod7.JPG,assets/assets1/DODGE/DODGE CHALLENGER        57M/dod8.JPG,assets/assets1/DODGE/DODGE CHALLENGER        57M/dod9.JPG,assets/assets1/DODGE/DODGE CHALLENGER        57M/dod10.JPG"
+      >
+        <div class="image-gallery">
+          <div class="view-image-icon">
+            <i class="fas fa-expand"></i>
+          </div>
+        </div>
+        <div class="card-navigation-dots"></div>
+        <div class="product-info">
+          <div class="product-info-top">
+            <span class="location"><i class="fas fa-map-marker-alt"></i> Port Harcourt, NG</span>
+            <div class="card-actions">
+              <button class="action-btn message-btn"><i class="far fa-comment-dots"></i></button>
+              <button class="action-btn like-btn"><i class="far fa-heart"></i></button>
+              <button class="action-btn bookmark-btn"><i class="far fa-bookmark"></i></button>
+              <button class="action-btn share-btn"><i class="far fa-paper-plane"></i></button>
+            </div>
+          </div>
+          <span class="status for-sale">Foreign-Used</span>
+          <h3>2019 Dodge Challenger</h3>
+          <h1>₦57,000,000</h1>
+          <div class="details">
+            <span><i class="fas fa-tachometer-alt"></i> Supercharged V8</span>
+            <span><i class="fas fa-road"></i> Widebody</span>
+            <a href="Viewdetails.html" class="buy-now-btn">Details</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product Card: Mercedes GLE350 MB 75.5M -->
+      <div class="product-card"
+        data-make="Mercedes"
+        data-model="GLE350"
+        data-year="2018"
+        data-color="Black"
+        data-condition="Foreign Used"
+        data-transmission="Automatic"
+        data-fuel="Petrol"
+        data-engine-size="3.0"
+        data-seats="5"
+        data-mileage="35000"
+        data-price="₦75,500,000"
+        data-images="assets/assets1/mercedes/gle350 MB 75.5M/mb1.JPG,assets/assets1/mercedes/gle350 MB 75.5M/mb2.JPG,assets/assets1/mercedes/gle350 MB 75.5M/mb3.JPG,assets/assets1/mercedes/gle350 MB 75.5M/mb4.JPG,assets/assets1/mercedes/gle350 MB 75.5M/mb5.JPG,assets/assets1/mercedes/gle350 MB 75.5M/mb6.JPG,assets/assets1/mercedes/gle350 MB 75.5M/mb7.JPG,assets/assets1/mercedes/gle350 MB 75.5M/mb8.JPG,assets/assets1/mercedes/gle350 MB 75.5M/mb9.JPG,assets/assets1/mercedes/gle350 MB 75.5M/mb10.JPG"
+      >
+        <div class="image-gallery">
+          <div class="view-image-icon">
+            <i class="fas fa-expand"></i>
+          </div>
+        </div>
+        <div class="card-navigation-dots"></div>
+        <div class="product-info">
+          <div class="product-info-top">
+            <span class="location"><i class="fas fa-map-marker-alt"></i> Lagos, NG</span>
+            <div class="card-actions">
+              <button class="action-btn message-btn"><i class="far fa-comment-dots"></i></button>
+              <button class="action-btn like-btn"><i class="far fa-heart"></i></button>
+              <button class="action-btn bookmark-btn"><i class="far fa-bookmark"></i></button>
+              <button class="action-btn share-btn"><i class="far fa-paper-plane"></i></button>
+            </div>
+          </div>
+          <span class="status for-sale">Foreign-Used</span>
+          <h3>2018 Mercedes GLE350</h3>
+          <h1>₦75,500,000</h1>
+          <div class="details">
+            <span><i class="fas fa-cogs"></i> AWD</span>
+            <span><i class="fas fa-car"></i> Luxury SUV</span>
+            <a href="Viewdetails.html" class="buy-now-btn">Details</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product Card: Mercedes 20118 Gle 350 43.5M -->
+      <div class="product-card"
+        data-make="Mercedes"
+        data-model="GLE350"
+        data-year="2018"
+        data-color="White"
+        data-condition="Foreign Used"
+        data-transmission="Automatic"
+        data-fuel="Petrol"
+        data-engine-size="3.0"
+        data-seats="5"
+        data-mileage="43000"
+        data-price="₦43,500,000"
+        data-images="assets/assets1/mercedes/20118 Gle 350 43.5M/glea.JPG,assets/assets1/mercedes/20118 Gle 350 43.5M/gleb.JPG,assets/assets1/mercedes/20118 Gle 350 43.5M/glec.JPG,assets/assets1/mercedes/20118 Gle 350 43.5M/gled.JPG,assets/assets1/mercedes/20118 Gle 350 43.5M/glee.JPG,assets/assets1/mercedes/20118 Gle 350 43.5M/glef.JPG,assets/assets1/mercedes/20118 Gle 350 43.5M/gleg.JPG,assets/assets1/mercedes/20118 Gle 350 43.5M/gleh.JPG,assets/assets1/mercedes/20118 Gle 350 43.5M/glei.JPG,assets/assets1/mercedes/20118 Gle 350 43.5M/glej.JPG,assets/assets1/mercedes/20118 Gle 350 43.5M/glek.JPG,assets/assets1/mercedes/20118 Gle 350 43.5M/glel.JPG"
+      >
+        <div class="image-gallery">
+          <div class="view-image-icon">
+            <i class="fas fa-expand"></i>
+          </div>
+        </div>
+        <div class="card-navigation-dots"></div>
+        <div class="product-info">
+          <div class="product-info-top">
+            <span class="location"><i class="fas fa-map-marker-alt"></i> Abuja, NG</span>
+            <div class="card-actions">
+              <button class="action-btn message-btn"><i class="far fa-comment-dots"></i></button>
+              <button class="action-btn like-btn"><i class="far fa-heart"></i></button>
+              <button class="action-btn bookmark-btn"><i class="far fa-bookmark"></i></button>
+              <button class="action-btn share-btn"><i class="far fa-paper-plane"></i></button>
+            </div>
+          </div>
+          <span class="status for-sale">Foreign-Used</span>
+          <h3>2018 Mercedes GLE350 (43.5M)</h3>
+          <h1>₦43,500,000</h1>
+          <div class="details">
+            <span><i class="fas fa-cogs"></i> AWD</span>
+            <span><i class="fas fa-car"></i> Luxury SUV</span>
+            <a href="Viewdetails.html" class="buy-now-btn">Details</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product Card: 2025 Mercedes Benz G-Class G 63 595m -->
+      <div class="product-card"
+        data-make="Mercedes"
+        data-model="G-Class G63"
+        data-year="2025"
+        data-color="Black"
+        data-condition="Foreign Used"
+        data-transmission="Automatic"
+        data-fuel="Petrol"
+        data-engine-size="4.0"
+        data-seats="5"
+        data-mileage="12000"
+        data-price="₦595,000,000"
+        data-images="assets/assets1/mercedes/2025 Mercedes Benz G-Class G 63 595m/benz.JPG,assets/assets1/mercedes/2025 Mercedes Benz G-Class G 63 595m/benz1.JPG,assets/assets1/mercedes/2025 Mercedes Benz G-Class G 63 595m/benz2.JPG,assets/assets1/mercedes/2025 Mercedes Benz G-Class G 63 595m/benz3.JPG,assets/assets1/mercedes/2025 Mercedes Benz G-Class G 63 595m/benz4.JPG,assets/assets1/mercedes/2025 Mercedes Benz G-Class G 63 595m/benz5.JPG,assets/assets1/mercedes/2025 Mercedes Benz G-Class G 63 595m/benz6.JPG,assets/assets1/mercedes/2025 Mercedes Benz G-Class G 63 595m/benz7.JPG,assets/assets1/mercedes/2025 Mercedes Benz G-Class G 63 595m/benz8.JPG"
+      >
+        <div class="image-gallery">
+          <div class="view-image-icon">
+            <i class="fas fa-expand"></i>
+          </div>
+        </div>
+        <div class="card-navigation-dots"></div>
+        <div class="product-info">
+          <div class="product-info-top">
+            <span class="location"><i class="fas fa-map-marker-alt"></i> Lagos, NG</span>
+            <div class="card-actions">
+              <button class="action-btn message-btn"><i class="far fa-comment-dots"></i></button>
+              <button class="action-btn like-btn"><i class="far fa-heart"></i></button>
+              <button class="action-btn bookmark-btn"><i class="far fa-bookmark"></i></button>
+              <button class="action-btn share-btn"><i class="far fa-paper-plane"></i></button>
+            </div>
+          </div>
+          <span class="status for-sale">Foreign-Used</span>
+          <h3>2025 Mercedes G-Class G63</h3>
+          <h1>₦595,000,000</h1>
+          <div class="details">
+            <span><i class="fas fa-cogs"></i> 4MATIC</span>
+            <span><i class="fas fa-car"></i> Luxury SUV</span>
+            <a href="Viewdetails.html" class="buy-now-btn">Details</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product Card: 2023 MERCEDES E450 145M -->
+      <div class="product-card"
+        data-make="Mercedes"
+        data-model="E450"
+        data-year="2023"
+        data-color="White"
+        data-condition="Foreign Used"
+        data-transmission="Automatic"
+        data-fuel="Petrol"
+        data-engine-size="3.0"
+        data-seats="5"
+        data-mileage="8000"
+        data-price="₦145,000,000"
+        data-images="assets/assets1/mercedes/2023 MERCEDES E450        145M/cl.JPG,assets/assets1/mercedes/2023 MERCEDES E450        145M/cl1.JPG,assets/assets1/mercedes/2023 MERCEDES E450        145M/cl2.JPG,assets/assets1/mercedes/2023 MERCEDES E450        145M/cl3.JPG,assets/assets1/mercedes/2023 MERCEDES E450        145M/cl4.JPG,assets/assets1/mercedes/2023 MERCEDES E450        145M/cl5.JPG,assets/assets1/mercedes/2023 MERCEDES E450        145M/cl6.JPG,assets/assets1/mercedes/2023 MERCEDES E450        145M/cl7.JPG,assets/assets1/mercedes/2023 MERCEDES E450        145M/cl8.JPG,assets/assets1/mercedes/2023 MERCEDES E450        145M/cl9.JPG,assets/assets1/mercedes/2023 MERCEDES E450        145M/cl10.JPG,assets/assets1/mercedes/2023 MERCEDES E450        145M/cl11.JPG"
+      >
+        <div class="image-gallery">
+          <div class="view-image-icon">
+            <i class="fas fa-expand"></i>
+          </div>
+        </div>
+        <div class="card-navigation-dots"></div>
+        <div class="product-info">
+          <div class="product-info-top">
+            <span class="location"><i class="fas fa-map-marker-alt"></i> Abuja, NG</span>
+            <div class="card-actions">
+              <button class="action-btn message-btn"><i class="far fa-comment-dots"></i></button>
+              <button class="action-btn like-btn"><i class="far fa-heart"></i></button>
+              <button class="action-btn bookmark-btn"><i class="far fa-bookmark"></i></button>
+              <button class="action-btn share-btn"><i class="far fa-paper-plane"></i></button>
+            </div>
+          </div>
+          <span class="status for-sale">Foreign-Used</span>
+          <h3>2023 Mercedes E450</h3>
+          <h1>₦145,000,000</h1>
+          <div class="details">
+            <span><i class="fas fa-cogs"></i> 4MATIC</span>
+            <span><i class="fas fa-car"></i> Luxury Sedan</span>
+            <a href="Viewdetails.html" class="buy-now-btn">Details</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product Card: 2021 GLE 53 MB 125M -->
+      <div class="product-card"
+        data-make="Mercedes"
+        data-model="GLE 53 AMG"
+        data-year="2021"
+        data-color="Blue"
+        data-condition="Foreign Used"
+        data-transmission="Automatic"
+        data-fuel="Petrol"
+        data-engine-size="3.0"
+        data-seats="5"
+        data-mileage="12500"
+        data-price="₦125,000,000"
+        data-images="assets/assets1/mercedes/2021 GLE 53 MB 125M/amg.JPG,assets/assets1/mercedes/2021 GLE 53 MB 125M/amg1.JPG,assets/assets1/mercedes/2021 GLE 53 MB 125M/amg2.JPG,assets/assets1/mercedes/2021 GLE 53 MB 125M/amg3.JPG,assets/assets1/mercedes/2021 GLE 53 MB 125M/amg4.JPG,assets/assets1/mercedes/2021 GLE 53 MB 125M/amg5.JPG"
+      >
+        <div class="image-gallery">
+          <div class="view-image-icon">
+            <i class="fas fa-expand"></i>
+          </div>
+        </div>
+        <div class="card-navigation-dots"></div>
+        <div class="product-info">
+          <div class="product-info-top">
+            <span class="location"><i class="fas fa-map-marker-alt"></i> Lagos, NG</span>
+            <div class="card-actions">
+              <button class="action-btn message-btn"><i class="far fa-comment-dots"></i></button>
+              <button class="action-btn like-btn"><i class="far fa-heart"></i></button>
+              <button class="action-btn bookmark-btn"><i class="far fa-bookmark"></i></button>
+              <button class="action-btn share-btn"><i class="far fa-paper-plane"></i></button>
+            </div>
+          </div>
+          <span class="status for-sale">Foreign-Used</span>
+          <h3>2021 Mercedes GLE 53 AMG</h3>
+          <h1>₦125,000,000</h1>
+          <div class="details">
+            <span><i class="fas fa-cogs"></i> AMG Performance</span>
+            <span><i class="fas fa-car"></i> Luxury SUV</span>
+            <a href="Viewdetails.html" class="buy-now-btn">Details</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product Card: 2021 G63 12K MILES 290M -->
+      <div class="product-card"
+        data-make="Mercedes"
+        data-model="G63"
+        data-year="2021"
+        data-color="Black"
+        data-condition="Foreign Used"
+        data-transmission="Automatic"
+        data-fuel="Petrol"
+        data-engine-size="4.0"
+        data-seats="5"
+        data-mileage="12000"
+        data-price="₦290,000,000"
+        data-images="assets/assets1/mercedes/2021 G63 12K MILES 290M/G63a.JPG,assets/assets1/mercedes/2021 G63 12K MILES 290M/G63b.JPG,assets/assets1/mercedes/2021 G63 12K MILES 290M/G63c.JPG,assets/assets1/mercedes/2021 G63 12K MILES 290M/G63d.JPG,assets/assets1/mercedes/2021 G63 12K MILES 290M/G63e.JPG,assets/assets1/mercedes/2021 G63 12K MILES 290M/G63f.JPG,assets/assets1/mercedes/2021 G63 12K MILES 290M/G63g.JPG,assets/assets1/mercedes/2021 G63 12K MILES 290M/G63h.JPG,assets/assets1/mercedes/2021 G63 12K MILES 290M/G63i.JPG,assets/assets1/mercedes/2021 G63 12K MILES 290M/G63j.JPG,assets/assets1/mercedes/2021 G63 12K MILES 290M/G63k.JPG,assets/assets1/mercedes/2021 G63 12K MILES 290M/G63l.JPG,assets/assets1/mercedes/2021 G63 12K MILES 290M/G63m.JPG"
+      >
+        <div class="image-gallery">
+          <div class="view-image-icon">
+            <i class="fas fa-expand"></i>
+          </div>
+        </div>
+        <div class="card-navigation-dots"></div>
+        <div class="product-info">
+          <div class="product-info-top">
+            <span class="location"><i class="fas fa-map-marker-alt"></i> Abuja, NG</span>
+            <div class="card-actions">
+              <button class="action-btn message-btn"><i class="far fa-comment-dots"></i></button>
+              <button class="action-btn like-btn"><i class="far fa-heart"></i></button>
+              <button class="action-btn bookmark-btn"><i class="far fa-bookmark"></i></button>
+              <button class="action-btn share-btn"><i class="far fa-paper-plane"></i></button>
+            </div>
+          </div>
+          <span class="status for-sale">Foreign-Used</span>
+          <h3>2021 Mercedes G63</h3>
+          <h1>₦290,000,000</h1>
+          <div class="details">
+            <span><i class="fas fa-cogs"></i> 4MATIC</span>
+            <span><i class="fas fa-car"></i> Luxury SUV</span>
+            <a href="Viewdetails.html" class="buy-now-btn">Details</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product Card: 2015 CLA250 22.5M -->
+      <div class="product-card"
+        data-make="Mercedes"
+        data-model="CLA250"
+        data-year="2015"
+        data-color="White"
+        data-condition="Foreign Used"
+        data-transmission="Automatic"
+        data-fuel="Petrol"
+        data-engine-size="2.0"
+        data-seats="5"
+        data-mileage="22000"
+        data-price="₦22,500,000"
+        data-images="assets/assets1/mercedes/2015 CLA250  22.5M/cla1.JPG,assets/assets1/mercedes/2015 CLA250  22.5M/cla2#.JPG,assets/assets1/mercedes/2015 CLA250  22.5M/cla3.JPG,assets/assets1/mercedes/2015 CLA250  22.5M/cla4.JPG,assets/assets1/mercedes/2015 CLA250  22.5M/cla5.JPG,assets/assets1/mercedes/2015 CLA250  22.5M/cla6.JPG,assets/assets1/mercedes/2015 CLA250  22.5M/cla7.JPG,assets/assets1/mercedes/2015 CLA250  22.5M/cla8.JPG"
+      >
+        <div class="image-gallery">
+          <div class="view-image-icon">
+            <i class="fas fa-expand"></i>
+          </div>
+        </div>
+        <div class="card-navigation-dots"></div>
+        <div class="product-info">
+          <div class="product-info-top">
+            <span class="location"><i class="fas fa-map-marker-alt"></i> Lagos, NG</span>
+            <div class="card-actions">
+              <button class="action-btn message-btn"><i class="far fa-comment-dots"></i></button>
+              <button class="action-btn like-btn"><i class="far fa-heart"></i></button>
+              <button class="action-btn bookmark-btn"><i class="far fa-bookmark"></i></button>
+              <button class="action-btn share-btn"><i class="far fa-paper-plane"></i></button>
+            </div>
+          </div>
+          <span class="status for-sale">Foreign-Used</span>
+          <h3>2015 Mercedes CLA250</h3>
+          <h1>₦22,500,000</h1>
+          <div class="details">
+            <span><i class="fas fa-cogs"></i> Turbo</span>
+            <span><i class="fas fa-car"></i> Luxury Sedan</span>
+            <a href="Viewdetails.html" class="buy-now-btn">Details</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+    <!-- Floating Back to Top Button -->
+    <button id="backToTopBtn" title="Go to top"><i class="fas fa-arrow-up"></i></button>
+
+
+  </main>
+  <!-- Image View Modal -->
+  <div id="imageViewModal" class="image-view-modal" style="display:none;">
+    <span class="close-modal" id="closeImageViewModal">&times;</span>
+    <span class="modal-arrow modal-arrow-left" id="modalArrowLeft"><i class="fas fa-chevron-left"></i></span>
+    <img class="modal-image" id="modalImage" src="" alt="Product Image" />
+    <span class="modal-arrow modal-arrow-right" id="modalArrowRight"><i class="fas fa-chevron-right"></i></span>
+  </div>
+
+  <!-- Footer Section -->
+  <footer data-aos="fade-up">
+    <div class="footer-top">
+      <!-- Footer logo and social media -->
+      <div class="footer-logo">
+        <h3>HephAuto</h3>
+        <p>Your partner on the road ahead.</p>
+        <div class="footer-follow-label">Follow us</div>
+        <div class="footer-social">
+          <a href="#" class="youtube"><i class="fab fa-youtube"></i></a>
+          <a href="#" class="facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="twitter"><i class="fab fa-x-twitter"></i></a>
+          <a href="#" class="tiktok"><i class="fab fa-tiktok"></i></a>
+        </div>
+      </div>
+  
+      <!-- Footer navigation links -->
+      <div class="footer-links">
+        <div>
+          <a href="Heph.html">Home</a>
+          <a href="buy.html">buy</a>
+          <a href="sell.html">Sell</a>
+        </div>
+        <div>
+          <a href="services.html">Services</a>
+          <a href="About.html">About Us</a>
+          <a href="Contact.html">Contsct Us</a>
+        </div>
+        <div>          
+          <a href="#">Support</a>
+          <a href="#">Dealer & Brand Partners</a>
+          <a href="#">Careers</a>
+        </div>
+      </div>
+
+      <!-- Newsletter Section -->
+      <div class="newsletter">
+        <h4>Join Our Newsletter</h4>
+        <p>Stay updated with our latest job postings and career tips.</p>
+        <form action="#" method="post">
+          <input type="email" placeholder="Enter your email" required>
+          <button type="submit" class="newsletter-btn">
+            <i class="fas fa-arrow-right"></i>
+          </button>
+        </form>
+      </div>
+    </div>
+  
+    <!-- Footer bottom legal bar -->
+    <div class="footer-bottom">
+      &copy; <span id="current-year"></span> HephAuto. All rights reserved.
+      <div class="footer-legal-links">
+        <a href="#">Terms and Conditions</a> |
+        <a href="#">Privacy</a> |
+        <a href="#">Cookies</a> |
+        <a href="#">Accessibility</a>
+      </div>
+    </div>
+  </footer>
+  
+  <!-- Mobile Bottom Navigation Bar -->
+  <nav class="mobile-bottom-nav">
+    <a href="buy.html" class="mobile-bottom-nav__item">
+      <i class="fas fa-shopping-cart"></i>
+      <span>Buy</span>
+    </a>
+    <a href="sell.html" class="mobile-bottom-nav__item">
+      <i class="fas fa-tag"></i>
+      <span>Sell</span>
+    </a>
+    <a href="saved.html" class="mobile-bottom-nav__item">
+      <i class="fas fa-bookmark"></i>
+      <span>Saved</span>
+    </a>
+    <a href="messages.html" class="mobile-bottom-nav__item">
+      <i class="fas fa-comment-dots"></i>
+      <span>Messages</span>
+    </a>
+    <a href="settings.html" class="mobile-bottom-nav__item">
+      <i class="fas fa-user"></i>
+      <span>Profile</span>
+    </a>
+    <!-- <button class="mobile-bottom-nav__item" id="mobileMenuBtn" type="button">
+      <i class="fas fa-bars"></i>
+      <span>Menu</span>
+    </button> -->
+  </nav>
+
+  <script src="Heph.js"></script>
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script>
+    // Initialize AOS
+    AOS.init({
+      duration: 800,
+      easing: 'ease-in-out',
+      once: true
+    });
+
+    // Product Rotation System
+    class ProductRotator {
+      constructor() {
+        this.container = document.querySelector('.product-cards-container');
+        this.products = Array.from(document.querySelectorAll('.product-card'));
+        this.currentRotationIndex = 0;
+        this.rotationInterval = null;
+        this.lastProductCount = this.products.length;
+        
+        this.init();
+      }
+
+      init() {
+        // Start automatic rotation every hour
+        this.startHourlyRotation();
+        
+        // Check for new products every 5 minutes
+        this.startNewProductCheck();
+        
+        // Initial rotation
+        this.rotateProducts();
+      }
+
+      startHourlyRotation() {
+        // Rotate every hour (3600000 milliseconds)
+        this.rotationInterval = setInterval(() => {
+          this.rotateProducts();
+          console.log('Products rotated automatically (hourly)');
+        }, 3600000);
+      }
+
+      startNewProductCheck() {
+        // Check for new products every 5 minutes
+        setInterval(() => {
+          this.checkForNewProducts();
+        }, 300000);
+      }
+
+      checkForNewProducts() {
+        const currentProducts = document.querySelectorAll('.product-card');
+        const currentCount = currentProducts.length;
+        
+        if (currentCount > this.lastProductCount) {
+          // New products detected
+          this.products = Array.from(currentProducts);
+          this.lastProductCount = currentCount;
+          this.rotateProducts();
+          this.showNewProductNotification(currentCount - this.lastProductCount);
+          console.log(`New products detected! Rotating products. Added: ${currentCount - this.lastProductCount}`);
+        }
+      }
+
+      rotateProducts() {
+        if (this.products.length === 0) return;
+
+        // Shuffle the products array
+        this.shuffleArray(this.products);
+        
+        // Clear the container
+        this.container.innerHTML = '';
+        
+        // Add products back in new order
+        this.products.forEach(product => {
+          this.container.appendChild(product);
+        });
+
+        // Add rotation animation
+        this.addRotationAnimation();
+      }
+
+      shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [array[i], array[j]] = [array[j], array[i]];
+        }
+      }
+
+      addRotationAnimation() {
+        const products = document.querySelectorAll('.product-card');
+        products.forEach((product, index) => {
+          product.style.animation = 'none';
+          product.offsetHeight; // Trigger reflow
+          product.style.animation = `fadeInUp 0.6s ease-out ${index * 0.1}s both`;
+        });
+      }
+
+      showNewProductNotification(count) {
+        // Create notification element
+        const notification = document.createElement('div');
+        notification.className = 'new-product-notification';
+        notification.innerHTML = `
+          <div class="notification-content">
+            <i class="fas fa-car"></i>
+            <span>${count} new vehicle${count > 1 ? 's' : ''} added! Products have been rotated.</span>
+            <button class="notification-close" onclick="this.parentElement.parentElement.remove()">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+        `;
+        
+        // Add styles
+        notification.style.cssText = `
+          position: fixed;
+          top: 100px;
+          right: 20px;
+          background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+          color: white;
+          padding: 15px 20px;
+          border-radius: 10px;
+          box-shadow: 0 4px 20px rgba(40, 167, 69, 0.3);
+          z-index: 10000;
+          animation: slideInRight 0.5s ease-out;
+          max-width: 300px;
+        `;
+        
+        // Add to page
+        document.body.appendChild(notification);
+        
+        // Auto remove after 5 seconds
+        setTimeout(() => {
+          if (notification.parentElement) {
+            notification.remove();
+          }
+        }, 5000);
+      }
+
+      // Manual rotation method (can be called from console or other functions)
+      manualRotate() {
+        this.rotateProducts();
+        console.log('Products rotated manually');
+      }
+
+      // Stop rotation
+      stopRotation() {
+        if (this.rotationInterval) {
+          clearInterval(this.rotationInterval);
+          console.log('Product rotation stopped');
+        }
+      }
+
+      // Resume rotation
+      resumeRotation() {
+        this.startHourlyRotation();
+        console.log('Product rotation resumed');
+      }
+    }
+
+    // Initialize product rotator
+    const productRotator = new ProductRotator();
+
+    // Add CSS for animations
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes slideInRight {
+        from {
+          transform: translateX(100%);
+          opacity: 0;
+        }
+        to {
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .new-product-notification .notification-content {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .new-product-notification .notification-close {
+        background: none;
+        border: none;
+        color: white;
+        cursor: pointer;
+        padding: 5px;
+        border-radius: 50%;
+        transition: background 0.3s ease;
+      }
+
+      .new-product-notification .notification-close:hover {
+        background: rgba(255, 255, 255, 0.2);
+      }
+    `;
+    document.head.appendChild(style);
+
+    // Make rotator available globally for testing
+    window.productRotator = productRotator;
+  </script>
+  <!-- Logout Confirmation Modal (hidden by default) -->
+  <div id="logoutConfirmModal" class="logout-modal" style="display:none;">
+    <div class="logout-modal-backdrop"></div>
+    <div class="logout-modal-content">
+      <button class="logout-close-btn" aria-label="Close">&times;</button>
+      <div class="logout-icon">⚠️</div>
+      <h2>Logout Account</h2>
+      <p>You are about to log out of your account.</p>
+      <div class="logout-modal-buttons">
+        <button class="logout-cancel-btn">No, keep me logged in</button>
+        <button class="logout-confirm-btn">Yes, Logout</button>
+      </div>
+    </div>
+  </div>
+  
+</body>
+</html> 

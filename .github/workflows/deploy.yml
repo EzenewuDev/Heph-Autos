@@ -1,0 +1,23 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Build and Deploy
+        uses: jakejarvis/sitemap-generator-action@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          domain: https://ezenewudev.github.io
+          sitemap: sitemap.xml
+          robots: |
+            User-agent: *
+            Allow: / 

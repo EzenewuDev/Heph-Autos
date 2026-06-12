@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="Heph.css">
+   <!-- Link to Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+   <!-- Favicon for browser tab and localhost section -->
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/hephauto.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="assets/hephauto.png">
+  <link rel="shortcut icon" type="image/png" href="assets/hephauto.png">
+  <title>Checkout - Confirm</title>
+</head>
+<body>
+  <!-- Floating Navigation -->
+  <div class="floating-nav">
+    <!-- Remove any Back to Products navigation link/button -->
+  </div>
+
+  <main class="checkout-main multi-step-checkout">
+    <div class="checkout-progress">
+      <div class="progress-step active">1. Details</div>
+      <div class="progress-bar"></div>
+      <div class="progress-step active">2. Payment</div>
+      <div class="progress-bar"></div>
+      <div class="progress-step active">3. Confirm</div>
+    </div>
+    <form class="checkout-form" id="confirmForm" autocomplete="off">
+      <section class="checkout-section order-summary pro-summary-box">
+        <h2>Final Review</h2>
+        <div class="checkout-subheading">Please review your order before confirming your purchase.</div>
+        <div class="checkout-timer-banner">
+          We've reserved your vehicle. Please complete checkout within <span id="checkoutTimer">25:00</span> to secure your purchase.
+        </div>
+        <div id="confirmSummaryBox"></div>
+      </section>
+      <div class="final-action-card">
+        <button type="submit" class="cta-btn primary" style="text-align: center; width: 70%; max-width: 400px; text-decoration: none; height: 100%; border-radius: 50px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #fff; border: none;">
+          <i class="fas fa-check-circle"></i>
+          Confirm Purchase
+        </button>
+        <div class="privacy-note">
+          Your information is encrypted and secure. We respect your privacy.
+        </div>
+      </div>
+      
+    </form>
+  </main>
+  <!-- Floating Chat Icon -->
+  <div class="floating-chat" id="floatingChat">
+    <div class="chat-icon" id="chatIcon">
+      <i class="fas fa-comments"></i>
+      <span class="chat-badge">1</span>
+    </div>
+    <!-- Chat Interface -->
+    <div class="chat-interface" id="chatInterface">
+      <div class="chat-header">
+        <div class="chat-user-info">
+          <img src="assets/profile.png" alt="Seller" class="chat-avatar">
+          <div>
+            <h4>HephAuto Seller</h4>
+            <span class="online-status">Online</span>
+          </div>
+        </div>
+        <button class="close-chat" id="closeChat">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="chat-messages" id="chatMessages">
+        <div class="message seller-message">
+          <div class="message-content">
+            <p>Hi! Welcome to HephAuto. How can I help you today?</p>
+            <span class="message-time">2:30 PM</span>
+          </div>
+        </div>
+      </div>
+      <div class="chat-input">
+        <input type="text" id="messageInput" placeholder="Type your message...">
+        <button id="sendMessage">
+          <i class="fas fa-paper-plane"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+  <script src="https://kit.fontawesome.com/7b2b2a2a7c.js" crossorigin="anonymous"></script>
+  <script>
+    function maskVin(vin) {
+      if (!vin) return '';
+      if (vin.length <= 6) return '*'.repeat(vin.length);
+      return vin.slice(0, vin.length - 6) + '******';
+    }
+    function renderConfirmSummary() {
+      const product = JSON.parse(localStorage.getItem('checkoutProduct') || '{}');
+      const details = JSON.parse(localStorage.getItem('checkoutDetails') || '{}');
+      const payment = JSON.parse(localStorage.getItem('checkoutPayment') || '{}');
+      // Use the total amount from localStorage (includes delivery if selected)
+      const totalAmount = parseInt(localStorage.getItem('checkoutTotal'), 10) || 0;
+      // Get the base vehicle price
+      const vehiclePrice = parseInt((product.price || '').replace(/[^0-9]/g, ''), 10) || 0;
+      const box = document.getElementById('confirmSummaryBox');
+      if (!product || !details || !payment) {
+        box.innerHTML = '<div style="color:#e74c3c;">Order details missing. Please start again.</div>';
+        return;
+      }
+      box.innerHTML = `
+        <div class="pro-summary-flex">
+          <div class="pro-summary-main">
+            <div class="vehicle-title" style="font-size:1.1rem; font-weight:700; color:#1a2233; margin-bottom:2px;">${product.make || ''} ${product.model || ''} ${product.year || ''}</div>
+            <div style="margin-top:10px; color:#555; font-size:0.98em;">
+              <strong>Buyer:</strong> ${details.buyerName || ''} &mdash; ${details.buyerEmail || ''}<br>
+              <strong>Phone:</strong> ${details.buyerPhone || ''}<br>
+              <strong>Delivery:</strong> ${details.deliveryType || ''} on ${details.deliveryDate || ''}<br>
+              <strong>Address:</strong> ${details.buyerAddress || ''}
+            </div>
+            <!-- Price Section -->
+            <div style="margin-top:18px; background:#f8f9fa; border-radius:10px; padding:15px; border-left:4px solid #764ba2;">
+              <h4 style="color:#764ba2; font-size:1.1rem; margin:0 0 10px 0; font-weight:600;">Price Breakdown</h4>
+              <div style="display:flex; justify-content:space-between; margin:5px 0; font-size:0.95rem;">
+                <span>Vehicle Price:</span>
+                <span>₦${vehiclePrice.toLocaleString('en-NG')}</span>
+              </div>
+              ${totalAmount > vehiclePrice ? `
+              <div style="display:flex; justify-content:space-between; margin:5px 0; font-size:0.95rem;">
+                <span>Optional Delivery Cost:</span>
+                <span>₦${(totalAmount - vehiclePrice).toLocaleString('en-NG')}</span>
+              </div>
+              ` : ''}
+              <div style="display:flex; justify-content:space-between; margin:5px 0; font-size:0.95rem; border-top:1px solid #ddd; padding-top:8px; font-weight:600; color:#181c22;">
+                <span>Total Amount:</span>
+                <span style="color:#764ba2; font-size:1.1rem;">₦${totalAmount.toLocaleString('en-NG')}</span>
+              </div>
+            </div>
+            <!-- Download Receipt Button -->
+            <div style="margin-top:24px; text-align:center;">
+              <button id="downloadReceiptBtn" style="background:#764ba2; color:#fff; border:none; border-radius:8px; padding:12px 28px; font-size:1.08em; font-weight:600; cursor:pointer;">
+                <i class="fas fa-download"></i> Download Receipt
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+    renderConfirmSummary();
+    document.getElementById('confirmForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      // Show thank you and clear localStorage
+      document.body.innerHTML = `
+        <main class='checkout-main' style='text-align:center; padding:60px 20px;'>
+          <i class="fas fa-check-circle" style="color: #28a745; font-size: 4rem; margin-bottom: 20px;"></i>
+          <h2 style='color:#0d375e; margin-bottom:15px;'>Purchase Confirmed!</h2>
+          <p style='color:#555; margin-bottom:30px;'>Thank you for your order. A confirmation has been sent to your email.</p>
+          <a href='Heph.html' class='cta-btn primary' style='text-decoration:none;'>Back to Home</a>
+        </main>
+      `;
+      localStorage.removeItem('checkoutDeadline');
+      localStorage.removeItem('checkoutProduct');
+      localStorage.removeItem('checkoutDetails');
+      localStorage.removeItem('checkoutPayment');
+    });
+  </script>
+  <script>
+  function startCheckoutTimer(durationMinutes) {
+    const timerDisplay = document.getElementById('checkoutTimer');
+    if (!timerDisplay) return;
+
+    let deadline = localStorage.getItem('checkoutDeadline');
+    if (!deadline) {
+      timerDisplay.textContent = "00:00";
+      return;
+    }
+
+    const timerInterval = setInterval(() => {
+      const now = new Date().getTime();
+      const distance = deadline - now;
+
+      if (distance < 0) {
+        clearInterval(timerInterval);
+        timerDisplay.textContent = "00:00";
+        alert("Your session has expired. The vehicle is no longer reserved.");
+        // Clear all checkout data when timer expires
+        localStorage.removeItem('checkoutDeadline');
+        localStorage.removeItem('checkoutProduct');
+        localStorage.removeItem('checkoutDetails');
+        localStorage.removeItem('checkoutPayment');
+        localStorage.removeItem('checkoutTotal');
+        window.location.href = 'products.html';
+        return;
+      }
+
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      timerDisplay.textContent =
+        (minutes < 10 ? '0' : '') + minutes + ':' +
+        (seconds < 10 ? '0' : '') + seconds;
+    }, 1000);
+  }
+  startCheckoutTimer(25);
+  </script>
+  <script>
+    // Receipt download logic
+    document.getElementById('downloadReceiptBtn').addEventListener('click', function() {
+      const product = JSON.parse(localStorage.getItem('checkoutProduct') || '{}');
+      const details = JSON.parse(localStorage.getItem('checkoutDetails') || '{}');
+      const checkoutTotal = parseInt(localStorage.getItem('checkoutTotal'), 10) || 0;
+      const date = new Date();
+      const receipt = `RECEIPT\n\nOrder Date: ${date.toLocaleString()}\n\n--- VEHICLE ORDER SUMMARY ---\nMake/Model/Year: ${product.make || ''} ${product.model || ''} ${product.year || ''}\nVIN/Chassis: ${product.vin || ''}\n\n--- BUYER DETAILS ---\nName: ${details.buyerName || ''}\nEmail: ${details.buyerEmail || ''}\nPhone: ${details.buyerPhone || ''}\nAddress: ${details.buyerAddress || ''}\nDelivery: ${details.deliveryType || ''} on ${details.deliveryDate || ''}\n\n--- PRICE BREAKDOWN ---\nVehicle Price: ₦${(checkoutTotal * 0.85).toLocaleString('en-NG')}\nTaxes & Fees: ₦${(checkoutTotal * 0.05).toLocaleString('en-NG')}\nTotal Amount: ₦${checkoutTotal.toLocaleString('en-NG')}\n\nThank you for your purchase!`;
+      const blob = new Blob([receipt], { type: 'text/plain' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = `HephAuto_Receipt_${date.getFullYear()}${(date.getMonth()+1)}${date.getDate()}_${date.getHours()}${date.getMinutes()}.txt`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    });
+  </script>
+
+    <!-- ...existing code... -->
+  <!-- Add jsPDF and html2canvas CDN before your custom scripts, just before </body> -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script>
+    // PDF/Image receipt download logic
+    document.addEventListener('DOMContentLoaded', function() {
+      document.body.addEventListener('click', async function(e) {
+        if (e.target && e.target.id === 'downloadReceiptBtn') {
+          e.preventDefault();
+          // Create a hidden receipt DOM for image/pdf
+          let receiptDiv = document.createElement('div');
+          receiptDiv.style.position = 'fixed';
+          receiptDiv.style.left = '-9999px';
+          receiptDiv.style.top = '0';
+          receiptDiv.style.width = '400px';
+          receiptDiv.style.background = '#fff';
+          receiptDiv.style.color = '#181c1f';
+          receiptDiv.style.fontFamily = 'Inter, Arial, sans-serif';
+          receiptDiv.style.padding = '32px 24px';
+          receiptDiv.style.borderRadius = '16px';
+          receiptDiv.style.boxShadow = '0 4px 24px rgba(0,0,0,0.08)';
+          receiptDiv.innerHTML = `
+            <div style="text-align:center;margin-bottom:18px;">
+              <img src="assets/hephauto.png" alt="HephAuto" style="width:60px;height:60px;border-radius:12px;margin-bottom:8px;">
+              <h2 style="margin:0;font-size:1.4rem;color:#764ba2;">HephAuto Receipt</h2>
+              <div style="font-size:0.98rem;color:#888;">${new Date().toLocaleString()}</div>
+            </div>
+            <hr style="margin:18px 0;">
+            <div style="font-size:1.05rem;font-weight:600;margin-bottom:8px;">Vehicle Order Summary</div>
+            <div style="margin-bottom:10px;">
+              <strong>Make/Model/Year:</strong> ${JSON.parse(localStorage.getItem('checkoutProduct')||'{}').make || ''} ${JSON.parse(localStorage.getItem('checkoutProduct')||'{}').model || ''} ${JSON.parse(localStorage.getItem('checkoutProduct')||'{}').year || ''}
+            </div>
+            <div style="margin-bottom:10px;">
+              <strong>VIN/Chassis:</strong> ${JSON.parse(localStorage.getItem('checkoutProduct')||'{}').vin || ''}
+            </div>
+            <div style="font-size:1.05rem;font-weight:600;margin:18px 0 8px 0;">Buyer Details</div>
+            <div style="margin-bottom:10px;">
+              <strong>Name:</strong> ${JSON.parse(localStorage.getItem('checkoutDetails')||'{}').buyerName || ''}<br>
+              <strong>Email:</strong> ${JSON.parse(localStorage.getItem('checkoutDetails')||'{}').buyerEmail || ''}<br>
+              <strong>Phone:</strong> ${JSON.parse(localStorage.getItem('checkoutDetails')||'{}').buyerPhone || ''}<br>
+              <strong>Address:</strong> ${JSON.parse(localStorage.getItem('checkoutDetails')||'{}').buyerAddress || ''}<br>
+              <strong>Delivery:</strong> ${JSON.parse(localStorage.getItem('checkoutDetails')||'{}').deliveryType || ''} on ${JSON.parse(localStorage.getItem('checkoutDetails')||'{}').deliveryDate || ''}
+            </div>
+            <div style="font-size:1.05rem;font-weight:600;margin:18px 0 8px 0;">Price Breakdown</div>
+            <div>
+              <div style="display:flex;justify-content:space-between;">
+                <span>Vehicle Price:</span>
+                <span>₦${((parseInt(localStorage.getItem('checkoutTotal'),10)||0)*0.85).toLocaleString('en-NG')}</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;">
+                <span>Taxes & Fees:</span>
+                <span>₦${((parseInt(localStorage.getItem('checkoutTotal'),10)||0)*0.05).toLocaleString('en-NG')}</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;font-weight:700;margin-top:8px;">
+                <span>Total Amount:</span>
+                <span style="color:#764ba2;">₦${(parseInt(localStorage.getItem('checkoutTotal'),10)||0).toLocaleString('en-NG')}</span>
+              </div>
+            </div>
+            <hr style="margin:18px 0;">
+            <div style="text-align:center;font-size:1.01rem;color:#555;">Thank you for your purchase!</div>
+          `;
+          document.body.appendChild(receiptDiv);
+  
+          // Use html2canvas to capture the receiptDiv as image
+          const canvas = await html2canvas(receiptDiv, {backgroundColor: "#fff", scale: 2});
+          // Remove the hidden receiptDiv
+          document.body.removeChild(receiptDiv);
+  
+          // Ask user for format
+          if (window.confirm("Download as PDF? Click Cancel for image (PNG).")) {
+            // PDF
+            const imgData = canvas.toDataURL('image/png');
+            const pdf = new window.jspdf.jsPDF({
+              orientation: 'portrait',
+              unit: 'px',
+              format: [420, 600]
+            });
+            pdf.addImage(imgData, 'PNG', 10, 10, 400, 560);
+            const date = new Date();
+            pdf.save(`HephAuto_Receipt_${date.getFullYear()}${(date.getMonth()+1)}${date.getDate()}_${date.getHours()}${date.getMinutes()}.pdf`);
+          } else {
+            // PNG image
+            canvas.toBlob(function(blob) {
+              const date = new Date();
+              const link = document.createElement('a');
+              link.href = URL.createObjectURL(blob);
+              link.download = `HephAuto_Receipt_${date.getFullYear()}${(date.getMonth()+1)}${date.getDate()}_${date.getHours()}${date.getMinutes()}.png`;
+              document.body.appendChild(link);
+              link.click();
+              document.body.removeChild(link);
+            }, 'image/png');
+          }
+        }
+      });
+    });
+  </script>
+  <!-- ...existing code... -->
+
+  <script src="Heph.js"></script>
+</body>
+</html> 

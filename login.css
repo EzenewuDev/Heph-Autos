@@ -1,0 +1,863 @@
+/* =====================
+   Root Variables
+   ===================== */
+:root {
+  /* general */
+  --white: #ffffff;
+  --bg: #f8f8ff;
+  --primary: #1c2035;
+  --secondary: #1d1d1d;
+  --text: #ffffff;
+  --gradient-primary: var(--primary);
+  --gradient-secondary: #a849f0;
+
+  /* text colors */
+  --headline-text-color: #1c2035;
+  --sub-headine-text-color: #4a5160;
+  --line-text-color: #9cacc6;
+  --text-actions-color: #383d68;
+  --action-link-color: var(--primary);
+  --remember-me-color: #1f2346;
+
+  /* input field colors */
+  --input-label-color: #303651;
+  --input-border-color: #c7cbd8;
+  --input-icon: #697089;
+  --input-placeholder: #a3a885;
+  --border: #9cacc6;
+
+  /* social media button colors */
+  --socials-bg: #f0f0f033;
+  --socials-border: #ccccccb2;
+  --socials-text: #1f2346;
+}
+
+/* =====================
+   CSS Reset
+   ===================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Custom text selection color */
+*::selection {
+  background: var(--primary);
+  color: var(--white);
+}
+
+/* =====================
+   Body Styling
+   ===================== */
+body {
+  font-size: 16px;
+  font-family: 'Manrope', sans-serif;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+}
+
+/* =====================
+   Login Page Header
+   ===================== */
+.login-page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.login-page-header .logo a {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.login-page-header .logo h1 {
+  color: #1a1a1a;
+  font-weight: 700;
+  font-size: 24px;
+  margin: 0;
+  background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  transition: all 0.3s ease;
+}
+
+/* Logo image styles for login page */
+.login-page-header .logo-image {
+  height: 83px;
+  width: auto;
+  max-width: 403px;
+  object-fit: contain;
+  transition: all 0.3s ease;
+  display: block;
+  vertical-align: middle;
+}
+
+.login-page-header .logo a:hover .logo-image {
+  transform: scale(1.05);
+}
+
+/* Responsive logo styles for login page */
+@media (max-width: 768px) {
+  .login-page-header .logo-image {
+    height: 73px;
+    max-width: 353px;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-page-header .logo-image {
+    height: 73px;
+    max-width: 303px;
+  }
+}
+
+.login-page-header .logo a:hover h1 {
+  background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  transform: scale(1.05);
+}
+
+.header-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.header-login-btn, .header-signup-btn {
+  padding: 10px 24px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 700;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.header-login-btn::before, .header-signup-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+  transition: left 0.3s ease;
+  z-index: -1;
+}
+
+.header-login-btn:hover::before, .header-signup-btn:hover::before {
+  left: 0;
+}
+
+.header-login-btn {
+  background: transparent;
+  color: #1a1a1a;
+  border-color: rgba(26, 26, 26, 0.2);
+}
+
+.header-login-btn:hover {
+  background: rgba(26, 26, 26, 0.05);
+  border-color: rgba(26, 26, 26, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  color: #fff;
+}
+
+.header-signup-btn {
+  background: #000000;
+  color: white;
+  border-color: transparent;
+}
+
+.header-signup-btn:hover {
+  background: linear-gradient(135deg, #f7931e 0%, #ff6b35 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(255, 107, 53, 0.3);
+  color: white;
+}
+
+/* =====================
+   Main Container
+   ===================== */
+main {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+/* =====================
+   Welcome Section
+   ===================== */
+.login-welcome-row {
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+}
+
+.login-welcome-title {
+  display: flex;
+  gap: 0.5rem;
+  font-size: 1.3rem;
+  line-height: 1.1rem;
+  letter-spacing: 2%;
+  font-weight: 800;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 0.15rem;
+  justify-content: center;
+  color: #1a2233;
+}
+
+.login-welcome-subtitle {
+  display: flex;
+  gap: 0.5rem;
+  font-size: 1.1rem;
+  line-height: 1.5rem;
+  letter-spacing: 1%;
+  font-weight: 500;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 0.15rem;
+  justify-content: center;
+  color: #4a5568;
+}
+
+/* =====================
+   Divider Lines
+   ===================== */
+.lines {
+  margin: 1rem;
+  margin-bottom: 1rem;
+  display: flex;
+  gap: 1rem;
+  height: 1.5rem;
+  font-weight: 600;
+  line-height: 1.5rem;
+  font-size: 0.8125rem;
+  align-items: center;
+  color: #6b7280;
+}
+
+.line {
+  height: 1px;
+  flex: 1;
+  background: #d1d5db;
+}
+
+/* =====================
+   Login Form
+   ===================== */
+.my-form {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 28rem;
+  padding: 50px;
+  border-radius: 1.5rem;
+  margin: 0 auto;
+  color: #1a2233;
+}
+
+/* Login button styling */
+.my-form_button {
+  background: #1a2233;
+  color: #fff;
+  border: none;
+  border-radius: 32px !important;
+  font-size: 1.125rem;
+  font-weight: 600;
+  width: 100%;
+  min-height: 3rem;
+  margin-top: 1rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
+}
+
+.my-form_button:hover, .my-form_button:focus {
+  background: #151a2a;
+  box-shadow: 0 8px 25px rgba(26, 34, 51, 0.10);
+  transform: translateY(-2px) scale(1.01);
+}
+
+/* =====================
+   Form Actions
+   ===================== */
+.my-form_actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  width: 100%;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  font-weight: 500;
+  font-size: 0.875rem;
+}
+
+.my-form_actions .remember-me {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.my-form_actions .forgot-password {
+  margin: 0;
+  white-space: nowrap;
+}
+
+.my-form_actions a {
+  color: var(--headline-text-color);
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 100%;
+  letter-spacing: 1%;
+  text-decoration: underline;
+  transition: color .3s ease;
+}
+
+.my-form_actions a:hover {
+  color: #ff6b35;
+  transform: translateX(5px);
+}
+
+/* =====================
+   Social Login Section
+   ===================== */
+.socials-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.socials-row img {
+  width: 1.25rem;
+  height: 1.25rem;
+  object-fit: contain;
+}
+
+.socials-row > a {
+  width: 100%;
+  min-height: 3rem;
+  gap: 0.35rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  text-decoration: none;
+  font-size: 0.875rem;
+  color: #4a5568;
+  border: 1px solid #d1d5db;
+  background: #ffffff;
+  border-radius: 0.5rem;
+  transition: all .3s ease;
+  font-weight: 600;
+}
+
+.socials-row > a:hover {
+  background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(255, 107, 53, 0.3);
+}
+
+/* =====================
+   Form Fields
+   ===================== */
+.my-form_fields {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* Input field styling */
+.text-field input {
+  font-size: 1rem;
+  font-weight: 500;
+  max-width: 100%;
+  width: 100%;
+  height: 3rem;
+  letter-spacing: .03rem;
+  border: 1px solid #d1d5db;
+  background: #ffffff;
+  outline: none;
+  transition: .25s;
+  border-radius: 0.5rem;
+  margin-top: 0.5rem;
+  padding-left: 2.5rem;
+  color: #1a2233;
+}
+
+.text-field input::placeholder {
+  color: #9ca3af;
+}
+
+/* Input field focus states */
+.text-field label:focus-within {
+  color: #ff6b35;
+}
+
+.text-field label:focus-within img {
+  filter: brightness(0) saturate(100%) invert(36%) sepia(98%) saturate(749%) hue-rotate(199deg) brightness(97%) contrast(101%);
+}
+
+.text-field {
+  position: relative;
+  margin-top: 0.5rem;
+}
+
+/* Input field icons */
+.text-field img {
+  position: absolute;
+  left: 1.35rem;
+  bottom: -0.125rem;
+  width: 1.75rem;
+  height: 1.75rem;
+  stroke: #6b7280;
+  transform: translate(-50%, -50%);
+  transform-origin: center;
+}
+
+/* Font Awesome input icons */
+.text-field .input-icon {
+  position: absolute;
+  left: 0.75rem;
+  top: 70%;
+  transform: translateY(-50%);
+  font-size: 1rem;
+  color: transparent;
+  -webkit-text-stroke: 1px #6b7280;
+  z-index: 1;
+  transition: all 0.25s ease;
+  pointer-events: none;
+}
+
+
+
+.text-field input:focus {
+  border-color: #ff6b35;
+  box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
+}
+
+/* =====================
+   Remember Me Checkbox
+   ===================== */
+.remember-me {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  margin-left: 0.15rem;
+  color: #4a5568;
+  font-weight: 600;
+}
+
+.remember-me input {
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 0.25rem;
+  border: 1px solid #d1d5db;
+}
+
+/* =====================
+   Forgot Password Link
+   ===================== */
+.forgot-password {
+  display: flex;
+  justify-content: space-between;
+  color: var(--headline-text-color);
+  text-decoration: none;
+  transition: color .3s ease;
+}
+
+.forgot-password:hover {
+  color: #ff6b35;
+  transform: translateX(5px);
+}
+
+/* =====================
+   Password Visibility Toggle
+   ===================== */
+#toggle-password {
+  position: absolute;
+  right: 1rem;
+  top: 73%;
+  transform: translateY(-50%);
+  font-size: 1.1rem;
+  cursor: pointer;
+  z-index: 2;
+  margin-left: auto;
+  color: #6b7280;
+  transition: none;
+}
+
+#toggle-password:hover {
+  color: #6b7280;
+  transform: translateY(-50%);
+}
+
+/* Remove old image-based styling */
+.password-toggle-icon {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1.5rem;
+  height: 1.5rem;
+  cursor: pointer;
+  z-index: 2;
+  filter: brightness(0) saturate(100%) invert(45%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(0%) contrast(0%);
+}
+
+/* ===== FLOATING CHAT STYLES ===== */
+.floating-chat {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  z-index: 10010;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.chat-icon {
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.13);
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  transition: box-shadow 0.2s, background 0.2s;
+}
+.chat-icon:hover {
+  box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+  background: #f8f9fa;
+}
+.chat-icon i {
+  font-size: 2rem;
+  color: #007bff;
+}
+.chat-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #ff6b35;
+  color: #fff;
+  font-size: 0.85rem;
+  border-radius: 50%;
+  padding: 2px 7px;
+  font-weight: 700;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.chat-interface {
+  display: none;
+  flex-direction: column;
+  position: absolute;
+  bottom: 70px;
+  right: 0;
+  width: 340px;
+  max-width: 95vw;
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  overflow: hidden;
+  z-index: 10011;
+  animation: fadeInUp 0.25s;
+}
+.chat-interface.active {
+  display: flex;
+}
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.chat-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #f8f9fa;
+  padding: 16px 18px 12px 18px;
+  border-bottom: 1px solid #eee;
+}
+.chat-user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.chat-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #007bff;
+}
+.chat-user-info h4 {
+  margin: 0;
+  font-size: 1.08rem;
+  font-weight: 700;
+  color: #222;
+}
+.online-status {
+  color: #28a745;
+  font-size: 0.92rem;
+  font-weight: 500;
+}
+.close-chat {
+  background: none;
+  border: none;
+  color: #888;
+  font-size: 1.3rem;
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 50%;
+  transition: background 0.2s;
+}
+.close-chat:hover {
+  background: #eee;
+  color: #ff6b35;
+}
+
+.chat-messages {
+  flex: 1;
+  padding: 16px 18px 10px 18px;
+  background: #f6f8fa;
+  overflow-y: auto;
+  max-height: 260px;
+  min-height: 90px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.message {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.seller-message .message-content {
+  background: #e8f0fe;
+  color: #222;
+  align-self: flex-start;
+}
+.buyer-message .message-content {
+  background: #007bff;
+  color: #fff;
+  align-self: flex-end;
+}
+.message-content {
+  padding: 10px 16px;
+  border-radius: 16px;
+  margin-bottom: 2px;
+  font-size: 1rem;
+  max-width: 80%;
+  word-break: break-word;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+.message-time {
+  font-size: 0.82rem;
+  color: #888;
+  margin-left: 4px;
+}
+
+.chat-input {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  background: #fff;
+  border-top: 1px solid #eee;
+  gap: 8px;
+}
+.chat-input input {
+  flex: 1;
+  border: 1px solid #ddd;
+  border-radius: 16px;
+  padding: 10px 14px;
+  font-size: 1rem;
+  outline: none;
+  transition: border 0.2s;
+}
+.chat-input input:focus {
+  border: 1.5px solid #007bff;
+}
+.chat-input button {
+  background: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.chat-input button:hover {
+  background: #0056b3;
+}
+
+@media (max-width: 600px) {
+  .floating-chat {
+    right: 10px;
+    bottom: 10px;
+  }
+  .chat-interface {
+    width: 98vw;
+    min-width: 0;
+    right: 0;
+    left: 0;
+    margin: 0 auto;
+    border-radius: 12px;
+  }
+}
+
+.divider-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 28px 0 18px 0;
+}
+.divider-row hr {
+  flex: 1;
+  border: none;
+  border-top: 1.5px solid #e0e0e0;
+}
+.divider-row span {
+  color: #888;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.social-signup-row {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 0;
+  margin-top: 0;
+}
+
+.social-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  font-size: 1.08rem;
+  font-weight: 600;
+  border-radius: 32px;
+  padding: 13px 0;
+  width: 100%;
+  border: 1.5px solid #e0e0e0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s, border 0.2s, transform 0.15s;
+  outline: none;
+  margin: 0 auto;
+  letter-spacing: 0.01em;
+  background: #fff;
+  color: #222;
+}
+
+.social-btn i {
+  font-size: 1.3em;
+  margin-right: 10px;
+}
+
+.google-btn {
+  background: #fff;
+  color: #1a73e8;
+  border: 1.5px solid #1a73e8;
+}
+.google-btn i {
+  color: #ea4335;
+}
+.google-btn:hover, .google-btn:focus {
+  background: #e8f0fe;
+  color: #174ea6;
+  border-color: #174ea6;
+  box-shadow: 0 4px 16px rgba(26,115,232,0.10);
+  transform: translateY(-2px) scale(1.02);
+}
+
+.apple-btn {
+  background: #000;
+  color: #fff;
+  border: none;
+  border-radius: 32px;
+  font-weight: 600;
+  font-size: 1.08rem;
+  padding: 13px 0;
+  width: 100%;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
+  margin: 0 auto;
+  letter-spacing: 0.01em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.apple-btn i {
+  color: #fff;
+}
+
+.apple-btn:hover, .apple-btn:focus {
+  background: #222;
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+  transform: translateY(-2px) scale(1.02);
+}
+
+@media (max-width: 600px) {
+  .divider-row {
+    margin: 18px 0 12px 0;
+  }
+  .social-btn {
+    font-size: 1rem;
+    padding: 12px 0;
+  }
+  .social-signup-row {
+    gap: 10px;
+  }
+}
+
+
+

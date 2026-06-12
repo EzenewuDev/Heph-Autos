@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout Details - HephAuto</title>
+    <link rel="stylesheet" href="Heph.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+     <!-- Favicon for browser tab and localhost section -->
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/hephauto.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="assets/hephauto.png">
+  <link rel="shortcut icon" type="image/png" href="assets/hephauto.png">
+<body>
+    <main class="checkout-main multi-step-checkout">
+        <div class="checkout-progress">
+            <div class="progress-step active">1. Details</div>
+            <div class="progress-bar"></div>
+            <div class="progress-step">2. Payment</div>
+            <div class="progress-bar"></div>
+            <div class="progress-step">3. Confirm</div>
+        </div>
+
+        <form class="checkout-form" id="checkoutForm" autocomplete="off">
+            <!-- Buyer Information Section -->
+            <section class="checkout-section buyer-info">
+                <h2>Buyer Information</h2>
+                <div class="checkout-timer-banner">
+                    We've reserved your vehicle. Please complete checkout within <span id="checkoutTimer">25:00</span> to secure your purchase.
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="firstName">First Name *</label>
+                        <input type="text" id="firstName" name="firstName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName">Last Name *</label>
+                        <input type="text" id="lastName" name="lastName" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="email">Email Address *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number *</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="buyerAddress">Street Address</label>
+                        <input type="text" id="buyerAddress" name="buyerAddress" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="buyerGender">Gender</label>
+                        <select id="buyerGender" name="buyerGender" required>
+                            <option value="">Select Gender</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Prefer not to say">Prefer not to say</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="city">City *</label>
+                        <input type="text" id="city" name="city" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="state">State *</label>
+                        <select id="state" name="state" required>
+                            <option value="">Select State</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="zipCode">ZIP Code *</label>
+                        <input type="text" id="zipCode" name="zipCode" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="country">Country *</label>
+                        <select id="country" name="country" required>
+                            <option value="">Select Country</option>
+                            <option value="Nigeria" selected>Nigeria</option>
+                            <option value="Ghana">Ghana</option>
+                            <option value="Kenya">Kenya</option>
+                            <option value="South Africa">South Africa</option>
+                        </select>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Delivery Options Section -->
+            <section class="checkout-section delivery-options">
+                <h2>Delivery Options</h2>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="deliveryType">Delivery Type *</label>
+                        <select id="deliveryType" name="deliveryType" required>
+                            <option value="">Select Delivery Type</option>
+                            <option value="standard">Standard Delivery (5-7 days)</option>
+                            <option value="express">Express Delivery (2-3 days)</option>
+                            <option value="pickup">Pickup from Dealership</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="deliveryDate">Preferred Delivery Date *</label>
+                        <input type="date" id="deliveryDate" name="deliveryDate" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="deliveryTime">Preferred Time *</label>
+                        <select id="deliveryTime" name="deliveryTime" required>
+                            <option value="">Select Time</option>
+                            <option value="morning">Morning (9:00 AM - 12:00 PM)</option>
+                            <option value="afternoon">Afternoon (12:00 PM - 3:00 PM)</option>
+                            <option value="evening">Evening (3:00 PM - 6:00 PM)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="specialInstructions">Special Instructions</label>
+                        <textarea id="specialInstructions" name="specialInstructions" rows="3" placeholder="Any special delivery instructions..."></textarea>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Order Summary Section -->
+            <section class="checkout-section order-summary pro-summary-box">
+                <h2>Order Summary</h2>
+                <p class="checkout-subheading">Review your vehicle details and pricing</p>
+                
+                <div class="pro-summary-flex">
+                    <div class="pro-summary-image">
+                        <img id="vehicleImage" src="" alt="Vehicle" class="order-vehicle-img">
+                    </div>
+                    <div class="pro-summary-main">
+                        <h3 id="vehicleTitle" class="vehicle-title">Vehicle Details</h3>
+                        <p class="vehicle-vin">VIN: <span id="maskedVin">-</span></p>
+                        
+                        <h4 class="vehicle-details-heading">Vehicle Specifications</h4>
+                        <ul class="pro-details-grid" id="vehicleDetailsList">
+                            <li><strong>Make:</strong> <span id="vehicleMake">-</span></li>
+                            <li><strong>Model:</strong> <span id="vehicleModel">-</span></li>
+                            <li><strong>Year:</strong> <span id="vehicleYear">-</span></li>
+                            <li><strong>Color:</strong> <span id="vehicleColor">-</span></li>
+                            <li><strong>Transmission:</strong> <span id="vehicleTransmission">-</span></li>
+                            <li><strong>Fuel Type:</strong> <span id="vehicleFuel">-</span></li>
+                            <li><strong>Drivetrain:</strong> <span id="vehicleDrivetrain">-</span></li>
+                            <li><strong>Seats:</strong> <span id="vehicleSeats">-</span></li>
+                            <li><strong>Engine Size:</strong> <span id="vehicleEngine">-</span></li>
+                            <li><strong>Horsepower:</strong> <span id="vehicleHorsepower">-</span></li>
+                            <li><strong>Condition:</strong> <span id="vehicleCondition">-</span></li>
+                            <li><strong>Mileage:</strong> <span id="vehicleMileage">-</span></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="order-price-breakdown">
+                    <h3>Price Breakdown</h3>
+                    <div class="price-row">
+                        <span>Vehicle Price:</span>
+                        <span id="basePrice">₦0</span>
+                    </div>
+                    <div class="price-row">
+                        <span>Taxes & Fees:</span>
+                        <span id="taxes">₦0</span>
+                    </div>
+                    <div class="price-row">
+                        <span>Optional Delivery Cost <span style='color:#888; font-size:0.95em;'>(optional)</span>:</span>
+                        <span id="delivery">₦0</span>
+                    </div>
+                    <div class="price-row" id="additionalServicesRow" style="display: none;">
+                        <span>Additional Services:</span>
+                        <span id="additionalServicesCost">₦0</span>
+                    </div>
+                    <div class="price-row">
+                        <span>Discount:</span>
+                        <span id="discount">-₦0</span>
+                    </div>
+                    <div class="price-row total">
+                        <span>Total Amount:</span>
+                        <span id="totalPrice">₦0</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Trade-in & Discount Section -->
+            <section class="checkout-section tradein-discount">
+                <h2>Trade-in & Discounts</h2>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="hasTradeIn">Do you have a trade-in vehicle?</label>
+                        <select id="hasTradeIn" name="hasTradeIn">
+                            <option value="no">No</option>
+                            <option value="yes">Yes</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="tradeInValue">Estimated Trade-in Value</label>
+                        <input type="text" id="tradeInValue" name="tradeInValue" placeholder="₦0" disabled>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="promoCode">Promo Code</label>
+                        <input type="text" id="promoCode" name="promoCode" placeholder="Enter promo code">
+                    </div>
+                    <div class="form-group">
+                        <button type="button" id="applyPromo" style="margin-top: 25px; padding: 10px 20px; background: #667eea; color: white; border: none; border-radius: 5px; cursor: pointer;">Apply Code</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Add-ons Section -->
+            <section class="checkout-section add-ons">
+                <h2>Additional Services</h2>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" name="extendedWarranty" value="yes">
+                            Extended Warranty (+₦500,000)
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" name="insurance" value="yes">
+                            Comprehensive Insurance (+₦300,000)
+                        </label>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" name="maintenance" value="yes">
+                            Maintenance Package (+₦200,000)
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" name="detailing" value="yes">
+                            Professional Detailing (+₦50,000)
+                        </label>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Terms and Conditions Section -->
+            <section class="checkout-section terms-conditions">
+                <h2>Terms & Conditions</h2>
+                <div class="terms-box">
+                    <label>
+                        <input type="checkbox" id="agreeTerms" required>
+                        I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
+                    </label>
+                </div>
+                <div class="terms-box">
+                    <label>
+                        <input type="checkbox" id="agreeMarketing" name="marketing">
+                        I agree to receive marketing communications from HephAuto
+                    </label>
+                </div>
+            </section>
+
+            <!-- Final Review Section -->
+            <section class="checkout-section final-review">
+                <h2>Final Review</h2>
+                <div class="final-price">
+                    <h3>Total Amount: <span id="finalPriceDisplay">₦0</span></h3>
+                </div>
+                
+                <div class="final-action-card">
+                    <button type="button" class="cta-btn primary" id="proceedToPaymentBtn" style="text-align: center; width: 100%; max-width: 400px; text-decoration: none; height: 100%; border-radius: 50px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #fff; border: none; cursor: pointer;">
+                        <i class="fas fa-lock"></i>
+                        Complete Purchase</button>
+                    <p class="privacy-note">
+                        <i class="fas fa-shield-alt"></i> Your payment information is secure and encrypted
+                    </p>
+                    
+                    <!-- Payment Method Logos -->
+                    <div class="payment-logos">
+                        <div class="payment-logo">
+                            <svg width="40" height="25" viewBox="0 0 40 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect width="40" height="25" rx="4" fill="#1A1F71"/>
+                                <path d="M16 8h8v2h-8V8zm0 4h6v2h-6v-2zm-2 4h10v2H14v-2z" fill="white"/>
+                            </svg>
+                            <span>Visa</span>
+                        </div>
+                        <div class="payment-logo">
+                            <svg width="40" height="25" viewBox="0 0 40 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect width="40" height="25" rx="4" fill="#EB001B"/>
+                                <path d="M20 12.5c0-2.76 2.24-5 5-5s5 2.24 5 5-2.24 5-5 5-5-2.24-5-5z" fill="white"/>
+                                <path d="M10 12.5c0-2.76 2.24-5 5-5s5 2.24 5 5-2.24 5-5 5-5-2.24-5-5z" fill="#F79E1B"/>
+                            </svg>
+                            <span>Mastercard</span>
+                        </div>
+
+                        <div class="payment-logo">
+                            <svg width="40" height="25" viewBox="0 0 40 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect width="40" height="25" rx="4" fill="#003087"/>
+                                <path d="M12 8h16v2H12V8zm0 4h16v2H12v-2zm0 4h16v2H12v-2z" fill="white"/>
+                                <path d="M8 8h2v9H8V8z" fill="#009CDE"/>
+                            </svg>
+                            <span>PayPal</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </form>
+    </main>
+
+    <!-- Floating Chat Icon -->
+    <div class="floating-chat" id="floatingChat">
+      <div class="chat-icon" id="chatIcon">
+        <i class="fas fa-comments"></i>
+        <span class="chat-badge">1</span>
+      </div>
+      <!-- Chat Interface -->
+      <div class="chat-interface" id="chatInterface">
+        <div class="chat-header">
+          <div class="chat-user-info">
+            <img src="assets/profile.png" alt="Seller" class="chat-avatar">
+            <div>
+              <h4>HephAuto Seller</h4>
+              <span class="online-status">Online</span>
+            </div>
+          </div>
+          <button class="close-chat" id="closeChat">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="chat-messages" id="chatMessages">
+          <div class="message seller-message">
+            <div class="message-content">
+              <p>Hi! Welcome to HephAuto. How can I help you today?</p>
+              <span class="message-time">2:30 PM</span>
+            </div>
+          </div>
+        </div>
+        <div class="chat-input">
+          <input type="text" id="messageInput" placeholder="Type your message...">
+          <button id="sendMessage">
+            <i class="fas fa-paper-plane"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <script src=""></script>
+    <script>
+        // Load product data from localStorage
+        document.addEventListener('DOMContentLoaded', function() {
+            const productData = localStorage.getItem('checkoutProduct');
+            if (productData) {
+                try {
+                    const product = JSON.parse(productData);
+                    
+                    // Update vehicle image
+                    const vehicleImage = document.getElementById('vehicleImage');
+                    if (vehicleImage && product.image) {
+                        vehicleImage.src = product.image;
+                    }
+                    
+                    // Update vehicle title
+                    const vehicleTitle = document.getElementById('vehicleTitle');
+                    if (vehicleTitle) {
+                        vehicleTitle.textContent = `${product.make || ''} ${product.model || ''} ${product.year || ''}`.trim();
+                    }
+                    
+                    // Update vehicle details
+                    document.getElementById('vehicleMake').textContent = product.make || 'N/A';
+                    document.getElementById('vehicleModel').textContent = product.model || 'N/A';
+                    document.getElementById('vehicleYear').textContent = product.year || 'N/A';
+                    document.getElementById('vehicleColor').textContent = product.color || 'N/A';
+                    document.getElementById('vehicleTransmission').textContent = product.transmission || 'N/A';
+                    document.getElementById('vehicleFuel').textContent = product.fuel || 'N/A';
+                    document.getElementById('vehicleDrivetrain').textContent = product.drivetrain || 'N/A';
+                    document.getElementById('vehicleSeats').textContent = product.seats || 'N/A';
+                    document.getElementById('vehicleEngine').textContent = product.engineSize ? `${product.engineSize} cc` : 'N/A';
+                    document.getElementById('vehicleHorsepower').textContent = product.horsepower || 'N/A';
+                    document.getElementById('vehicleCondition').textContent = product.condition || 'N/A';
+                    document.getElementById('vehicleMileage').textContent = product.mileage ? `${product.mileage} km` : 'N/A';
+                    
+                    // Mask VIN for security
+                    const vin = product.vin || '';
+                    const maskedVin = vin.length > 6 ? vin.slice(0, vin.length - 6) + '******' : '*'.repeat(vin.length);
+                    document.getElementById('maskedVin').textContent = maskedVin;
+                    
+                    // Get the vehicle price from the product object
+                    const vehiclePrice = parseInt((product.price || '').replace(/[^0-9]/g, ''), 10) || 0;
+                    // Get the total amount from localStorage (includes delivery if selected)
+                    const totalAmount = parseInt(localStorage.getItem('checkoutTotal'), 10) || vehiclePrice;
+                    // Display the price in the summary
+                    document.getElementById('basePrice').textContent = '₦' + vehiclePrice.toLocaleString('en-NG');
+                    document.getElementById('totalPrice').textContent = '₦' + totalAmount.toLocaleString('en-NG');
+                    document.getElementById('taxes').textContent = '₦0';
+                    // Show delivery cost if it was added
+                    const deliveryCost = totalAmount - vehiclePrice;
+                    document.getElementById('delivery').textContent = deliveryCost > 0 ? '₦' + deliveryCost.toLocaleString('en-NG') : '₦0';
+                    document.getElementById('discount').textContent = '-₦0';
+                    document.getElementById('finalPriceDisplay').textContent = '₦' + totalAmount.toLocaleString('en-NG');
+                    // Keep checkoutTotal in sync for the next steps
+                    localStorage.setItem('checkoutTotal', totalAmount);
+                    
+                    // Handle additional services checkboxes
+                    const additionalServices = {
+                      extendedWarranty: { cost: 500000, name: 'Extended Warranty' },
+                      insurance: { cost: 350000, name: 'Comprehensive Insurance' },
+                      maintenance: { cost: 200000, name: 'Maintenance Package' },
+                      detailing: { cost: 50000, name: 'Professional Detailing' }
+                    };
+                    
+                    function updateTotalAmount() {
+                       let newTotal = vehiclePrice + deliveryCost;
+                       let additionalCosts = 0;
+                       
+                       // Add costs for checked services
+                       Object.keys(additionalServices).forEach(serviceKey => {
+                         const checkbox = document.querySelector(`input[name="${serviceKey}"]`);
+                         if (checkbox && checkbox.checked) {
+                           newTotal += additionalServices[serviceKey].cost;
+                           additionalCosts += additionalServices[serviceKey].cost;
+                         }
+                       });
+                       
+                       // Update displays
+                       document.getElementById('totalPrice').textContent = '₦' + newTotal.toLocaleString('en-NG');
+                       document.getElementById('finalPriceDisplay').textContent = '₦' + newTotal.toLocaleString('en-NG');
+                       
+                       // Update additional services display
+                       const additionalServicesRow = document.getElementById('additionalServicesRow');
+                       const additionalServicesCost = document.getElementById('additionalServicesCost');
+                       
+                       if (additionalCosts > 0) {
+                         additionalServicesRow.style.display = 'flex';
+                         additionalServicesCost.textContent = '₦' + additionalCosts.toLocaleString('en-NG');
+                       } else {
+                         additionalServicesRow.style.display = 'none';
+                         additionalServicesCost.textContent = '₦0';
+                       }
+                       
+                       // Update localStorage
+                       localStorage.setItem('checkoutTotal', newTotal);
+                    }
+                    
+                    // Add event listeners to additional services checkboxes
+                    Object.keys(additionalServices).forEach(serviceKey => {
+                      const checkbox = document.querySelector(`input[name="${serviceKey}"]`);
+                      if (checkbox) {
+                        checkbox.addEventListener('change', updateTotalAmount);
+                      }
+                    });
+                    
+                    // Clean up localStorage
+                    localStorage.removeItem('checkoutProduct');
+                    
+                } catch (error) {
+                    console.error('Error parsing product data:', error);
+                    // Show fallback content
+                    document.getElementById('vehicleTitle').textContent = 'Vehicle Details';
+                    document.getElementById('basePrice').textContent = '₦0';
+                    document.getElementById('totalPrice').textContent = '₦0';
+                    document.getElementById('finalPriceDisplay').textContent = '₦0';
+                }
+            } else {
+                // No product data found, show fallback
+                document.getElementById('vehicleTitle').textContent = 'Vehicle Details';
+                document.getElementById('basePrice').textContent = '₦0';
+                document.getElementById('totalPrice').textContent = '₦0';
+                document.getElementById('finalPriceDisplay').textContent = '₦0';
+            }
+
+            // Set minimum delivery date to today
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('deliveryDate').min = today;
+
+            // Trade-in functionality
+            const hasTradeIn = document.getElementById('hasTradeIn');
+            const tradeInValue = document.getElementById('tradeInValue');
+            
+            hasTradeIn.addEventListener('change', function() {
+                if (this.value === 'yes') {
+                    tradeInValue.disabled = false;
+                    tradeInValue.focus();
+                } else {
+                    tradeInValue.disabled = true;
+                    tradeInValue.value = '';
+                }
+            });
+
+            // Promo code functionality
+            document.getElementById('applyPromo').addEventListener('click', function() {
+                const promoCode = document.getElementById('promoCode').value;
+                if (promoCode.toLowerCase() === 'welcome10') {
+                    alert('Promo code applied! 10% discount added.');
+                    // Update pricing logic here
+                } else {
+                    alert('Invalid promo code. Please try again.');
+                }
+            });
+        });
+
+        // Save form data to localStorage as user types
+        function saveFormData() {
+            const formData = {
+                firstName: document.getElementById('firstName').value,
+                lastName: document.getElementById('lastName').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                address: document.getElementById('buyerAddress').value,
+                gender: document.getElementById('buyerGender').value,
+                city: document.getElementById('city').value,
+                state: document.getElementById('state').value,
+                zipCode: document.getElementById('zipCode').value,
+                country: document.getElementById('country').value,
+                deliveryType: document.getElementById('deliveryType').value,
+                deliveryDate: document.getElementById('deliveryDate').value,
+                deliveryTime: document.getElementById('deliveryTime').value,
+                specialInstructions: document.getElementById('specialInstructions').value,
+                hasTradeIn: document.getElementById('hasTradeIn').value,
+                tradeInValue: document.getElementById('tradeInValue').value,
+                promoCode: document.getElementById('promoCode').value,
+                extendedWarranty: document.querySelector('input[name="extendedWarranty"]').checked,
+                insurance: document.querySelector('input[name="insurance"]').checked,
+                maintenance: document.querySelector('input[name="maintenance"]').checked,
+                detailing: document.querySelector('input[name="detailing"]').checked,
+                agreeTerms: document.getElementById('agreeTerms').checked,
+                agreeMarketing: document.getElementById('agreeMarketing').checked
+            };
+            localStorage.setItem('checkoutDetails', JSON.stringify(formData));
+        }
+
+        // Load form data from localStorage
+        function loadFormData() {
+            const savedData = localStorage.getItem('checkoutDetails');
+            if (savedData) {
+                try {
+                    const formData = JSON.parse(savedData);
+                    
+                    // Restore form fields
+                    document.getElementById('firstName').value = formData.firstName || '';
+                    document.getElementById('lastName').value = formData.lastName || '';
+                    document.getElementById('email').value = formData.email || '';
+                    document.getElementById('phone').value = formData.phone || '';
+                    document.getElementById('buyerAddress').value = formData.address || '';
+                    document.getElementById('buyerGender').value = formData.gender || '';
+                    document.getElementById('city').value = formData.city || '';
+                    document.getElementById('state').value = formData.state || '';
+                    document.getElementById('zipCode').value = formData.zipCode || '';
+                    document.getElementById('country').value = formData.country || 'Nigeria';
+                    document.getElementById('deliveryType').value = formData.deliveryType || '';
+                    document.getElementById('deliveryDate').value = formData.deliveryDate || '';
+                    document.getElementById('deliveryTime').value = formData.deliveryTime || '';
+                    document.getElementById('specialInstructions').value = formData.specialInstructions || '';
+                    document.getElementById('hasTradeIn').value = formData.hasTradeIn || 'no';
+                    document.getElementById('tradeInValue').value = formData.tradeInValue || '';
+                    document.getElementById('promoCode').value = formData.promoCode || '';
+                    
+                    // Restore checkboxes
+                    document.querySelector('input[name="extendedWarranty"]').checked = formData.extendedWarranty || false;
+                    document.querySelector('input[name="insurance"]').checked = formData.insurance || false;
+                    document.querySelector('input[name="maintenance"]').checked = formData.maintenance || false;
+                    document.querySelector('input[name="detailing"]').checked = formData.detailing || false;
+                    document.getElementById('agreeTerms').checked = formData.agreeTerms || false;
+                    document.getElementById('agreeMarketing').checked = formData.agreeMarketing || false;
+                    
+                    // Update trade-in field state
+                    if (formData.hasTradeIn === 'yes') {
+                        document.getElementById('tradeInValue').disabled = false;
+                    }
+                    
+                    // Update country and state dropdowns
+                    if (formData.country) {
+                        populateStates(formData.country);
+                        document.getElementById('state').value = formData.state || '';
+                    }
+                } catch (error) {
+                    console.error('Error loading form data:', error);
+                }
+            }
+        }
+
+        // Add event listeners to save form data as user types
+        const formInputs = document.querySelectorAll('#checkoutForm input, #checkoutForm select, #checkoutForm textarea');
+        formInputs.forEach(input => {
+            input.addEventListener('input', saveFormData);
+            input.addEventListener('change', saveFormData);
+        });
+
+        // Load form data when page loads
+        loadFormData();
+
+        // Handle "Complete Purchase" button click
+        document.getElementById('proceedToPaymentBtn').addEventListener('click', function() {
+            if (!document.getElementById('agreeTerms').checked) {
+                alert('Please agree to the Terms & Conditions to proceed.');
+                return;
+            }
+            
+            // Save final form data before proceeding
+            saveFormData();
+            
+            // Redirect to payment page
+            window.location.href = 'CheckoutPayment.html';
+        });
+
+        // Form submission handling (for form validation)
+        document.getElementById('checkoutForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            if (!document.getElementById('agreeTerms').checked) {
+                alert('Please agree to the Terms & Conditions to proceed.');
+                return;
+            }
+            
+            // Save final form data before proceeding
+            saveFormData();
+            
+            // Redirect to payment page
+            window.location.href = 'CheckoutPayment.html';
+        });
+
+        // Checkout Timer Function
+        function startCheckoutTimer(durationMinutes) {
+            const timerDisplay = document.getElementById('checkoutTimer');
+            if (!timerDisplay) return;
+
+            // Set deadline to 25 minutes from now if not already set
+            let deadline = localStorage.getItem('checkoutDeadline');
+            if (!deadline) {
+                deadline = new Date().getTime() + (durationMinutes * 60 * 1000);
+                localStorage.setItem('checkoutDeadline', deadline);
+            }
+
+            const timerInterval = setInterval(() => {
+                const now = new Date().getTime();
+                const distance = deadline - now;
+
+                if (distance < 0) {
+                    clearInterval(timerInterval);
+                    timerDisplay.textContent = "00:00";
+                    alert("Your session has expired. The vehicle is no longer reserved.");
+                    // Clear all checkout data when timer expires
+                    localStorage.removeItem('checkoutDeadline');
+                    localStorage.removeItem('checkoutProduct');
+                    localStorage.removeItem('checkoutDetails');
+                    localStorage.removeItem('checkoutPayment');
+                    localStorage.removeItem('checkoutTotal');
+                    window.location.href = 'CheckoutPayment.html';
+                    return;
+                }
+
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                timerDisplay.textContent =
+                    (minutes < 10 ? '0' : '') + minutes + ':' +
+                    (seconds < 10 ? '0' : '') + seconds;
+            }, 1000);
+        }
+
+        // Start the timer when page loads
+        startCheckoutTimer(25);
+    </script>
+    <!-- African countries and states/regions -->
+    <script>
+        const africaData = {
+            "Nigeria": [
+                "Abia", "Adamawa", "Akwa Ibom", "Anambra", "Bauchi", "Bayelsa", "Benue", "Borno", "Cross River",
+                "Delta", "Ebonyi", "Edo", "Ekiti", "Enugu", "FCT - Abuja", "Gombe", "Imo", "Jigawa", "Kaduna",
+                "Kano", "Katsina", "Kebbi", "Kogi", "Kwara", "Lagos", "Nasarawa", "Niger", "Ogun", "Ondo",
+                "Osun", "Oyo", "Plateau", "Rivers", "Sokoto", "Taraba", "Yobe", "Zamfara"
+            ],
+            "Ghana": [
+                "Ahafo", "Ashanti", "Bono", "Bono East", "Central", "Eastern", "Greater Accra", "North East",
+                "Northern", "Oti", "Savannah", "Upper East", "Upper West", "Volta", "Western", "Western North"
+            ],
+            "Kenya": [
+                "Baringo", "Bomet", "Bungoma", "Busia", "Elgeyo-Marakwet", "Embu", "Garissa", "Homa Bay",
+                "Isiolo", "Kajiado", "Kakamega", "Kericho", "Kiambu", "Kilifi", "Kirinyaga", "Kisii", "Kisumu",
+                "Kitui", "Kwale", "Laikipia", "Lamu", "Machakos", "Makueni", "Mandera", "Marsabit", "Meru",
+                "Migori", "Mombasa", "Murang'a", "Nairobi", "Nakuru", "Nandi", "Narok", "Nyamira", "Nyandarua",
+                "Nyeri", "Samburu", "Siaya", "Taita-Taveta", "Tana River", "Tharaka-Nithi", "Trans Nzoia",
+                "Turkana", "Uasin Gishu", "Vihiga", "Wajir", "West Pokot"
+            ],
+            "South Africa": [
+                "Eastern Cape", "Free State", "Gauteng", "KwaZulu-Natal", "Limpopo", "Mpumalanga",
+                "North West", "Northern Cape", "Western Cape"
+            ],
+            // Add more as needed...
+        };
+
+        const africanCountries = [
+            "Algeria", "Angola", "Benin", "Botswana", "Burkina Faso", "Burundi", "Cabo Verde", "Cameroon",
+            "Central African Republic", "Chad", "Comoros", "Congo (Congo-Brazzaville)", "Congo (Congo-Kinshasa)",
+            "Djibouti", "Egypt", "Equatorial Guinea", "Eritrea", "Eswatini", "Ethiopia", "Gabon", "Gambia",
+            "Ghana", "Guinea", "Guinea-Bissau", "Ivory Coast", "Kenya", "Lesotho", "Liberia", "Libya",
+            "Madagascar", "Malawi", "Mali", "Mauritania", "Mauritius", "Morocco", "Mozambique", "Namibia",
+            "Niger", "Nigeria", "Rwanda", "Sao Tome and Principe", "Senegal", "Seychelles", "Sierra Leone",
+            "Somalia", "South Africa", "South Sudan", "Sudan", "Tanzania", "Togo", "Tunisia", "Uganda",
+            "Zambia", "Zimbabwe"
+        ];
+
+        const countrySelect = document.getElementById('country');
+        const stateSelect = document.getElementById('state');
+
+        // Populate country select
+        countrySelect.innerHTML = '<option value="">Select Country</option>' +
+            africanCountries.map(c => `<option value="${c}">${c}</option>`).join('');
+        countrySelect.value = "Nigeria"; // Set default if you want
+
+        // Populate state select based on country
+        function populateStates(country) {
+            stateSelect.innerHTML = '<option value="">Select State</option>';
+            if (africaData[country]) {
+                africaData[country].forEach(state => {
+                    stateSelect.innerHTML += `<option value="${state}">${state}</option>`;
+                });
+            } else {
+                stateSelect.innerHTML = '<option value="">N/A</option>';
+            }
+        }
+        populateStates(countrySelect.value);
+
+        countrySelect.addEventListener('change', function() {
+            populateStates(this.value);
+        });
+    </script>
+</body>
+</html> 

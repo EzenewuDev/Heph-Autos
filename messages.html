@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Messages - HephAuto</title>
+  <link rel="stylesheet" href="Heph.css">
+  <link rel="stylesheet" href="messages.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+   <!-- Favicon for browser tab and localhost section -->
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/hephauto.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="assets/hephauto.png">
+  <link rel="shortcut icon" type="image/png" href="assets/hephauto.png">
+  <style>
+    /* Messages Page Specific Styles */
+    .messages-container {
+      min-height: 100vh;
+      background: #ffffff;
+      padding-top: 170px;
+      padding-bottom: 170px;
+    }
+
+    .messages-header {
+      background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+      padding: 20px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .messages-header-content {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .back-btn {
+      background: rgba(255, 255, 255, 0.2);
+      border: none;
+      color: white;
+      padding: 10px;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .back-btn:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: scale(1.1);
+    }
+
+    .messages-search {
+      flex: 1;
+      position: relative;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    .messages-search input {
+      width: 100%;
+      padding: 12px 45px 12px 15px;
+      border: none;
+      border-radius: 25px;
+      background: rgba(255, 255, 255, 0.95);
+      font-size: 16px;
+      color: #333;
+      outline: none;
+      transition: all 0.3s ease;
+      text-align: center;
+    }
+
+    .messages-search input:focus {
+      background: white;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+    }
+
+    .messages-search input::placeholder {
+      color: #666;
+    }
+
+    .search-icon {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #666;
+      font-size: 18px;
+    }
+
+    .messages-filters {
+      background: #f8f9fa;
+      padding: 15px 20px;
+      margin-top: 20px;
+      border-radius: 15px;
+      border: 1px solid #e9ecef;
+    }
+
+    .filter-tabs {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    .filter-tab {
+      padding: 8px 20px;
+      border: none;
+      border-radius: 20px;
+      background: #e9ecef;
+      color: #6c757d;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 500;
+      font-size: 14px;
+    }
+
+    .filter-tab.active {
+      background: #ff6b35;
+      color: white;
+      box-shadow: 0 4px 15px rgba(255, 107, 53, 0.4);
+    }
+
+    .filter-tab:hover {
+      background: #dee2e6;
+      color: #495057;
+    }
+
+    .messages-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: #6c757d;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%;
+      max-width: 400px;
+      z-index: 2;
+      background: none;
+    }
+
+    .empty-state-icon {
+      font-size: 80px;
+      color: #dee2e6;
+      margin-bottom: 20px;
+    }
+
+    .empty-state h2 {
+      font-size: 24px;
+      margin-bottom: 10px;
+      color: #343a40;
+    }
+
+    .empty-state p {
+      font-size: 16px;
+      line-height: 1.6;
+      margin-bottom: 30px;
+    }
+
+    .start-chat-btn {
+      background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+      color: white;
+      border: none;
+      padding: 12px 30px;
+      border-radius: 25px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+    }
+
+    .start-chat-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
+    }
+
+    .messages-list {
+      display: none;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0;
+      padding: 0 0 10px 0;
+      background: #f7f9fa;
+      min-height: 200px;
+      max-height: 55vh;
+      overflow-y: auto;
+      scroll-behavior: smooth;
+    }
+
+    /* WhatsApp-like chat bubbles for professional look */
+    .wa-bubble {
+      display: block;
+      max-width: 75%;
+      margin: 2px 0 2px 0;
+      padding: 10px 16px;
+      border-radius: 18px 18px 4px 18px;
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      font-size: 15px;
+      color: #222;
+      word-break: break-word;
+      position: relative;
+      transition: background 0.2s;
+      clear: both;
+    }
+    .wa-bubble.sent {
+      background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+      align-self: flex-end;
+      border-radius: 18px 18px 18px 4px;
+      margin-left: auto;
+      margin-right: 0;
+    }
+    .wa-bubble.received {
+      background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
+      align-self: flex-start;
+      border-radius: 18px 18px 4px 18px;
+      margin-right: auto;
+      margin-left: 0;
+    }
+    .wa-bubble-time {
+      display: block;
+      font-size: 11px;
+      color: #888;
+      margin-top: 4px;
+      text-align: right;
+    }
+    .wa-bubble-content {
+      display: block;
+      white-space: pre-line;
+    }
+
+    .message-item {
+      background: #ffffff;
+      border-radius: 15px;
+      padding: 20px;
+      margin-bottom: 15px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: 1px solid #e9ecef;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .message-item:hover {
+      background: #f8f9fa;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    .message-header {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 10px;
+    }
+
+    .message-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    .message-info {
+      flex: 1;
+    }
+
+    .message-sender {
+      font-weight: 600;
+      color: #343a40;
+      font-size: 16px;
+      margin-bottom: 2px;
+    }
+
+    .message-vehicle {
+      color: #ff6b35;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .message-time {
+      color: #6c757d;
+      font-size: 12px;
+    }
+
+    .message-preview {
+      color: #495057;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+    .message-status {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      margin-top: 10px;
+    }
+
+    .status-indicator {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #4CAF50;
+    }
+
+    .status-text {
+      color: #6c757d;
+      font-size: 12px;
+    }
+
+    .unread .message-preview {
+      font-weight: 600;
+      color: #343a40;
+    }
+
+    .unread .message-sender {
+      color: #ff6b35;
+    }
+
+    /* Mobile Bottom Navigation for Messages */
+    .mobile-bottom-nav {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 64px;
+      background: #fff;
+      border-top: 1.5px solid #e9ecef;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      z-index: 12000;
+      box-shadow: 0 -2px 12px rgba(0,0,0,0.06);
+      padding: 0;
+    }
+
+    .mobile-bottom-nav__item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #222;
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 600;
+      background: none;
+      border: none;
+      outline: none;
+      height: 100%;
+      transition: color 0.2s, background 0.2s;
+      cursor: pointer;
+      min-width: 0;
+      padding: 4px 2px;
+    }
+
+    .mobile-bottom-nav__item i {
+      font-size: 1.5rem;
+      margin-bottom: 2px;
+      display: block;
+    }
+
+    .mobile-bottom-nav__item:active,
+    .mobile-bottom-nav__item:focus,
+    .mobile-bottom-nav__item:hover {
+      color: #ff6b35;
+      background: #f8f9fa;
+    }
+
+    .mobile-bottom-nav__item span {
+      font-size: 12px;
+      margin-top: 1px;
+      letter-spacing: 0.01em;
+    }
+
+    .mobile-bottom-nav__item i {
+      font-size: 20px;
+      margin-bottom: 4px;
+    }
+
+    .mobile-bottom-nav__item span {
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .messages-header-content {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .messages-search {
+        max-width: 100%;
+        margin: 0 auto;
+      }
+
+      .filter-tabs {
+        flex-wrap: wrap;
+      }
+
+      .filter-tab {
+        flex: 1;
+        min-width: 80px;
+      }
+
+      .messages-content {
+        padding: 15px;
+        padding-top: 120px;
+        padding-bottom: 0px;
+    }
+      }
+
+      .empty-state {
+        padding: 40px 15px;
+        margin-top: 120px; /* Added to prevent overlap with header */
+      }
+
+      .empty-state-icon {
+        font-size: 60px;
+      }
+
+      .empty-state h2 {
+        font-size: 20px;
+      }
+
+      .empty-state p {
+        font-size: 14px;
+      }
+    
+
+    @media (min-width: 901px) {
+      .mobile-bottom-nav { display: none !important; }
+    }
+    @media (max-width: 900px) {
+      .mobile-bottom-nav { display: flex; }
+      body:has(.mobile-bottom-nav) {
+        padding-bottom: 64px;
+      }
+      body:not(:has(.mobile-bottom-nav)) {
+        padding-bottom: 0 !important;
+      }
+    }
+
+    .mobile-menu.open ~ .mobile-bottom-nav {
+      display: none !important;
+    }
+
+    @media (min-width: 601px) and (max-width: 900px) {
+      .hamburger-icon {
+        width: 56px;
+        height: 56px;
+        font-size: 2.2rem;
+        padding: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Messages Header -->
+  <header class="messages-header">
+    <div class="messages-header-content">
+      <a class="home-btn" href="heph.html" style="background: rgba(255,255,255,0.2); border-radius: 50%; padding: 10px; color: white; display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; margin-right: 10px; text-decoration: none; transition: all 0.3s ease;"><i class="fas fa-home"></i></a>
+      <button class="back-btn" onclick="window.history.back()">
+        <i class="fas fa-arrow-left"></i>
+      </button>
+      
+      <div class="messages-search">
+        <input type="text" placeholder="Search in Messages" id="messagesSearch">
+        <i class="fas fa-search search-icon"></i>
+      </div>
+    </div>
+    
+    <div class="messages-filters">
+      <div class="filter-tabs">
+        <button class="filter-tab active" data-filter="all">All</button>
+        <button class="filter-tab" data-filter="unread">Unread</button>
+        <button class="filter-tab" data-filter="spam">Spam</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Messages Content -->
+  <main class="messages-container">
+    <div class="messages-content">
+      <!-- Empty State -->
+
+      <div class="empty-state" id="emptyState">
+        <div class="empty-state-icon">
+          <i class="fas fa-comments"></i>
+        </div>
+        <h2>No Messages Yet</h2>
+        <p>Here you'll find all of your conversations with vehicle sellers and dealers. Start by browsing our inventory and reaching out to sellers about vehicles you're interested in.</p>
+        <button class="start-chat-btn" onclick="window.location.href='buy.html'">
+          <i class="fas fa-car"></i> Browse Vehicles
+        </button>
+      </div>
+
+      <!-- Messages List (Hidden by default) -->
+      <div class="messages-list" id="messagesList">
+        <!-- Messages will appear here dynamically -->
+      </div>
+    </div>
+  </main>
+
+  <!-- Chat Input Section removed -->
+  <!-- Mobile Bottom Navigation Bar -->
+  <nav class="mobile-bottom-nav">
+    <a href="buy.html" class="mobile-bottom-nav__item">
+      <i class="fas fa-shopping-cart"></i>
+      <span>Buy</span>
+    </a>
+    <a href="saved.html" class="mobile-bottom-nav__item">
+      <i class="fas fa-bookmark"></i>
+      <span>Saved</span>
+    </a>
+    <a href="sell.html" class="mobile-bottom-nav__item">
+      <i class="fas fa-tag"></i>
+      <span>Sell</span>
+    </a>
+    <a href="messages.html" class="mobile-bottom-nav__item">
+      <i class="fas fa-comment-dots"></i>
+      <span>Messages</span>
+    </a>
+    <a href="profile.html" class="mobile-bottom-nav__item active">
+      <i class="fas fa-user"></i>
+      <span>Profile</span>
+    </a>
+    <!-- <button class="mobile-bottom-nav__item" id="mobileMenuBtn" type="button">
+      <i class="fas fa-bars"></i>
+      <span>Menu</span>
+    </button> -->
+  </nav>
+
+  <script src="Heph.js"></script>
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script>
+  // Unified Conversations Inbox handler using localStorage
+  document.addEventListener('DOMContentLoaded', function() {
+    const emptyState = document.getElementById('emptyState');
+    const messagesList = document.getElementById('messagesList');
+    const searchInput = document.getElementById('messagesSearch');
+    const filterTabs = document.querySelectorAll('.filter-tab');
+    
+    let currentFilter = 'all';
+    let searchQuery = '';
+
+    // Load and render conversations
+    function renderConversations() {
+      const convsData = localStorage.getItem('heph_conversations');
+      const conversations = JSON.parse(convsData || '[]');
+      
+      // Filter list
+      let filtered = conversations.filter(c => {
+        // Filter by tab
+        if (currentFilter === 'unread' && !c.unread) return false;
+        if (currentFilter === 'spam' && !c.isSpam) return false;
+        if (currentFilter === 'all' && c.isSpam) return false;
+        
+        // Filter by search
+        if (searchQuery) {
+          const query = searchQuery.toLowerCase();
+          const senderMatch = c.sellerName && c.sellerName.toLowerCase().includes(query);
+          const vehicleMatch = c.vehicleName && c.vehicleName.toLowerCase().includes(query);
+          return senderMatch || vehicleMatch;
+        }
+        return true;
+      });
+
+      if (filtered.length === 0) {
+        messagesList.style.display = 'none';
+        emptyState.style.display = 'block';
+        
+        // Update empty state text based on search or tab
+        const emptyTitle = emptyState.querySelector('h2');
+        const emptyDesc = emptyState.querySelector('p');
+        if (searchQuery) {
+          if (emptyTitle) emptyTitle.textContent = "No Matches Found";
+          if (emptyDesc) emptyDesc.textContent = `No conversations match "${searchQuery}". Try searching for another vehicle or seller.`;
+        } else if (currentFilter !== 'all') {
+          if (emptyTitle) emptyTitle.textContent = `No ${currentFilter.charAt(0).toUpperCase() + currentFilter.slice(1)} Messages`;
+          if (emptyDesc) emptyDesc.textContent = `You have no ${currentFilter} messages at the moment.`;
+        } else {
+          if (emptyTitle) emptyTitle.textContent = "No Messages Yet";
+          if (emptyDesc) emptyDesc.textContent = "Here you'll find all of your conversations with vehicle sellers and dealers. Start by browsing our inventory and reaching out to sellers.";
+        }
+      } else {
+        emptyState.style.display = 'none';
+        messagesList.style.display = 'flex';
+        
+        messagesList.innerHTML = filtered.map(c => {
+          // Generate initials for avatar placeholder
+          const initials = c.sellerName ? c.sellerName.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase() : 'HS';
+          const isUnreadClass = c.unread ? ' unread' : '';
+          
+          return `
+            <div class="message-item${isUnreadClass}" onclick="openConversation('${encodeURIComponent(c.sellerName)}', '${encodeURIComponent(c.vehicleName)}', '${encodeURIComponent(c.price)}', '${encodeURIComponent(c.image)}')">
+              <div class="message-header">
+                ${c.image ? `<img class="message-avatar" src="${c.image}" alt="${c.vehicleName}" style="object-fit:cover; border-radius: 50%;">` : `<div class="message-avatar">${initials}</div>`}
+                <div class="message-info">
+                  <div class="message-sender">${c.sellerName}</div>
+                  <div class="message-vehicle">${c.vehicleName}</div>
+                </div>
+                <div class="message-time">${c.time || ''}</div>
+              </div>
+              <div class="message-preview">${c.lastMessage || ''}</div>
+              ${c.unread ? `
+                <div class="message-status">
+                  <span class="status-indicator"></span>
+                  <span class="status-text">Unread</span>
+                </div>
+              ` : ''}
+            </div>
+          `;
+        }).join('');
+      }
+    }
+
+    // Global redirect function for conversation click
+    window.openConversation = function(seller, vehicle, price, image) {
+      // Mark as read in heph_conversations
+      let convs = JSON.parse(localStorage.getItem('heph_conversations') || '[]');
+      convs = convs.map(c => {
+        if (c.sellerName === decodeURIComponent(seller) && c.vehicleName === decodeURIComponent(vehicle)) {
+          c.unread = false;
+        }
+        return c;
+      });
+      localStorage.setItem('heph_conversations', JSON.stringify(convs));
+      
+      // Redirect to chat.html
+      window.location.href = `chat.html?seller=${seller}&product=${vehicle}&price=${price}&image=${image}`;
+    };
+
+    // Filter tabs click handling
+    filterTabs.forEach(tab => {
+      tab.addEventListener('click', function() {
+        filterTabs.forEach(t => t.classList.remove('active'));
+        this.classList.add('active');
+        currentFilter = this.dataset.filter;
+        renderConversations();
+      });
+    });
+
+    // Real-time search
+    if (searchInput) {
+      searchInput.addEventListener('input', function() {
+        searchQuery = this.value.trim();
+        renderConversations();
+      });
+    }
+
+    // Initial load
+    renderConversations();
+  });
+  </script>
+</body>
+</html>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HephAuto Newsroom</title>
+  <link rel="stylesheet" href="Heph.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+   <!-- Favicon for browser tab and localhost section -->
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/hephauto.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="assets/hephauto.png">
+  <link rel="shortcut icon" type="image/png" href="assets/hephauto.png">
+</head>
+<body>
+  <header class="navbar">
+    <div class="logo">
+      <a href="Heph.html">
+        <img src="assets/hephauto.png" alt="HephAuto Logo" class="logo-image">
+      </a>
+    </div>
+    <nav class="nav-links">
+      <a href="Heph.html" class="dropdown-link"><div class="dropdown">Home</div></a>
+      <a href="buy.html" class="dropdown-link"><div class="dropdown">Buy</div></a>
+      <a href="sell.html" class="dropdown-link"><div class="dropdown">Sell</div></a>
+      <div class="dropdown-link dropdown-parent" id="servicesDropdownWrapper">
+        <div class="dropdown" id="servicesDropdownBtn">Services <i class="fas fa-chevron-down services-chevron"></i></div>
+        <div class="custom-dropdown-menu" id="servicesDropdownMenu">
+          <a href="reviews.html" class="dropdown-item"><i class="fas fa-star"></i> Reviews</a>
+          <a href="news.html" class="dropdown-item"><i class="fas fa-newspaper"></i> News</a>
+        </div>
+      </div>
+      <a href="Contact.html" class="dropdown-link"><div class="dropdown">Contact</div></a>
+    </nav>
+    <div class="search_wrapper">
+      <i class="fas fa-search search-icon"></i>
+      <input type="text" id="searchInput" placeholder="Search for vehicles..." aria-label="Search vehicles">
+    </div>
+    <div class="actions">
+      <div id="userSection"></div>
+      <a href="productshow.html" class="cta-btn">Discover Now</a>
+    </div>
+    <button class="hamburger-icon" id="menuToggle">
+      <i class="fas fa-bars"></i>
+    </button>
+  </header>
+  <main class="hero-section" style="min-height: 40vh; background: linear-gradient(135deg, #f5d76e, #c8effe, #d5a6ff, #f9c8d9);">
+    <div class="hero-content" style="z-index:2;">
+      <div class="hero-badge"><span class="badge-icon"><i class="fas fa-newspaper"></i></span> HephAuto Newsroom</div>
+      <h1>Latest News & Updates</h1>
+      <p>Stay up to date with the latest automotive news, company updates, and industry insights from HephAuto.</p>
+    </div>
+  </main>
+  <section class="news-section" style="background: #fcfcf6; padding: 60px 0;">
+    <div class="container" style="max-width: 1100px; margin: 0 auto;">
+      <h2 style="text-align:center; color:#222; margin-bottom:40px;">Featured Articles</h2>
+      <div class="news-grid" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:32px;">
+        <div class="news-card" style="background:#fff; border-radius:16px; box-shadow:0 4px 12px rgba(0,0,0,0.06); overflow:hidden;">
+          <img src="assets/assets1/news1.jpg" alt="News 1" style="width:100%; height:180px; object-fit:cover;">
+          <div style="padding:24px;">
+            <h3 style="font-size:1.3rem; color:#333; margin-bottom:12px;">HephAuto Launches New Vehicle Inspection Program</h3>
+            <p style="color:#666;">Our new inspection program ensures every vehicle listed meets the highest standards of quality and safety. Learn how this benefits buyers and sellers alike.</p>
+            <a href="#" class="cta-btn secondary" style="margin-top:16px;">Read More</a>
+          </div>
+        </div>
+        <div class="news-card" style="background:#fff; border-radius:16px; box-shadow:0 4px 12px rgba(0,0,0,0.06); overflow:hidden;">
+          <img src="assets/assets1/news2.jpg" alt="News 2" style="width:100%; height:180px; object-fit:cover;">
+          <div style="padding:24px;">
+            <h3 style="font-size:1.3rem; color:#333; margin-bottom:12px;">Top 5 Tips for Buying a Used Car in Nigeria</h3>
+            <p style="color:#666;">Discover expert advice on what to look for, how to negotiate, and how to get the best deal when buying a used car in Nigeria.</p>
+            <a href="#" class="cta-btn secondary" style="margin-top:16px;">Read More</a>
+          </div>
+        </div>
+        <div class="news-card" style="background:#fff; border-radius:16px; box-shadow:0 4px 12px rgba(0,0,0,0.06); overflow:hidden;">
+          <img src="assets/assets1/news3.jpg" alt="News 3" style="width:100%; height:180px; object-fit:cover;">
+          <div style="padding:24px;">
+            <h3 style="font-size:1.3rem; color:#333; margin-bottom:12px;">HephAuto Partners with Leading Auto Brands</h3>
+            <p style="color:#666;">We are excited to announce new partnerships with top automotive brands, bringing more options and better deals to our customers.</p>
+            <a href="#" class="cta-btn secondary" style="margin-top:16px;">Read More</a>
+          </div>
+        </div>
+      </div>
+      <div style="text-align:center; margin-top:48px;">
+        <h3 style="color:#222; margin-bottom:16px;">Subscribe to Our Newsletter</h3>
+        <form action="#" method="post" style="display:flex; justify-content:center; gap:12px; max-width:400px; margin:0 auto;">
+          <input type="email" placeholder="Enter your email" required style="flex:1; padding:12px 16px; border-radius:8px; border:1px solid #ddd;">
+          <button type="submit" class="newsletter-btn"><i class="fas fa-arrow-right"></i></button>
+        </form>
+      </div>
+    </div>
+  </section>
+  <footer>
+    <div class="footer-top">
+      <div class="footer-logo">
+        <h3>HephAuto</h3>
+        <p>Your partner on the road ahead.</p>
+        <div class="footer-follow-label">Follow us</div>
+        <div class="footer-social">
+          <a href="#" class="youtube"><i class="fab fa-youtube"></i></a>
+          <a href="#" class="facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="twitter"><i class="fab fa-x-twitter"></i></a>
+          <a href="#" class="tiktok"><i class="fab fa-tiktok"></i></a>
+        </div>
+      </div>
+      <div class="footer-links">
+        <div>
+          <a href="Heph.html">HOME</a>
+          <a href="buy.html">OUR INVENTORY</a>
+          <a href="#">HEPHAUTO NEWSROOM</a>
+        </div>
+        <div>
+          <a href="services.html">SERVICES</a>
+          <a href="#">DEALER & BRAND PARTNERS</a>
+          <a href="#">CAREERS</a>
+        </div>
+        <div>
+          <a href="#">SUPPORT</a>
+          <a href="About.html">ABOUT US</a>
+          <a href="Contact.html">CONTACT US</a>
+        </div>
+      </div>
+      <div class="newsletter">
+        <h4>Join Our Newsletter</h4>
+        <p>Stay updated with our latest job postings and career tips.</p>
+        <form action="#" method="post">
+          <input type="email" placeholder="Enter your email" required>
+          <button type="submit" class="newsletter-btn">
+            <i class="fas fa-arrow-right"></i>
+          </button>
+        </form>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; <span id="current-year"></span> HephAuto. All rights reserved.
+      <div class="footer-legal-links">
+        <a href="#">Terms and Conditions</a> |
+        <a href="#">Privacy</a> |
+        <a href="#">Cookies</a> |
+        <a href="#">Accessibility</a>
+      </div>
+    </div>
+  </footer>
+  <script src="Heph.js"></script>
+  <script>
+    // Professional dropdown toggle for Services
+    document.addEventListener('DOMContentLoaded', function() {
+      var wrapper = document.getElementById('servicesDropdownWrapper');
+      var btn = document.getElementById('servicesDropdownBtn');
+      var menu = document.getElementById('servicesDropdownMenu');
+      if (wrapper && btn && menu) {
+        btn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          wrapper.classList.toggle('open');
+        });
+        document.addEventListener('click', function(e) {
+          if (!wrapper.contains(e.target)) {
+            wrapper.classList.remove('open');
+          }
+        });
+        // Optional: Keyboard accessibility
+        btn.setAttribute('tabindex', '0');
+        btn.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            wrapper.classList.toggle('open');
+          }
+        });
+      }
+    });
+  </script>
+</body>
+</html> 

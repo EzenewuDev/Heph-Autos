@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Customer Reviews - HephAuto</title>
+  <link rel="stylesheet" href="Heph.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+   <!-- Favicon for browser tab and localhost section -->
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/hephauto.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="assets/hephauto.png">
+  <link rel="shortcut icon" type="image/png" href="assets/hephauto.png">
+</head>
+<body>
+  <header class="navbar">
+    <div class="logo">
+      <a href="Heph.html">
+        <img src="assets/hephauto.png" alt="HephAuto Logo" class="logo-image">
+      </a>
+    </div>
+    <nav class="nav-links">
+      <a href="Heph.html" class="dropdown-link"><div class="dropdown">Home</div></a>
+      <a href="buy.html" class="dropdown-link"><div class="dropdown">Buy</div></a>
+      <a href="sell.html" class="dropdown-link"><div class="dropdown">Sell</div></a>
+      <div class="dropdown-link dropdown-parent" id="servicesDropdownWrapper">
+        <div class="dropdown" id="servicesDropdownBtn">Services <i class="fas fa-chevron-down services-chevron"></i></div>
+        <div class="custom-dropdown-menu" id="servicesDropdownMenu">
+          <a href="reviews.html" class="dropdown-item"><i class="fas fa-star"></i> Reviews</a>
+          <a href="news.html" class="dropdown-item"><i class="fas fa-newspaper"></i> News</a>
+        </div>
+      </div>
+      <a href="Contact.html" class="dropdown-link"><div class="dropdown">Contact</div></a>
+    </nav>
+    <div class="search_wrapper">
+      <i class="fas fa-search search-icon"></i>
+      <input type="text" id="searchInput" placeholder="Search for vehicles..." aria-label="Search vehicles">
+    </div>
+    <div class="actions">
+      <div id="userSection"></div>
+      <a href="productshow.html" class="cta-btn">Discover Now</a>
+    </div>
+    <button class="hamburger-icon" id="menuToggle">
+      <i class="fas fa-bars"></i>
+    </button>
+  </header>
+  <main class="hero-section" style="min-height: 40vh; background: linear-gradient(135deg, #f5d76e, #c8effe, #d5a6ff, #f9c8d9);">
+    <div class="hero-content" style="z-index:2;">
+      <div class="hero-badge"><span class="badge-icon">⭐</span> Customer Reviews</div>
+      <h1>What Our Customers Say</h1>
+      <p>Real feedback from real HephAuto buyers and sellers. See why people trust us for their automotive needs.</p>
+    </div>
+  </main>
+  <section class="testimonial-section" style="background: #fcfcf6;">
+    <div class="testimonial-header">
+      <span class="testimonial-tag">Testimonials</span>
+      <h2>Hear From Our Happy Clients</h2>
+    </div>
+    <div class="testimonial-grid">
+      <div class="testimonial-card">
+        <div class="testimonial-image-container">
+          <img src="assets/assets1/pexels-life-of-pix-7674.jpg" alt="Customer" class="testimonial-house-img">
+          <span class="testimonial-rating"><i class="fas fa-star"></i> 4.9</span>
+          <img src="assets/profile.png" alt="Customer" class="testimonial-avatar">
+        </div>
+        <div class="testimonial-info">
+          <h3>Ngozi Kene</h3>
+          <span class="testimonial-location">Abuja</span>
+          <p class="testimonial-text">"I ordered a Toyota bus for my transport business, and it arrived in my city without any problems. The price was better than other offers I found, and the whole buying process was stress-free. I'll definitely use this site again."</p>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-image-container">
+          <img src="assets/assets1/pexels-pixabay-164634.jpg" alt="Customer" class="testimonial-house-img">
+          <span class="testimonial-rating"><i class="fas fa-star"></i> 4.9</span>
+          <img src="assets/profile.png" alt="Customer" class="testimonial-avatar">
+        </div>
+        <div class="testimonial-info">
+          <h3>Aisha Tami</h3>
+          <span class="testimonial-location">Kaduna</span>
+          <p class="testimonial-text">"I was nervous about buying a used car online, but this platform made everything easy. The inspection report was detailed, and the customer support answered all my questions. I've been driving the car for months now with no issues."</p>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-image-container">
+          <img src="assets/assets1/pexels-pixabay-461890.jpg" alt="Customer" class="testimonial-house-img">
+          <span class="testimonial-rating"><i class="fas fa-star"></i> 4.9</span>
+          <img src="assets/profile.png" alt="Customer" class="testimonial-avatar">
+        </div>
+        <div class="testimonial-info">
+          <h3>Emeka Onyeka</h3>
+          <span class="testimonial-location">Lagos</span>
+          <p class="testimonial-text">"I found the perfect car for my business at a great price. The team guided me through the financing and handled all the paperwork. Delivery was on time, and the car was in excellent condition just as advertised. Highly recommended!"</p>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-form-container" style="margin-top: 40px;">
+      <h3>Share Your Experience</h3>
+      <form id="testimonialForm" enctype="multipart/form-data">
+        <input type="text" id="testimonialName" placeholder="Your Name" required>
+        <input type="text" id="testimonialLocation" placeholder="Your Location" required>
+        <textarea id="testimonialText" placeholder="Your Testimonial" required></textarea>
+        <div class="testimonial-rating-input">
+          <span>Rating:</span>
+          <div id="starRating" class="star-rating">
+            <span data-value="1">&#9733;</span>
+            <span data-value="2">&#9733;</span>
+            <span data-value="3">&#9733;</span>
+            <span data-value="4">&#9733;</span>
+            <span data-value="5">&#9733;</span>
+          </div>
+          <input type="hidden" id="testimonialStars" value="5" required>
+        </div>
+        <div class="file-input-wrapper">
+          <input type="file" id="testimonialImage" accept="image/*" required>
+          <span class="cancel-icon" id="cancelImage" title="Remove image">
+            <i class="fas fa-times-circle"></i>
+          </span>
+        </div>
+        <button type="submit">Submit Testimonial</button>
+      </form>
+    </div>
+  </section>
+  <footer>
+    <div class="footer-top">
+      <div class="footer-logo">
+        <h3>HephAuto</h3>
+        <p>Your partner on the road ahead.</p>
+        <div class="footer-follow-label">Follow us</div>
+        <div class="footer-social">
+          <a href="#" class="youtube"><i class="fab fa-youtube"></i></a>
+          <a href="#" class="facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="twitter"><i class="fab fa-x-twitter"></i></a>
+          <a href="#" class="tiktok"><i class="fab fa-tiktok"></i></a>
+        </div>
+      </div>
+      <div class="footer-links">
+        <div>
+          <a href="Heph.html">HOME</a>
+          <a href="buy.html">OUR INVENTORY</a>
+          <a href="#">HEPHAUTO NEWSROOM</a>
+        </div>
+        <div>
+          <a href="services.html">SERVICES</a>
+          <a href="#">DEALER & BRAND PARTNERS</a>
+          <a href="#">CAREERS</a>
+        </div>
+        <div>
+          <a href="#">SUPPORT</a>
+          <a href="About.html">ABOUT US</a>
+          <a href="Contact.html">CONTACT US</a>
+        </div>
+      </div>
+      <div class="newsletter">
+        <h4>Join Our Newsletter</h4>
+        <p>Stay updated with our latest job postings and career tips.</p>
+        <form action="#" method="post">
+          <input type="email" placeholder="Enter your email" required>
+          <button type="submit" class="newsletter-btn">
+            <i class="fas fa-arrow-right"></i>
+          </button>
+        </form>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; <span id="current-year"></span> HephAuto. All rights reserved.
+      <div class="footer-legal-links">
+        <a href="#">Terms and Conditions</a> |
+        <a href="#">Privacy</a> |
+        <a href="#">Cookies</a> |
+        <a href="#">Accessibility</a>
+      </div>
+    </div>
+  </footer>
+  <script src="Heph.js"></script>
+  <script>
+    // Professional dropdown toggle for Services
+    document.addEventListener('DOMContentLoaded', function() {
+      var wrapper = document.getElementById('servicesDropdownWrapper');
+      var btn = document.getElementById('servicesDropdownBtn');
+      var menu = document.getElementById('servicesDropdownMenu');
+      if (wrapper && btn && menu) {
+        btn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          wrapper.classList.toggle('open');
+        });
+        document.addEventListener('click', function(e) {
+          if (!wrapper.contains(e.target)) {
+            wrapper.classList.remove('open');
+          }
+        });
+        // Optional: Keyboard accessibility
+        btn.setAttribute('tabindex', '0');
+        btn.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            wrapper.classList.toggle('open');
+          }
+        });
+      }
+    });
+  </script>
+</body>
+</html> 

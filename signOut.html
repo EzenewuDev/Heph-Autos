@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up Success - HephAuto</title>
+  <link rel="stylesheet" href="Heph.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+   <!-- Favicon for browser tab and localhost section -->
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/hephauto.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="assets/hephauto.png">
+  <link rel="shortcut icon" type="image/png" href="assets/hephauto.png">
+  <style>
+    .signout-container {
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      padding: 20px;
+    }
+
+    .signout-card {
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+      padding: 60px 40px;
+      text-align: center;
+      max-width: 500px;
+      width: 100%;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: none;
+      border: none;
+      font-size: 24px;
+      color: #666;
+      cursor: pointer;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      z-index: 10;
+    }
+
+    .close-btn:hover {
+      background: #f0f0f0;
+      color: #333;
+      transform: scale(1.1);
+    }
+
+    .signout-container.fade-out {
+      opacity: 0;
+      transition: opacity 0.5s ease-out;
+    }
+
+    .signout-card.fade-out {
+      transform: scale(0.9);
+      opacity: 0;
+      transition: all 0.5s ease-out;
+    }
+
+    .signout-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+    }
+
+    .signout-icon {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 30px;
+      font-size: 32px;
+      color: white;
+      animation: pulse 2s infinite;
+    }
+
+    .signout-title {
+      font-size: 2.5rem;
+      color: #1a2233;
+      margin-bottom: 20px;
+      font-weight: 700;
+    }
+
+    .signout-message {
+      font-size: 1.1rem;
+      color: #666;
+      line-height: 1.6;
+      margin-bottom: 40px;
+    }
+
+    .signout-actions {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 15px 30px;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      border: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+      color: white;
+      box-shadow: 0 8px 25px rgba(40, 167, 69, 0.3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 35px rgba(40, 167, 69, 0.4);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: #28a745;
+      border: 2px solid #28a745;
+    }
+
+    .btn-secondary:hover {
+      background: #28a745;
+      color: white;
+      transform: translateY(-3px);
+    }
+
+    .back-to-home {
+      margin-top: 30px;
+      padding-top: 30px;
+      border-top: 1px solid #eee;
+    }
+
+    .back-to-home a {
+      color: #666;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    .back-to-home a:hover {
+      color: #28a745;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .signout-card {
+        padding: 40px 20px;
+      }
+      
+      .signout-title {
+        font-size: 2rem;
+      }
+      
+      .signout-actions {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .btn {
+        width: 100%;
+        max-width: 250px;
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation header -->
+  <header class="navbar">
+    <!-- Company Logo - Links back to homepage -->
+    <div class="logo">
+      <a href="Heph.html">
+        <img src="assets/hephauto.png" alt="HephAuto Logo" class="logo-image">
+      </a>
+    </div>
+    <!-- Primary Navigation Menu - Desktop Version -->
+    <nav class="nav-links">
+      <a href="Heph.html" class="dropdown-link">
+        <div class="dropdown">Home</div>
+      </a>
+      <a href="buy.html" class="dropdown-link">
+        <div class="dropdown">Buy</div>
+      </a>
+      <a href="sell.html" class="dropdown-link">
+        <div class="dropdown">Sell</div>
+      </a>
+      <a href="services.html" class="dropdown-link" id="solutionsDropdown">
+        <div class="dropdown">Services</div>
+      </a>
+      <a href="About.html" class="dropdown-link">
+        <div class="dropdown">About</div>
+      </a>
+      <a href="Contact.html" class="dropdown-link">
+        <div class="dropdown">Contact</div>
+      </a>
+    </nav>
+    <!-- Search Functionality -->
+    <div class="search_wrapper">
+      <i class="fas fa-search search-icon"></i>
+      <input type="text" id="searchInput" placeholder="Search for vehicles..." aria-label="Search vehicles">
+    </div>
+    <!-- User Actions Section -->
+    <div class="actions">
+      <div id="userSection">
+        <!-- This will be populated by JavaScript based on login status -->
+      </div>
+      <a href="productshow.html" class="cta-btn">Discover Now</a>
+    </div>
+    <button class="hamburger-icon" id="menuToggle">
+      <i class="fas fa-bars"></i>
+    </button>
+  </header>
+  <!-- Mobile Menu Overlay - Darkens background when menu is open -->
+  <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+  <!-- Collapsible Mobile Menu - Slides in from right side -->
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="close-icon" id="closeMenu">
+      <i class="fas fa-times"></i>
+    </button>
+    <nav class="nav-links">
+      <div class="mobile-menu-search" style="padding: 0 0 8px 0;">
+        <div style="display: flex; align-items: center; background: #f3f6fd; border-radius: 12px; padding: 6px 0 6px 16px; width: 90%; margin-left: 16px;">
+          <i class="fas fa-search" id="mobileMenuSearchIcon" style="font-size: 1.1rem; color: #000000; margin-right: 8px; cursor: pointer;"></i>
+          <input type="text" id="mobileMenuSearchInput" placeholder="Search..." style="border: none; outline: none; background: transparent; font-size: 1.2rem; width: 100%; padding: 6px 0; text-align: left;">
+        </div>
+      </div>
+      <a href="Heph.html" class="dropdown-link">
+        <div class="dropdown">Home</div>
+      </a>
+      <a href="buy.html" class="dropdown-link">
+        <div class="dropdown">Buy</div>
+      </a>
+      <a href="sell.html" class="dropdown-link">
+        <div class="dropdown">Sell</div>
+      </a>
+      <a href="services.html" class="dropdown-link" id="solutionsDropdown">
+        <div class="dropdown">Services</div>
+      </a>
+      <a href="About.html" class="dropdown-link">
+        <div class="dropdown">About</div>
+      </a>
+      <a href="Contact.html" class="dropdown-link">
+        <div class="dropdown">Contact</div>
+      </a>
+    </nav>
+    <div class="mobile-menu-bottom">
+      <div id="mobileUserSection"><!-- Populated by JS --></div>
+      <div class="mobile-social-icons">
+        <a href="#" class="facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="twitter"><i class="fab fa-x-twitter"></i></a>
+        <a href="#" class="instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" class="youtube"><i class="fab fa-youtube"></i></a>
+        <a href="#" class="tiktok"><i class="fab fa-tiktok"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Sign Out Content -->
+  <main class="signout-container">
+    <div class="signout-card" data-aos="fade-up">
+      <button class="close-btn" id="closePage">
+        <i class="fas fa-times"></i>
+      </button>
+      <div class="signout-icon">
+        <i class="fas fa-user-plus"></i>
+      </div>
+      
+      <h1 class="signout-title">Signed Up!</h1>
+      
+      <p class="signout-message">
+        Ready to join HephAuto? Create your account to access exclusive deals, 
+        save your favorite vehicles, and enjoy personalized recommendations.
+      </p>
+      
+      <div class="signout-actions">
+        <button class="btn btn-primary" onclick="window.location.href='login.html'">
+          <i class="fas fa-sign-in-alt"></i>
+          Login
+        </button>
+        
+        <button class="btn btn-secondary" onclick="window.location.href='signup.html'">
+          <i class="fas fa-user-plus"></i>
+          Sign Up
+        </button>
+      </div>
+      
+      <div class="back-to-home">
+        <a href="Heph.html">
+          <i class="fas fa-home"></i>
+          Back to Homepage
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-top">
+      <div class="footer-logo">
+        <h3>HephAuto</h3>
+        <p>Your partner on the road ahead.</p>
+        <div class="footer-follow-label">Follow us</div>
+        <div class="footer-social">
+          <a href="#" class="youtube"><i class="fab fa-youtube"></i></a>
+          <a href="#" class="facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="twitter"><i class="fab fa-x-twitter"></i></a>
+          <a href="#" class="tiktok"><i class="fab fa-tiktok"></i></a>
+        </div>
+      </div>
+  
+      <div class="footer-links">
+        <div>
+          <a href="Heph.html">HOME</a>
+          <a href="buy.html">OUR INVENTORY</a>
+          <a href="#">HEPHAUTO NEWSROOM</a>
+        </div>
+        <div>
+          <a href="services.html">SERVICES</a>
+          <a href="#">DEALER & BRAND PARTNERS</a>
+          <a href="#">CAREERS</a>
+        </div>
+        <div>
+          <a href="#">SUPPORT</a>
+          <a href="About.html">ABOUT US</a>
+          <a href="Contact.html">CONTACT US</a>
+        </div>
+      </div>
+
+      <div class="newsletter">
+        <h4>Join Our Newsletter</h4>
+        <p>Stay updated with our latest job postings and career tips.</p>
+        <form action="#" method="post">
+          <input type="email" placeholder="Enter your email" required>
+          <button type="submit" class="newsletter-btn">
+            <i class="fas fa-arrow-right"></i>
+          </button>
+        </form>
+      </div>
+    </div>
+  
+    <div class="footer-bottom">
+      &copy; <span id="current-year"></span> HephAuto. All rights reserved.
+      <br>
+      <a href="#">Terms and Conditions</a> |
+      <a href="#">Privacy</a> |
+      <a href="#">Cookies</a> |
+      <a href="#">Accessibility</a>
+    </div>
+  </footer>
+
+  <script src="Heph.js"></script>
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script>
+    // Initialize AOS
+    AOS.init({
+      duration: 800,
+      easing: 'ease-in-out',
+      once: true
+    });
+
+    // Set current year in footer
+    document.getElementById('current-year').textContent = new Date().getFullYear();
+
+    // Handle sign up success functionality
+    function performSignUpSuccess() {
+      // Store user sign up success data
+      localStorage.setItem('signUpSuccess', 'true');
+      
+      // Show success message
+      const message = document.querySelector('.signout-message');
+      message.innerHTML = 'Ready to join HephAuto? Create your account to access exclusive deals, save your favorite vehicles, and enjoy personalized recommendations.';
+    }
+
+    // Close page functionality
+    function closePage() {
+      const container = document.querySelector('.signout-container');
+      const card = document.querySelector('.signout-card');
+      
+      // Add fade-out animation
+      container.classList.add('fade-out');
+      card.classList.add('fade-out');
+      
+      // Redirect after animation completes
+      setTimeout(() => {
+        window.location.href = 'Heph.html';
+      }, 20);
+    }
+
+    // Execute sign up success when page loads
+    window.addEventListener('load', performSignUpSuccess);
+
+    // Add event listeners for closing the page
+    document.addEventListener('DOMContentLoaded', function() {
+      const closeBtn = document.getElementById('closePage');
+      const container = document.querySelector('.signout-container');
+      const card = document.querySelector('.signout-card');
+
+      // Close when X button is clicked
+      closeBtn.addEventListener('click', closePage);
+
+      // Close when clicking outside the card (on the container background)
+      container.addEventListener('click', function(e) {
+        if (e.target === container) {
+          closePage();
+        }
+      });
+
+      // Prevent closing when clicking inside the card
+      card.addEventListener('click', function(e) {
+        e.stopPropagation();
+      });
+
+      // Close on Escape key press
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          closePage();
+        }
+      });
+    });
+  </script>
+  <!-- Mobile Bottom Navigation Bar -->
+  <nav class="mobile-bottom-nav">
+    <a href="buy.html" class="mobile-bottom-nav__item">
+      <i class="fas fa-shopping-cart"></i>
+      <span>Buy</span>
+    </a>
+    <a href="saved.html" class="mobile-bottom-nav__item">
+      <i class="fas fa-bookmark"></i>
+      <span>Saved</span>
+    </a>
+    <a href="sell.html" class="mobile-bottom-nav__item">
+      <i class="fas fa-tag"></i>
+      <span>Sell</span>
+    </a>
+    <a href="messages.html" class="mobile-bottom-nav__item">
+      <i class="fas fa-comment-dots"></i>
+      <span>Messages</span>
+    </a>
+    <a href="profile.html" class="mobile-bottom-nav__item active">
+      <i class="fas fa-user"></i>
+      <span>Profile</span>
+    </a>
+  </nav>
+  <script>
+    // Open mobile menu when Menu button is tapped
+    document.addEventListener('DOMContentLoaded', function() {
+      var menuBtn = document.getElementById('mobileMenuBtn');
+      var menuToggle = document.getElementById('menuToggle');
+      if(menuBtn && menuToggle) {
+        menuBtn.addEventListener('click', function() {
+          menuToggle.click();
+        });
+      }
+    });
+  </script>
+</body>
+</html> 

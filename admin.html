@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <!-- Favicon for browser tab and localhost section -->
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/hephauto.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="assets/hephauto.png">
+  <link rel="shortcut icon" type="image/png" href="assets/hephauto.png">
+  <title>Admin - HephAuto</title>
+  <style>
+    body.protected { display: none; }
+    body.dark-mode {
+      background: #18191a !important;
+      color: #e4e6eb !important;
+    }
+    body.dark-mode .admin-header, body.dark-mode header {
+      background: #181a20 !important;
+      color: #e4e6eb !important;
+      border-bottom: 1px solid #23272f;
+      box-shadow: 0 2px 8px 0 rgba(0,0,0,0.12);
+    }
+    body.dark-mode .section-header, body.dark-mode .dashboard-stats, body.dark-mode .user-management, body.dark-mode .modal-content {
+      background: #242526 !important;
+      color: #e4e6eb !important;
+    }
+    body.dark-mode table, body.dark-mode th, body.dark-mode td {
+      background: #242526 !important;
+      color: #e4e6eb !important;
+    }
+    body.dark-mode input, body.dark-mode select, body.dark-mode textarea {
+      background: #3a3b3c !important;
+      color: #e4e6eb !important;
+      border-color: #555 !important;
+    }
+    body.dark-mode .btn-primary, body.dark-mode .btn-secondary, body.dark-mode .btn-danger {
+      background: #3a3b3c !important;
+      color: #e4e6eb !important;
+      border-color: #555 !important;
+    }
+    body.dark-mode .nav-link, body.dark-mode .profile_btn {
+      color: #e4e6eb !important;
+    }
+    body.dark-mode .profile_btn span {
+      color: #fff !important;
+    }
+    body.dark-mode .modal {
+      background: rgba(24,25,26,0.95) !important;
+    }
+    #toggleDarkMode {
+      background: #f0f1f3;
+      border-radius: 50%;
+      transition: background 0.2s;
+      color: #333;
+    }
+    #toggleDarkMode:hover {
+      background: #e0e1e3;
+    }
+    body.dark-mode #toggleDarkMode {
+      background: #23272f;
+      color: #fff;
+    }
+    body.dark-mode #toggleDarkMode i {
+      color: #fff;
+    }
+    body.dark-mode .nav-link:hover, body.dark-mode .navigation_count:hover {
+      background: #23272f !important;
+      color: #fff !important;
+    }
+    body.dark-mode .nav-link:hover .nav-label,
+    body.dark-mode .nav-link:hover i,
+    body.dark-mode .nav-link:hover .navigation_count {
+      color: #fff !important;
+    }
+    body.dark-mode .profile_btn:hover {
+      background: #23272f !important;
+      color: #fff !important;
+    }
+    body.dark-mode .profile_btn:hover span {
+      color: #fff !important;
+    }
+    body.dark-mode .admin-logo span,
+    body.dark-mode .admin-subtitle {
+      color: #e4e6eb !important;
+    }
+  </style>
+  <link rel="stylesheet" href="admin.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body class="protected">
+  <script>
+    (function() {
+      var password = prompt('Enter admin password:');
+      if (password === 'Great2001@') {
+        document.body.classList.remove('protected');
+      } else {
+        window.location.href = 'Heph.html';
+      }
+    })();
+  </script>
+  <!-- =====================
+       Header Section
+       ===================== -->
+  <header>
+    <div class="admin-header" style="display: flex; align-items: center; justify-content: space-between;">
+      <div class="admin-logo">
+        <img src="assets/hephauto.png" alt="HephAuto Logo" class="admin-logo-image">
+        <!-- <span class="admin-subtitle">User Management Dashboard</span> -->
+      </div>
+      <span class="navigation_group" style="display: flex; align-items: center; gap: 18px;">
+        <div class="navigation_wrapper">
+          <a href="#messages" class="nav-link">
+            <i class="fas fa-envelope"></i>
+            <span class="nav-label">Messages</span>
+            <div class="navigation_count">3</div>
+          </a>
+          <a href="#notifications" class="nav-link">
+            <i class="fas fa-bell"></i>
+            <span class="nav-label">Notifications</span>
+            <div class="navigation_count">5</div>
+          </a>
+        </div>
+        <button id="toggleDarkMode" title="Toggle Dark Mode" style="background:none; border:none; cursor:pointer; font-size:1.3rem; margin-right:10px; display:flex; align-items:center; justify-content:center; padding:6px 10px;"><i class="fas fa-moon"></i></button>
+        <button type="button" class="profile_btn" id="adminProfileBtn">
+          <img src="assets/greatsai.jpg" alt="Admin Profile">
+          <span>Admin</span>
+        </button>
+      </span>
+    </div>
+    
+    <div class="dropdown_wrapper hide dropdown_wrapper--fade-in none" id="adminDropdown">
+      <nav>
+        <!-- Profile Section in Dropdown -->
+        <div class="profile_wrapper">
+          <img class="profile_avatar" src="assets/greatsai.jpg" alt="Admin Avatar">
+          <div class="profile_info">
+            <h2 class="profile_name">Ezenewu Great</h2>
+            <p class="profile_email">admin@hephauto.com</p>
+            <span class="profile_role">Super Admin</span>
+          </div>
+        </div>
+        <hr class="divider">
+        <!-- Navigation Links in Dropdown -->
+        <ul>
+          <li>
+            <a href="#profile">
+              <i class="fas fa-user"></i> Profile
+            </a>
+          </li>
+          <li>
+            <a href="#settings">
+              <i class="fas fa-cog"></i> Settings
+            </a>
+          </li>
+          <li>
+            <a href="#analytics">
+              <i class="fas fa-chart-bar"></i> Analytics
+            </a>
+          </li>
+        </ul>
+        <hr class="divider">
+        <!-- Sign Out Link -->
+        <ul>
+          <li>
+            <a href="Heph.html" id="logoutBtn">
+              <i class="fas fa-sign-out-alt"></i> Sign Out
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- =====================
+       Main Dashboard Content
+       ===================== -->
+  <main class="admin-main">
+    <!-- Dashboard Stats -->
+    <section class="dashboard-stats">
+      <div class="stat-card">
+        <div class="stat-icon">
+          <i class="fas fa-users"></i>
+        </div>
+        <div class="stat-content">
+          <h3 id="totalUsers">0</h3>
+          <p>Total Users</p>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">
+          <i class="fas fa-user-plus"></i>
+        </div>
+        <div class="stat-content">
+          <h3 id="newUsers">0</h3>
+          <p>New This Month</p>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">
+          <i class="fas fa-user-check"></i>
+        </div>
+        <div class="stat-content">
+          <h3 id="activeUsers">0</h3>
+          <p>Active Users</p>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">
+          <i class="fas fa-clock"></i>
+        </div>
+        <div class="stat-content">
+          <h3 id="recentLogins">0</h3>
+          <p>Recent Logins</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- User Management Section -->
+    <section class="user-management">
+      <div class="section-header">
+        <h2>User Management</h2>
+        <div class="section-actions">
+          <div class="search-box">
+            <input type="text" id="userSearch" placeholder="Search users...">
+            <i class="fas fa-search"></i>
+          </div>
+          <select id="statusFilter">
+            <option value="">All Status</option>
+            <option value="active">Active</option>
+            <option value="inactive">Inactive</option>
+            <option value="suspended">Suspended</option>
+          </select>
+          <button class="btn-primary" id="exportUsers">
+            <i class="fas fa-download"></i> Export
+          </button>
+        </div>
+      </div>
+
+      <!-- Users Table -->
+      <div class="table-container">
+        <table class="users-table" id="usersTable">
+          <thead>
+            <tr>
+              <th>User</th>
+              <th>Email</th>
+              <th>Status</th>
+              <th>Joined</th>
+              <th>Last Login</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="usersTableBody">
+            <!-- User rows will be populated by JavaScript -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Pagination -->
+      <div class="pagination" id="pagination">
+        <!-- Pagination controls will be added by JavaScript -->
+      </div>
+    </section>
+
+    <!-- User Details Modal -->
+    <div class="modal" id="userModal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 id="modalTitle">User Details</h3>
+          <button class="close-modal" id="closeModal">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="modal-body" id="modalBody">
+          <!-- User details will be populated here -->
+        </div>
+        <div class="modal-footer">
+          <button class="btn-secondary" id="cancelModal">Cancel</button>
+          <button class="btn-primary" id="saveUser">Save Changes</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="modal" id="deleteModal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Confirm Delete</h3>
+          <button class="close-modal" id="closeDeleteModal">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Are you sure you want to delete this user? This action cannot be undone.</p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn-secondary" id="cancelDelete">Cancel</button>
+          <button class="btn-danger" id="confirmDelete">Delete User</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- =====================
+       JavaScript
+       ===================== -->
+  <script src="admin.js"></script>
+  <script>
+    // Apply saved dark mode preference on load
+    if (localStorage.getItem('adminDarkMode') === 'true') {
+      document.body.classList.add('dark-mode');
+    }
+    document.getElementById('toggleDarkMode').onclick = function() {
+      document.body.classList.toggle('dark-mode');
+      localStorage.setItem('adminDarkMode', document.body.classList.contains('dark-mode'));
+    };
+  </script>
+</body>
+</html>

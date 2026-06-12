@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Meta tags for character encoding and responsive viewport -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up - HephAuto</title>
+  <!-- Link to external stylesheet -->
+  <link rel="stylesheet" href="signup.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" />
+   <!-- Favicon for browser tab and localhost section -->
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/hephauto.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="assets/hephauto.png">
+  <link rel="shortcut icon" type="image/png" href="assets/hephauto.png">
+</head>
+<body>
+  <header class="signup-page-header">
+    <div class="logo">
+      <a href="Heph.html">
+        <img src="assets/hephauto.png" alt="HephAuto Logo" class="logo-image">
+      </a>
+    </div>
+    <div class="header-actions">
+      <a href="login.html"><button class="header-login-btn">Log In</button></a>
+      <a href="signup.html"><button class="header-signup-btn">Sign Up</button></a>
+    </div>
+  </header>
+
+  <!-- Main container for the entire form -->
+  <main>
+    <div class="signup-container">
+      <div class="signup-header">
+        <h1>Create an Account</h1>
+        <p>Join HephAuto to find your perfect vehicle and enjoy exclusive benefits.</p>
+      </div>
+
+      <form class="signup-form">
+        <div class="form-group">
+          <label for="full-name">Full Name</label>
+          <input type="text" id="full-name" placeholder="Enter Full Name" required>
+        </div>
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text" id="username" placeholder="Enter Username" required>
+          <div id="username-error" class="input-error" style="display:none;"></div>
+          <div class="username-requirements">
+            
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" placeholder="Enter Email" required>
+          <div id="email-error" class="input-error" style="display:none;"></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" placeholder="Enter Password" required>
+            <i class="fas fa-eye password-toggle-icon" id="toggle-password"></i>
+            <div class="password-requirements">
+              <div class="requirement-item">
+                <span class="requirement-icon" id="length-icon">○</span>
+                <small>At least 8 characters</small>
+              </div>
+              <div class="requirement-item">
+                <span class="requirement-icon" id="letter-icon">○</span>
+                <small>One letter (a-z, A-Z)</small>
+              </div>
+              <div class="requirement-item">
+                <span class="requirement-icon" id="number-icon">○</span>
+                <small>One number (0-9)</small>
+              </div>
+              <div class="requirement-item">
+                <span class="requirement-icon" id="symbol-icon">○</span>
+                <small>One symbol (!@#$%^&*)</small>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="repeat-password">Repeat Password</label>
+            <input type="password" id="repeat-password" placeholder="Enter Password" required>
+            <i class="fas fa-eye password-toggle-icon" id="toggle-repeat-password"></i>
+          </div>
+        </div>
+        <button type="submit" class="confirm-btn">Confirm</button>
+      </form>
+
+      <div class="form-footer">
+        <p>Already have an account? <a href="login.html">Log In</a></p>
+      </div>
+    </div>
+  </main>
+
+  <!-- Floating Chat Icon -->
+  <div class="floating-chat" id="floatingChat">
+    <div class="chat-icon" id="chatIcon">
+      <i class="fas fa-comments"></i>
+      <span class="chat-badge">1</span>
+    </div>
+    <!-- Chat Interface -->
+    <div class="chat-interface" id="chatInterface">
+      <div class="chat-header">
+        <div class="chat-user-info">
+          <img src="assets/profile.png" alt="Seller" class="chat-avatar">
+          <div>
+            <h4>HephAuto Seller</h4>
+            <span class="online-status">Online</span>
+          </div>
+        </div>
+        <button class="close-chat" id="closeChat">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="chat-messages" id="chatMessages">
+        <div class="message seller-message">
+          <div class="message-content">
+            <p>Hi! Welcome to HephAuto. How can I help you today?</p>
+            <span class="message-time">2:30 PM</span>
+          </div>
+        </div>
+      </div>
+      <div class="chat-input">
+        <input type="text" id="messageInput" placeholder="Type your message...">
+        <button id="sendMessage">
+          <i class="fas fa-paper-plane"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Email Verification Overlay -->
+  <div id="emailVerifyOverlay" class="verify-overlay" style="display:none;">
+    <div class="verify-modal">
+      <div class="verify-step">Step 2 of 2</div>
+      <h2>Verify Your Email</h2>
+      <div class="verify-instructions">
+        Enter the code sent to <span id="verifyEmailDisplay"></span>
+      </div>
+      <div class="verify-code-inputs" id="verifyCodeInputs">
+        <input type="text" maxlength="1" inputmode="numeric" />
+        <input type="text" maxlength="1" inputmode="numeric" />
+        <input type="text" maxlength="1" inputmode="numeric" />
+        <input type="text" maxlength="1" inputmode="numeric" />
+        <input type="text" maxlength="1" inputmode="numeric" />
+        <input type="text" maxlength="1" inputmode="numeric" />
+      </div>
+      <button class="resend-btn" id="resendCodeBtn">Resend Code</button>
+    </div>
+  </div>
+
+  <!-- Link to external JavaScript file -->
+  <script src="signup.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+  <script>
+    document.getElementById('googleSignupBtn').onclick = function() {
+      alert('Google sign up is coming soon! (Demo button)');
+    };
+    document.getElementById('appleSignupBtn').onclick = function() {
+      alert('Apple sign up is coming soon! (Demo button)');
+    };
+  </script>
+</body>
+</html>

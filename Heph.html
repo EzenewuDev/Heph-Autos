@@ -1,0 +1,984 @@
+<!-- ========================================
+     HEPHAUTO - MAIN HOMEPAGE
+     ========================================
+     This is the main landing page for HephAuto, an automotive dealership website.
+     Features: Hero section with video background, product showcase, testimonials,
+     and comprehensive navigation system.
+     ======================================== -->
+
+<!-- Document Type Declaration - HTML5 -->
+<!DOCTYPE html>
+<html lang="en">
+<!-- Head Section - Contains meta information, title, and external resources -->
+<head>
+  <!-- Meta tags for character encoding and responsive viewport -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+    if (sessionStorage.getItem('hephauto_loader_shown')) {
+      document.documentElement.classList.add('no-loader');
+    }
+  </script>
+  <title>HephAuto - Premium Automotive Dealership</title>
+   <!-- Favicon for browser tab and localhost section -->
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/hephauto.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="assets/hephauto.png">
+  <link rel="shortcut icon" type="image/png" href="assets/hephauto.png">
+  
+  <!-- Preconnect to external domains for faster loading -->
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+  <link rel="preconnect" href="https://unpkg.com" crossorigin>
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+  <link rel="dns-prefetch" href="https://unpkg.com">
+  
+  <!-- External Resources -->
+  <!-- Main stylesheet for HephAuto styling -->
+  <link rel="stylesheet" href="Heph.css">
+  <!-- Font Awesome for icons and visual elements -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <!-- AOS (Animate On Scroll) library for scroll animations -->
+  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+  <style>
+    /* ===== HERO SECTION - DEEP RED EFFECT ===== */
+    /* Inline styles following services.html pattern — deep crimson hero background */
+    .heph-hero-red {
+      background: linear-gradient(
+        135deg,
+        #0d0000 0%,
+        #2a0000 20%,
+        #6b0000 40%,
+        #9b0000 55%,
+        #6b0000 70%,
+        #2a0000 85%,
+        #0d0000 100%
+      ) !important;
+      background-size: 200% 200% !important;
+      animation: deepRedPulse 10s ease infinite !important;
+    }
+    @keyframes deepRedPulse {
+      0%   { background-position: 0% 50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    /* Radial glow layers — warm crimson light sources */
+    .heph-hero-red .hero-overlay {
+      background: radial-gradient(ellipse at 30% 60%, rgba(220, 0, 0, 0.40) 0%, transparent 55%),
+                  radial-gradient(ellipse at 75% 30%, rgba(160, 0, 0, 0.30) 0%, transparent 50%),
+                  rgba(0, 0, 0, 0.15) !important;
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+    }
+  </style>
+</head>
+<!-- Body Section - Main content area -->
+<body>
+  <!-- ========================================
+       NAVIGATION HEADER SECTION
+       ========================================
+       Contains the main navigation bar with logo, menu items, search functionality,
+       and user authentication controls. Responsive design with mobile hamburger menu.
+       ======================================== -->
+  <header class="navbar">
+    <!-- Company Logo - Links back to homepage -->
+    <div class="logo">
+        <a href="Heph.html">
+          <img src="assets/hephauto.png" alt="HephAuto Logo" class="logo-image">
+        </a>
+      </div>
+    
+    <!-- Primary Navigation Menu - Desktop Version -->
+    <!-- Contains main site navigation links with dropdown functionality -->
+    <nav class="nav-links">
+       <!-- Home dropdown -->
+       <a href="Heph.html" class="dropdown-link">
+        <div class="dropdown">Home</div>
+      </a>
+      <!-- Products dropdown -->
+      <a href="buy.html" class="dropdown-link">
+        <div class="dropdown">Buy</div>
+      </a>
+      <!-- Sell dropdown -->
+      <a href="sell.html" class="dropdown-link">
+        <div class="dropdown">Sell</div>
+      </a>
+        <!-- Solutions dropdown -->
+      <a href="services.html" class="dropdown-link" id="solutionsDropdown">
+        <div class="dropdown">Services</div>
+      </a>
+      <!-- Resources dropdown -->
+
+      <!-- Pricing dropdown -->
+      <div class="dropdown-link dropdown-parent" id="contactDropdownWrapper">
+        <div class="dropdown" id="contactDropdownBtn">
+          Contact <i class="fas fa-chevron-down contact-chevron"></i>
+        </div>
+        <div class="custom-dropdown-menu" id="contactDropdownMenu">
+          <a href="Contact.html" class="dropdown-item"><i class="fas fa-envelope"></i> Contact Us</a>
+          <a href="About.html" class="dropdown-item"><i class="fas fa-info-circle"></i> About</a>
+        </div>
+      </div>
+    </nav>
+    
+    <!-- Search Functionality -->
+    <!-- Allows users to search for specific vehicles or parts -->
+    <div class="search_wrapper">
+      <i class="fas fa-search search-icon"></i>
+      <input type="text" id="searchInput" placeholder="Search for vehicles..." aria-label="Search vehicles">
+    </div>
+
+    <!-- User Actions Section -->
+    <!-- Contains login/user profile controls and main call-to-action button -->
+    <div class="actions">
+      <!-- Login/User section -->
+      <div id="userSection">
+        <!-- This will be populated by JavaScript based on login status -->
+      </div>
+      <!-- Call to action button -->
+      <a href="productshow.html" class="cta-btn">Discover Now</a>
+    </div> 
+    <!-- Hamburger icon for mobile -->
+    <button class="hamburger-icon" id="menuToggle">
+      <i class="fas fa-bars"></i>
+    </button>
+  </header> 
+
+  <!-- ========================================
+       MOBILE NAVIGATION SECTION
+       ========================================
+       Mobile-responsive navigation with hamburger menu, overlay, and collapsible menu.
+       Provides the same functionality as desktop navigation but optimized for mobile devices.
+       ======================================== -->
+
+  <!-- Mobile Menu Overlay - Darkens background when menu is open -->
+  <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+
+  <!-- Collapsible Mobile Menu - Slides in from right side -->
+  <div class="mobile-menu" id="mobileMenu">
+  
+    <!-- Close button for mobile menu -->
+    <button class="close-icon" id="closeMenu">
+      <i class="fas fa-times"></i>
+    </button>
+    
+    <!-- Navigation links for mobile menu -->
+    <nav class="nav-links">
+      <!-- Search bar at the top of mobile menu -->
+      <div class="mobile-menu-search" style="padding: 0 0 8px 0;">
+        <div style="display: flex; align-items: center; background: #f3f6fd; border-radius: 12px; padding: 6px 0 6px 16px; width: 90%; margin-left: 16px;">
+          <i class="fas fa-search" id="mobileMenuSearchIcon" style="font-size: 1.1rem; color: #000000; margin-right: 8px; cursor: pointer;"></i>
+          <input type="text" id="mobileMenuSearchInput" placeholder="Search..." style="border: none; outline: none; background: transparent; font-size: 1.2rem; width: 100%; padding: 6px 0; text-align: left;">
+        </div>
+      </div>
+      <a href="Heph.html" class="dropdown-link">
+        <div class="dropdown">Home</div>
+      </a>
+      <a href="buy.html" class="dropdown-link">
+        <div class="dropdown">Buy</div>
+      </a>
+      <a href="sell.html" class="dropdown-link">
+        <div class="dropdown">Sell</div>
+      </a>
+      <a href="services.html" class="dropdown-link" id="solutionsDropdown">
+        <div class="dropdown">Services</div>
+      </a>
+      <!-- Contact dropdown -->
+      <div class="dropdown-link dropdown-parent" id="contactDropdownWrapperMobile">
+        <div class="dropdown" id="contactDropdownBtnMobile">
+          Contact <i class="fas fa-chevron-down contact-chevron"></i>
+        </div>
+        <div class="custom-dropdown-menu" id="contactDropdownMenuMobile">
+          <a href="Contact.html" class="dropdown-item"><i class="fas fa-envelope"></i> Contact Us</a>
+          <a href="About.html" class="dropdown-item"><i class="fas fa-info-circle"></i> About</a>
+        </div>
+      </div>
+    </nav>
+    <!-- Action buttons section for mobile -->
+    <div class="mobile-menu-bottom">
+      <div id="mobileUserSection"><!-- Populated by JS --></div>
+      <div class="mobile-social-icons">
+        <a href="#" class="facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="twitter"><i class="fab fa-x-twitter"></i></a>
+        <a href="#" class="instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" class="youtube"><i class="fab fa-youtube"></i></a>
+        <a href="#" class="tiktok"><i class="fab fa-tiktok"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================
+       HERO SECTION - MAIN LANDING AREA
+       ========================================
+       The primary landing section featuring video background, compelling headline,
+       call-to-action buttons, and key statistics. This is the first impression
+       visitors get of HephAuto.
+       ======================================== -->
+  <main class="hero-section heph-hero-red">
+    <!-- Deep red animated gradient background — no video required -->
+    
+    <!-- Hero Overlay - Semi-transparent overlay for better text readability -->
+    <!-- Ensures white text remains visible over the gradient background -->
+    <div class="hero-overlay"></div>
+    
+    <!-- Hero Content - Main text and call-to-action elements -->
+    <!-- Uses AOS (Animate On Scroll) for staggered animation effects -->
+    <div class="hero-content" data-aos="fade-in">
+      <!-- Achievement Badge - Highlights company credentials -->
+      <div class="hero-badge" data-aos="fade-down" data-aos-delay="200">
+        <span class="badge-icon">🏆</span>
+        <span>Award-Winning Dealership</span>
+      </div>
+      <!-- Main Headline - Primary marketing message -->
+      <h1 data-aos="fade-right" data-aos-delay="300">
+        Your Trusted Partner for All Vehicles
+        <br> <span class="gradient-text">From Luxury to Commercial</span>
+      </h1>
+      <!-- Subtitle - Explains value proposition and product range -->
+      <p data-aos="fade-right" data-aos-delay="400">From premium vehicles to mid-range options and quality spare parts, find everything you need for your drive.</p>
+      <!-- Call-to-Action Buttons - Primary user actions -->
+      <div class="hero-actions" data-aos="fade-up" data-aos-delay="500">
+        <!-- Browse Products Button - Links to product catalog -->
+        <button class="cta-btn secondary" onclick="window.location.href='buy.html'">
+          <span>Our Product</span>
+          <i class="fas fa-arrow-right"></i>
+        </button>
+        <!-- Sign Up Button - Links to registration page -->
+        <button class="cta-btn secondary" onclick="window.location.href='signup.html'">
+          <span>Get Started with Us</span>
+          <i class="fas fa-rocket"></i>
+        </button>
+      </div>
+      <!-- Statistics Section - Displays key company achievements -->
+      <div class="hero-stats" data-aos="fade-up" data-aos-delay="600">
+        <div class="stat-item">
+          <span class="stat-number" data-target="1500">0</span>
+          <span class="stat-label">Vehicles Sold</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number" data-target="99">0</span>
+          <span class="stat-label">% Client Satisfaction</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number" data-target="15">0</span>
+          <span class="stat-label">Years of Excellence</span>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Floating cards positioned over the video -->
+    <div class="hero-floating-elements">
+      <div class="floating-card">
+        <div class="card-icon">⭐</div>
+        <div class="card-content">
+          <h4>Premium Quality</h4>
+          <p>All vehicles inspected</p>
+        </div>
+      </div>
+      <div class="floating-card card-2">
+        <div class="card-icon">🚚</div>
+        <div class="card-content">
+          <h4>Free Delivery</h4>
+          <p>Nationwide shipping</p>
+        </div>
+      </div>
+    </div>
+  </main>
+  <!-- Car Filters & Ad Section -->
+  <section class="car-filter-ad-section" id="car-filters">
+    <div class="car-filters-wrapper">
+      <div class="car-filters">
+        <a href="buy.html?search=new"><button><i class="fas fa-star"></i> New cars</button></a>
+        <a href="buy.html?search=used"><button><i class="fas fa-car"></i> Used cars</button></a>
+        <a href="buy.html?search=lease"><button><i class="fas fa-handshake"></i> Lease deals</button></a>
+        <a href="buy.html?search=electric"><button><i class="fas fa-bolt"></i> Electric</button></a>
+        <a href="buy.html?search=suv"><button><i class="fas fa-truck"></i> SUVs</button></a>
+        <a href="buy.html?search=hybrid"><button><i class="fas fa-leaf"></i> Hybrids</button></a>
+        <a href="buy.html?search=boot"><button><i class="fas fa-box"></i> Big boot</button></a>
+        <a href="buy.html?search=30000"><button><i class="fas fa-pound-sign"></i> Below £30k</button></a>
+      </div>
+    </div>
+    <div class="car-ad-card">
+      <div class="car-ad-content">
+        <div class="car-ad-icon">
+          <i class="fas fa-car-side"></i>
+        </div>
+        <h2>Get the True Value for Your Car</h2>
+        <div class="car-ad-badge">
+          <i class="fas fa-award"></i> Trusted by 1,000+ sellers
+        </div>
+        <p>Earn £1,000+ Above Market Value</p>
+        <div class="car-ad-btn-wrapper">
+          <a href="sell.html" class="car-ad-sell-btn">Sell my car</a>
+        </div>
+        <div id="sellSuccessMsg" class="sell-success-msg" style="display:none;">
+          <i class="fas fa-check-circle"></i> Redirecting to Sell Page...
+        </div>
+      </div>
+      <div class="car-ad-image">
+        <img src="assets/assets1/Porshe.jpg" alt="Car Ad" />
+      </div>
+    </div>
+  </section>
+  
+  <!-- ========================================
+       FEATURES SHOWCASE SECTION
+       ========================================
+       Highlights the key benefits and services offered by HephAuto.
+       Features 6 main value propositions with icons and descriptions.
+       ======================================== -->
+  <section class="features-showcase" id="features" data-aos="fade-up">
+    <div class="container">
+      <div class="features-header">
+        <span class="features-badge">Why Choose Us</span>
+        <h2>Everything you need for a seamless car buying experience</h2>
+        <p>We've streamlined the entire process to make finding and purchasing your perfect vehicle effortless.</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+          <div class="feature-icon">
+            <i class="fas fa-shield-alt"></i>
+          </div>
+          <h3>Verified Quality</h3>
+          <p>Every vehicle undergoes a comprehensive 150-point inspection by certified mechanics.</p>
+          <div class="feature-highlight">100% Verified</div>
+        </div>
+        <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+          <div class="feature-icon">
+            <i class="fas fa-credit-card"></i>
+          </div>
+          <h3>Flexible Financing</h3>
+          <p>Get approved in minutes with competitive rates and flexible payment options.</p>
+          <div class="feature-highlight">Quick Approval</div>
+        </div>
+        <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
+          <div class="feature-icon">
+            <i class="fas fa-truck"></i>
+          </div>
+          <h3>Free Delivery</h3>
+          <p>We deliver your vehicle anywhere in Nigeria with full insurance coverage.</p>
+          <div class="feature-highlight">Nationwide</div>
+        </div>
+        <div class="feature-card" data-aos="fade-up" data-aos-delay="400">
+          <div class="feature-icon">
+            <i class="fas fa-headset"></i>
+          </div>
+          <h3>24/7 Support</h3>
+          <p>Our expert team is available round the clock to assist you with any questions.</p>
+          <div class="feature-highlight">Always Available</div>
+        </div>
+        <div class="feature-card" data-aos="fade-up" data-aos-delay="500">
+          <div class="feature-icon">
+            <i class="fas fa-award"></i>
+          </div>
+          <h3>Warranty Coverage</h3>
+          <p>All vehicles come with comprehensive warranty coverage for your peace of mind.</p>
+          <div class="feature-highlight">Full Protection</div>
+        </div>
+        <div class="feature-card" data-aos="fade-up" data-aos-delay="600">
+          <div class="feature-icon">
+            <i class="fas fa-clock"></i>
+          </div>
+          <h3>Fast Processing</h3>
+          <p>Complete your purchase in as little as 24 hours with our streamlined process.</p>
+          <div class="feature-highlight">24-Hour Service</div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Featured Products Section -->
+  <section class="featured-products-section" id="products" data-aos="fade-up">
+    <div class="section-header">
+      <h2>Featured Products</h2>
+      <a href="buy.html" class="see-more">See More <i class="fas fa-chevron-right"></i></a>
+    </div>
+
+    <div class="product-cards-container">
+      <!-- Product Card 1 -->
+      <div class="product-card"
+        data-make="Daihatsu"
+        data-model="Hijet"
+        data-year="2018"
+        data-color="White"
+        data-condition="Foreign Used"
+        data-transmission="Manual"
+        data-fuel="Petrol"
+        data-engine-size="1.0"
+        data-seats="6-8"
+        data-mileage="32000"
+        data-price="₦4,000,000"
+        data-images="assets/assets1/hijet-truck.jpg,assets/assets1/Hijetpickup1.jpg,assets/assets1/Hijetpickup2.jpg,assets/assets1/Hijetpickup3.jpg,assets/assets1/Hijetpickup4.jpg,assets/assets1/Hijetpickup5.jpg"
+      >
+        <div class="image-gallery">
+          <div class="view-image-icon">
+            <i class="fas fa-expand"></i>
+          </div>
+        </div>
+        <div class="card-navigation-dots"></div>
+        <div class="product-info">
+          <div class="product-info-top">
+            <span class="location"><i class="fas fa-map-marker-alt"></i> Ibadan, OYO</span>
+            <div class="card-actions">
+              <button class="action-btn message-btn"><i class="far fa-comment-dots"></i></button>
+              <button class="action-btn like-btn"><i class="far fa-heart"></i></button>
+              <button class="action-btn bookmark-btn"><i class="far fa-bookmark"></i></button>
+              <button class="action-btn share-btn"><i class="far fa-paper-plane"></i></button>
+            </div>
+          </div>
+          <span class="status for-sale">Foreign-Used</span>
+          <h3>Hijet Pickup</h3>
+          <h1>₦4,000,000</h1>
+          <div class="details">
+            <span><i class="fas fa-briefcase"></i> Transport</span>
+            <span><i class="fas fa-users"></i> 6-8 Passengers</span>
+            <a href="Viewdetails.html" class="buy-now-btn">Details</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product Card 2 -->
+      <div class="product-card"
+        data-make="Toyota"
+        data-model="Coaster"
+        data-year="2020"
+        data-color="White"
+        data-condition="Foreign Used"
+        data-transmission="Automatic"
+        data-fuel="Diesel"
+        data-engine-size="4.0"
+        data-seats="16"
+        data-mileage="45000"
+        data-price="₦38,000,000"
+        data-images="assets/assets1/coasterbus.jpg,assets/assets1/coasterbus1.jpg,assets/assets1/coasterbus2.jpg,assets/assets1/coasterbus3.jpg,assets/assets1/coasterbus4.jpg,assets/assets1/coasterbus5.jpg,assets/assets1/coasterbus6.jpg,assets/assets1/coasterbus7.jpg,assets/assets1/coasterbus8.jpg"
+      >
+        <div class="image-gallery">
+          <div class="view-image-icon">
+            <i class="fas fa-expand"></i>
+          </div>
+        </div>
+        <div class="card-navigation-dots"></div>
+        <div class="product-info">
+          <div class="product-info-top">
+            <span class="location"><i class="fas fa-map-marker-alt"></i> Ibadan, OYO</span>
+            <div class="card-actions">
+              <button class="action-btn message-btn"><i class="far fa-comment-dots"></i></button>
+              <button class="action-btn like-btn"><i class="far fa-heart"></i></button>
+              <button class="action-btn bookmark-btn"><i class="far fa-bookmark"></i></button>
+              <button class="action-btn share-btn"><i class="far fa-paper-plane"></i></button>
+            </div>
+          </div>
+          <span class="status for-invest">Foreign Used</span>
+          <h3>Coaster bus</h3>
+          <h1>₦38,000,000</h1>
+          <div class="details">
+            <span><i class="fas fa-briefcase"></i> Transport</span>
+            <span><i class="fas fa-users"></i> 6-8 Passengers</span>
+            <a href="Viewdetails.html" class="buy-now-btn">Details</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product Card 3 -->
+      <div class="product-card"
+        data-make="DAF"
+        data-model="XF"
+        data-year="2017"
+        data-color="White"
+        data-condition="Foreign Used"
+        data-transmission="Manual"
+        data-fuel="Diesel"
+        data-engine-size="12.9"
+        data-seats="6-8"
+        data-mileage="80000"
+        data-price="₦35,000,000"
+        data-images="assets/assets1/DAF.jpg,assets/assets1/DAF-1.jpg,assets/assets1/DAF-2.jpg,assets/assets1/DAF-3.jpg,assets/assets1/DAF-4.jpg,assets/assets1/DAF-5.jpg"
+      >
+        <div class="image-gallery">
+          <div class="view-image-icon">
+            <i class="fas fa-expand"></i>
+          </div>
+        </div>
+        <div class="card-navigation-dots"></div>
+        <div class="product-info">
+          <div class="product-info-top">
+            <span class="location"><i class="fas fa-map-marker-alt"></i> Ibadan, OYO</span>
+            <div class="card-actions">
+              <button class="action-btn message-btn"><i class="far fa-comment-dots"></i></button>
+              <button class="action-btn like-btn"><i class="far fa-heart"></i></button>
+              <button class="action-btn bookmark-btn"><i class="far fa-bookmark"></i></button>
+              <button class="action-btn share-btn"><i class="far fa-paper-plane"></i></button>
+            </div>
+          </div>
+          <span class="status for-sale">Foreign-Used</span>
+          <h3>DAF Truck</h3>
+          <h1>₦35,000,000</h1>
+          <div class="details">
+            <span><i class="fas fa-briefcase"></i> Transport</span>
+            <span><i class="fas fa-users"></i> 6-8 Passengers</span>
+            <a href="Viewdetails.html" class="buy-now-btn">Details</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product Card 4 -->
+      <div class="product-card"
+        data-make="DAF"
+        data-model="CF Blue"
+        data-year="2019"
+        data-color="Blue"
+        data-condition="Foreign Used"
+        data-transmission="Manual"
+        data-fuel="Diesel"
+        data-engine-size="12.9"
+        data-seats="6-8"
+        data-mileage="60000"
+        data-price="₦35,000,000"
+        data-images="assets/assets1/DAF-BLUE2.jpg,assets/assets1/DAF-BLUE1.jpg,assets/assets1/DAF-BLUE3.jpg,assets/assets1/DAF-BLUE4.jpg"
+      >
+        <div class="image-gallery">
+          <div class="view-image-icon">
+            <i class="fas fa-expand"></i>
+          </div>
+        </div>
+        <div class="card-navigation-dots"></div>
+        <div class="product-info">
+          <div class="product-info-top">
+            <span class="location"><i class="fas fa-map-marker-alt"></i> Ibadan, OYO</span>
+            <div class="card-actions">
+              <button class="action-btn message-btn"><i class="far fa-comment-dots"></i></button>
+              <button class="action-btn like-btn"><i class="far fa-heart"></i></button>
+              <button class="action-btn bookmark-btn"><i class="far fa-bookmark"></i></button>
+              <button class="action-btn share-btn"><i class="far fa-paper-plane"></i></button>
+            </div>
+          </div>
+          <span class="status for-sale">Foreign-Used</span>
+          <h3>DAF Blue Truck</h3>
+          <h1>₦35,000,000</h1>
+          <div class="details">
+            <span><i class="fas fa-briefcase"></i> Transport</span>
+            <span><i class="fas fa-users"></i> 6-8 Passengers</span>
+            <a href="Viewdetails.html" class="buy-now-btn">Details</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Us Section -->
+  <section class="about-us-section" id="about" data-aos="fade-in">
+    <div class="about-content">
+      <span class="about-tag">About Us</span>
+      <h2>HephAuto: Dedicated to delivering the ultimate driving experience</h2>
+      <p>A trusted platform committed to helping you find your perfect vehicle with expert guidance.</p>
+      <div class="about-stats">
+        <div class="stat-box">
+          <h3>1k+</h3>
+          <p>Successful Transfer of vehicles
+            <br> to buyers
+          </p>
+        </div>
+        <div class="stat-box">
+          <h3>99+</h3>
+          <p>Happy Companies</p>
+        </div>
+        <div class="stat-box">
+          <h3>15+</h3>
+          <p>Years of Experience</p>
+        </div>
+      </div>
+    </div>
+    <div class="about-image">
+      <img src="assets/assets1/ABOUT.jpg" alt="About Us Image">
+    </div>
+  </section>
+  
+  <!-- Benefits Section -->
+  <section class="benefits-section" id="benefits" data-aos="fade-up">
+    <div class="benefits-header">
+      <span class="benefits-tag">Benefits</span>
+      <h2>Why Choose HephAuto</h2>
+    </div>
+    <div class="benefits-grid">
+      <div class="benefit-card">
+        <div class="benefit-icon">🚗</div>
+        <h3>Wide Vehicle Selection</h3>
+        <p>We offer a large collection of cars, SUVs, trucks, and buses from various trusted brands, giving you plenty of options to choose from based on your budget, style, and specific needs. Whether you're buying for personal use or business, you can easily browse, compare, and select the right vehicle without stress.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">💳</div>
+        <h3>Fast & Easy Financing</h3>
+        <p>We partner with reliable financial institutions to provide flexible auto loan solutions that match your budget. Our process is straightforward, with minimal paperwork and quick approval times so you can drive away sooner. Whether you're buying new or used, we help make vehicle ownership more affordable through easy monthly payments.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">🛡️</div>
+        <h3>Verified Listings</h3>
+        <p>Every vehicle listed on our website is carefully checked to ensure it meets our quality and authenticity standards. We work with trusted dealers and individual sellers to provide accurate information, clear photos, and honest descriptions of each car.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">💰</div>
+        <h3>Best Price Guarantee</h3>
+        <p>We work hard to ensure you get the best possible price on every vehicle. Our platform compares similar listings and market values to help you make informed decisions. You won't need to spend hours haggling or searching multiple sites — we've done the hard work for you.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">🔍</div>
+        <h3>Certified Inspection</h3>
+        <p>Before any car appears on our website, it goes through a thorough inspection by experienced auto technicians. This covers engine performance, safety features, exterior condition, and more. Our goal is to give you peace of mind that the vehicle you choose is reliable and road-ready.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">🚚</div>
+        <h3>Nationwide Delivery</h3>
+        <p>No matter where you are, we can help arrange safe and affordable delivery of your chosen vehicle to your location. Our delivery partners are experienced in transporting all kinds of vehicles, ensuring they arrive in excellent condition. This means you can shop from anywhere in the country without worrying about the logistics.</p>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Testimonial Section -->
+  <section class="testimonial-section" id="testimonials" data-aos="fade-up">
+    <div class="testimonial-header">
+      <span class="testimonial-tag">Testimonial</span>
+      <h2>Hear From Our Happy Clients</h2>
+    </div>
+    <div class="testimonial-grid">
+      <div class="testimonial-card">
+        <div class="testimonial-image-container">
+          <img src="assets/assets1/pexels-life-of-pix-7674.jpg" alt="House" class="testimonial-house-img">
+          <span class="testimonial-rating"><i class="fas fa-star"></i> 4.9</span>
+          <img src="assets/profile.png" alt="Scarlet Mitchell" class="testimonial-avatar">
+        </div>
+        <div class="testimonial-info">
+          <h3> Ngozi Kene</h3>
+          <span class="testimonial-location">Abuja</span>
+          <p class="testimonial-text">
+            "I ordered a Toyota bus for my transport business, and it arrived in my city without any problems. The price was better than other offers I found, and the whole buying process was stress-free. I'll definitely use this site again."
+          </p>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-image-container">
+          <img src="assets/assets1/pexels-pixabay-164634.jpg" alt="House" class="testimonial-house-img">
+          <span class="testimonial-rating"><i class="fas fa-star"></i> 4.9</span>
+          <img src="assets/profile.png" alt="Scarlet Mitchell" class="testimonial-avatar">
+        </div>
+        <div class="testimonial-info">
+          <h3> Aisha Tami</h3>
+          <span class="testimonial-location">Kaduna</span>
+          <p class="testimonial-text">
+            "I was nervous about buying a used car online, but this platform made everything easy. The inspection report was detailed, and the customer support answered all my questions. I've been driving the car for months now with no issues."
+          </p>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-image-container">
+          <img src="assets/assets1/pexels-pixabay-461890.jpg" alt="House" class="testimonial-house-img">
+          <span class="testimonial-rating"><i class="fas fa-star"></i> 4.9</span>
+          <img src="assets/profile.png" alt="Scarlet Mitchell" class="testimonial-avatar">
+        </div>
+        <div class="testimonial-info">
+          <h3>Emeka Onyeka</h3>
+          <span class="testimonial-location">Lagos</span>
+          <p class="testimonial-text">
+            "I found the perfect car for my business at a great price. The team guided me through the financing and handled all the paperwork. Delivery was on time, and the car was in excellent condition just as advertised. Highly recommended!"
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--
+    <div class="testimonial-form-container">
+      <h3>Share Your Experience</h3>
+      <form id="testimonialForm" enctype="multipart/form-data">
+        <input type="text" id="testimonialName" placeholder="Your Name" required>
+        <input type="text" id="testimonialLocation" placeholder="Your Location" required>
+        <textarea id="testimonialText" placeholder="Your Testimonial" required></textarea>
+        <div class="testimonial-rating-input">
+          <span>Rating:</span>
+          <div id="starRating" class="star-rating">
+            <span data-value="1">&#9733;</span>
+            <span data-value="2">&#9733;</span>
+            <span data-value="3">&#9733;</span>
+            <span data-value="4">&#9733;</span>
+            <span data-value="5">&#9733;</span>
+          </div>
+          <input type="hidden" id="testimonialStars" value="5" required>
+        </div>
+        <div class="file-input-wrapper">
+          <input type="file" id="testimonialImage" accept="image/*" required>
+          <span class="cancel-icon" id="cancelImage" title="Remove image">
+            <i class="fas fa-times-circle"></i>
+          </span>
+        </div>
+        <button type="submit">Submit Testimonial</button>
+      </form>
+    </div>
+    -->
+  </section>
+  
+  <!-- FAQ Section -->
+  <section class="faq-section" id="faq" data-aos="fade-up">
+    <div class="faq-header">
+      <span class="faq-tag">FAQ</span>
+      <h2>All You Need To Know</h2>
+    </div>
+    <div class="faq-container">
+      <div class="faq-item active">
+        <div class="faq-question">
+          <span>How do I know if a vehicle listed is genuine?</span>
+          <i class="fas fa-minus"></i>
+        </div>
+        <div class="faq-answer">
+          <p>All vehicles on our platform go through a verification process. We work with trusted dealers and individual sellers, and every listing includes detailed photos, descriptions, and, in many cases, inspection reports so you can buy with confidence.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">
+          <span> Can I get financing through your website?</span>
+          <i class="fas fa-plus"></i>
+        </div>
+        <div class="faq-answer">
+          <p>Yes! We partner with reputable financial institutions to offer flexible auto loan options. Our team can guide you through the application process and help you find a plan that suits your budget.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>Do you deliver vehicles to other states or cities?</span>
+          <i class="fas fa-plus"></i>
+        </div>
+        <div class="faq-answer">
+          <p>Absolutely. We offer nationwide delivery at competitive rates. Once your purchase is complete, we help arrange safe and timely delivery of your vehicle to your chosen location.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>What if the car I buy has a problem after delivery?</span>
+          <i class="fas fa-plus"></i>
+        </div>
+        <div class="faq-answer">
+          <p>We encourage buyers to review inspection reports carefully and ask questions before purchase. Some vehicles may come with warranties or after-sale support. If there's an issue, contact us immediately, and we'll assist in resolving it.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>Can I list my car for sale on your website?</span>
+          <i class="fas fa-plus"></i>
+        </div>
+        <div class="faq-answer">
+          <p>Yes! Our platform makes it easy for private sellers and dealers to list vehicles. We'll help promote your listing to attract serious buyers quickly. Contact our team for assistance in creating a high-quality listing.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">
+          <span> Is there a fee to use your platform?</span>
+          <i class="fas fa-plus"></i>
+        </div>
+        <div class="faq-answer">
+          <p>Browsing listings is free. There may be small fees for premium services like featured ads, vehicle inspections, or delivery arrangements. We're always transparent about any costs involved.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">
+          <span> How long does it take to complete a purchase?</span>
+          <i class="fas fa-plus"></i>
+        </div>
+        <div class="faq-answer">
+          <p>This depends on the seller, payment method, and delivery option you choose. On average, purchases and delivery arrangements are completed within a few days. Our team works hard to make the process fast and smooth.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Footer Section -->
+  <footer id="footer" data-aos="fade-up">
+    <div class="footer-top">
+      <!-- Footer logo and social media -->
+      <div class="footer-logo">
+        <h3>HephAuto</h3>
+        <p>Your partner on the road ahead.</p>
+        <div class="footer-follow-label">Follow us</div>
+        <div class="footer-social">
+          <a href="#" class="youtube"><i class="fab fa-youtube"></i></a>
+          <a href="#" class="facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="twitter"><i class="fab fa-x-twitter"></i></a>
+          <a href="#" class="tiktok"><i class="fab fa-tiktok"></i></a>
+        </div>
+      </div>
+  
+      <!-- Footer navigation links -->
+      <div class="footer-links">
+        <div>
+          <a href="Heph.html">Home</a>
+          <a href="buy.html">buy</a>
+          <a href="sell.html">Sell</a>
+        </div>
+        <div>
+          <a href="services.html">Services</a>
+          <a href="About.html">About Us</a>
+          <a href="Contact.html">Contsct Us</a>
+        </div>
+        <div>          
+          <a href="#">Support</a>
+          <a href="#">Dealer & Brand Partners</a>
+          <a href="#">Careers</a>
+        </div>
+      </div>
+
+      <!-- Newsletter Section -->
+      <div class="newsletter">
+        <h4>Join Our Newsletter</h4>
+        <p>Stay updated with our latest job postings and career tips.</p>
+        <form action="#" method="post">
+          <input type="email" placeholder="Enter your email" required>
+          <button type="submit" class="newsletter-btn">
+            <i class="fas fa-arrow-right"></i>
+          </button>
+        </form>
+      </div>
+    </div>
+  
+    <!-- Footer bottom legal bar -->
+    <div class="footer-bottom">
+      &copy; <span id="current-year"></span> HephAuto. All rights reserved.
+      <div class="footer-legal-links">
+        <a href="#">Terms and Conditions</a> |
+        <a href="#">Privacy</a> |
+        <a href="#">Cookies</a> |
+        <a href="#">Accessibility</a>
+      </div>
+    </div>
+  </footer>
+  
+  <button id="backToTopBtn" title="Go to top"><i class="fas fa-arrow-up"></i></button>
+  
+  <!-- Floating Action Button -->
+  <div class="floating-action">
+    <button class="fab-main" id="fabMain">
+      <i class="fas fa-plus"></i>
+    </button>
+    <div class="fab-options">
+      <button class="fab-option" title="Quick Quote">
+        <i class="fas fa-calculator"></i>
+      </button>
+      <button class="fab-option" title="Schedule Test Drive">
+        <i class="fas fa-car"></i>
+      </button>
+      <button class="fab-option" title="Contact Sales">
+        <i class="fas fa-phone"></i>
+      </button>
+    </div>
+  </div>
+  
+  <!-- Demo Modal -->
+  <div id="demoModal" class="demo-modal">
+    <div class="demo-content">
+      <div class="demo-header">
+        <h3>Welcome to HephAuto</h3>
+        <button class="close-demo" id="closeDemo">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="demo-video">
+        <video controls>
+          <source src="assets/assets1/2075170-hd_1920_1080_25fps.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+      <div class="demo-info">
+        <h4>Discover Your Perfect Vehicle</h4>
+        <p>See how easy it is to find, compare, and purchase your dream car with HephAuto's streamlined platform.</p>
+        <a href="buy.html" class="demo-cta">Start Shopping Now</a>
+      </div>
+    </div>
+  </div>
+  
+  <script src="Heph.js" defer></script>
+  <!-- Image View Modal -->
+  <div id="imageViewModal" class="image-view-modal" style="display:none;">
+    <span class="close-modal" id="closeImageViewModal">&times;</span>
+    <span class="modal-arrow modal-arrow-left" id="modalArrowLeft"><i class="fas fa-chevron-left"></i></span>
+    <img class="modal-image" id="modalImage" src="" alt="Product Image" />
+    <span class="modal-arrow modal-arrow-right" id="modalArrowRight"><i class="fas fa-chevron-right"></i></span>
+  </div>
+  <!-- Gallery Lightbox -->
+  <div id="galleryLightbox" class="image-view-modal" style="display:none;">
+    <span class="close-modal" id="closeGalleryLightbox">&times;</span>
+    <span class="modal-arrow modal-arrow-left" id="galleryArrowLeft"><i class="fas fa-chevron-left"></i></span>
+    <div class="lightbox-content">
+      <!-- Image or Video will be injected here by JS -->
+    </div>
+    <span class="modal-arrow modal-arrow-right" id="galleryArrowRight"><i class="fas fa-chevron-right"></i></span>
+  </div>
+  <script src="https://unpkg.com/aos@next/dist/aos.js" defer></script>
+  <!-- Logout Confirmation Modal (hidden by default) -->
+  <div id="logoutConfirmModal" class="logout-modal" style="display:none;">
+    <div class="logout-modal-backdrop"></div>
+    <div class="logout-modal-content">
+      <button class="logout-close-btn" aria-label="Close">&times;</button>
+      <div class="logout-icon">⚠️</div>
+      <h2>Logout Account</h2>
+      <p>You are about to log out of your account.</p>
+      <div class="logout-modal-buttons">
+        <a href="Heph.html" class="logout-cancel-btn" role="button">No, keep me logged in</a>
+        <a href="login.html" class="logout-confirm-btn" role="button">Yes, Logout</a>
+      </div>
+    </div>
+  </div>
+  <!-- Mobile Bottom Navigation Bar -->
+  <nav class="mobile-bottom-nav">
+    <a href="buy.html" class="mobile-bottom-nav__item">
+      <i class="fas fa-shopping-cart"></i>
+      <span>Buy</span>
+    </a>
+    <a href="saved.html" class="mobile-bottom-nav__item">
+      <i class="fas fa-bookmark"></i>
+      <span>Saved</span>
+    </a>
+    <a href="sell.html" class="mobile-bottom-nav__item">
+      <i class="fas fa-tag"></i>
+      <span>Sell</span>
+    </a>
+    <a href="messages.html" class="mobile-bottom-nav__item">
+      <i class="fas fa-comment-dots"></i>
+      <span>Messages</span>
+    </a>
+    <a href="profile.html" class="mobile-bottom-nav__item active">
+      <i class="fas fa-user"></i>
+      <span>Profile</span>
+    </a>
+    <!-- <button class="mobile-bottom-nav__item" id="mobileMenuBtn" type="button">
+      <i class="fas fa-bars"></i>
+      <span>Menu</span>
+    </button> -->
+  </nav>
+  
+  <script>
+    // Open mobile menu when Menu button is tapped
+    document.addEventListener('DOMContentLoaded', function() {
+      var menuBtn = document.getElementById('mobileMenuBtn');
+      var menuToggle = document.getElementById('menuToggle');
+      if(menuBtn && menuToggle) {
+        menuBtn.addEventListener('click', function() {
+          menuToggle.click();
+        });
+      }
+    });
+  </script>
+
+  <!-- Professional Page Loader -->
+  <div id="pageLoader" class="loader-container">
+    <div class="loader-content">
+      <div class="loader-circles">
+        <div class="loader-circle"></div>
+        <div class="loader-circle"></div>
+        <div class="loader-circle"></div>
+      </div>
+      <div class="loader-progress">
+        <div class="progress-bar">
+          <div class="progress-fill"></div>
+        </div>
+        <span class="progress-text">0%</span>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+
+

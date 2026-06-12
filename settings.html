@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Settings - HephAuto</title>
+  <link rel="stylesheet" href="Heph.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+   <!-- Favicon for browser tab and localhost section -->
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/hephauto.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="assets/hephauto.png">
+  <link rel="shortcut icon" type="image/png" href="assets/hephauto.png">
+  <style>
+    /* Settings Page Specific Styles */
+    .settings-container {
+      min-height: 100vh;
+      background: #ffffff;
+      padding-top: 170px;
+      padding-bottom: 0px;
+    }
+
+    .settings-header {
+      background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+      padding: 20px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .settings-header-content {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .back-btn {
+      background: rgba(255, 255, 255, 0.2);
+      border: none;
+      color: white;
+      padding: 10px;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .back-btn:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: scale(1.1);
+    }
+
+    .settings-title {
+      flex: 1;
+      text-align: center;
+      color: white;
+      font-size: 20px;
+      font-weight: 600;
+      margin: 0;
+    }
+
+    .settings-content {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .settings-section {
+      background: #ffffff;
+      border-radius: 15px;
+      margin-bottom: 20px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      border: 1px solid #e9ecef;
+    }
+
+    .settings-item {
+      display: flex;
+      align-items: center;
+      padding: 20px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border-bottom: 1px solid #f8f9fa;
+      position: relative;
+    }
+
+    .settings-item:last-child {
+      border-bottom: none;
+    }
+
+    .settings-item:hover {
+      background: #f8f9fa;
+    }
+
+    .settings-item:active {
+      background: #e9ecef;
+    }
+
+    .item-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      color: white;
+      margin-right: 15px;
+      flex-shrink: 0;
+    }
+
+    .item-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .item-title {
+      font-size: 16px;
+      font-weight: 500;
+      color: #343a40;
+      margin: 0 0 2px 0;
+    }
+
+    .item-value {
+      font-size: 14px;
+      color: #6c757d;
+      margin: 0;
+    }
+
+    .item-arrow {
+      color: #6c757d;
+      font-size: 14px;
+      margin-left: 10px;
+    }
+
+    .item-link {
+      color: #007bff;
+      font-size: 14px;
+      text-decoration: none;
+      margin-left: 10px;
+    }
+
+    .item-link:hover {
+      text-decoration: underline;
+    }
+
+    /* Icon Colors */
+    .item-icon.personal { background: linear-gradient(135deg, #007bff 0%, #6610f2 100%); }
+    .item-icon.business { background: linear-gradient(135deg, #fd7e14 0%, #e83e8c 100%); }
+    .item-icon.verified { background: linear-gradient(135deg, #17a2b8 0%, #20c997 100%); }
+    .item-icon.phone { background: linear-gradient(135deg, #28a745 0%, #20c997 100%); }
+    .item-icon.email { background: linear-gradient(135deg, #fd7e14 0%, #e83e8c 100%); }
+    .item-icon.language { background: linear-gradient(135deg, #28a745 0%, #20c997 100%); }
+    .item-icon.chats { background: linear-gradient(135deg, #28a745 0%, #20c997 100%); }
+    .item-icon.feedback { background: linear-gradient(135deg, #fd7e14 0%, #e83e8c 100%); }
+    .item-icon.notifications { background: linear-gradient(135deg, #dc3545 0%, #e83e8c 100%); }
+    .item-icon.about { background: linear-gradient(135deg, #6c757d 0%, #495057 100%); }
+    .item-icon.connection { background: linear-gradient(135deg, #6c757d 0%, #495057 100%); }
+    .item-icon.rate { background: linear-gradient(135deg, #6c757d 0%, #495057 100%); }
+    .item-icon.dark-mode { background: linear-gradient(135deg, #6c757d 0%, #495057 100%); }
+    .item-icon.password { background: linear-gradient(135deg, #6c757d 0%, #495057 100%); }
+    .item-icon.delete { background: linear-gradient(135deg, #6c757d 0%, #495057 100%); }
+    .item-icon.logout { background: linear-gradient(135deg, #6c757d 0%, #495057 100%); }
+
+    /* Mobile Bottom Navigation for Settings */
+    .mobile-bottom-nav {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 64px;
+      background: #fff;
+      border-top: 1.5px solid #e9ecef;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      z-index: 12000;
+      box-shadow: 0 -2px 12px rgba(0,0,0,0.06);
+      padding: 0;
+    }
+
+    .mobile-bottom-nav__item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #222;
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 600;
+      background: none;
+      border: none;
+      outline: none;
+      height: 100%;
+      transition: color 0.2s, background 0.2s;
+      cursor: pointer;
+      min-width: 0;
+      padding: 4px 2px;
+    }
+
+    .mobile-bottom-nav__item i {
+      font-size: 1.5rem;
+      margin-bottom: 2px;
+      display: block;
+    }
+
+    .mobile-bottom-nav__item:active,
+    .mobile-bottom-nav__item:focus,
+    .mobile-bottom-nav__item:hover {
+      color: #ff6b35;
+      background: #f8f9fa;
+    }
+
+    .mobile-bottom-nav__item.active {
+      color: #ff6b35;
+      background: rgba(255, 107, 53, 0.1);
+    }
+
+    .mobile-bottom-nav__item span {
+      font-size: 12px;
+      margin-top: 1px;
+      letter-spacing: 0.01em;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .settings-header-content {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .settings-title {
+        font-size: 18px;
+      }
+
+      .settings-content {
+        padding: 15px;
+      }
+
+      .settings-item {
+        padding: 15px;
+      }
+
+      .item-icon {
+        width: 35px;
+        height: 35px;
+        font-size: 14px;
+        margin-right: 12px;
+      }
+    }
+
+    @media (min-width: 901px) {
+      .mobile-bottom-nav { display: none !important; }
+    }
+    @media (max-width: 900px) {
+      .mobile-bottom-nav { display: flex; }
+      body:has(.mobile-bottom-nav) {
+        padding-bottom: 64px;
+      }
+      body:not(:has(.mobile-bottom-nav)) {
+        padding-bottom: 0 !important;
+      }
+    }
+
+    .mobile-menu.open ~ .mobile-bottom-nav {
+      display: none !important;
+    }
+
+    @media (min-width: 601px) and (max-width: 900px) {
+      .hamburger-icon {
+        width: 56px;
+        height: 56px;
+        font-size: 2.2rem;
+        padding: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Settings Header -->
+  <header class="settings-header">
+    <div class="settings-header-content">
+      <a class="home-btn" href="heph.html" style="background: rgba(255,255,255,0.2); border-radius: 50%; padding: 10px; color: white; display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; margin-right: 10px; text-decoration: none; transition: all 0.3s ease;"><i class="fas fa-home"></i></a>
+      <button class="back-btn" onclick="window.history.back()">
+        <i class="fas fa-arrow-left"></i>
+      </button>
+      
+      <h1 class="settings-title">Settings</h1>
+    </div>
+  </header>
+
+  <!-- Settings Content -->
+  <main class="settings-container">
+    <div class="settings-content">
+      <!-- Account/Personal Information Section -->
+      <div class="settings-section">
+        <div class="settings-item" onclick="openPersonalDetails()">
+          <div class="item-icon personal">
+            <i class="fas fa-user"></i>
+          </div>
+          <div class="item-content">
+            <div class="item-title">Personal details</div>
+          </div>
+          <i class="fas fa-chevron-right item-arrow"></i>
+        </div>
+
+        <div class="settings-item" onclick="openBusinessInfo()">
+          <div class="item-icon business">
+            <i class="fas fa-building"></i>
+          </div>
+          <div class="item-content">
+            <div class="item-title">Business info</div>
+          </div>
+          <i class="fas fa-chevron-right item-arrow"></i>
+        </div>
+
+        <div class="settings-item" onclick="openVerifiedId()">
+          <div class="item-icon verified">
+            <i class="fas fa-id-card"></i>
+          </div>
+          <div class="item-content">
+            <div class="item-title">"Verified ID" badge</div>
+          </div>
+          <a href="#" class="item-link">What is it?</a>
+          <i class="fas fa-chevron-right item-arrow"></i>
+        </div>
+      </div>
+
+      <!-- Contact/Communication Settings Section -->
+      <div class="settings-section">
+        <div class="settings-item" onclick="openPhoneNumbers()">
+          <div class="item-icon phone">
+            <i class="fas fa-phone"></i>
+          </div>
+          <div class="item-content">
+            <div class="item-title">Phone numbers</div>
+            <div class="item-value">09037023252</div>
+          </div>
+          <i class="fas fa-chevron-right item-arrow"></i>
+        </div>
+
+        <div class="settings-item" onclick="openChangeEmail()">
+          <div class="item-icon email">
+            <i class="fas fa-at"></i>
+          </div>
+          <div class="item-content">
+            <div class="item-title">Change email</div>
+            <div class="item-value">gxgraphicsdesign@gmail.com</div>
+          </div>
+          <i class="fas fa-chevron-right item-arrow"></i>
+        </div>
+
+        <div class="settings-item" onclick="openChangeLanguage()">
+          <div class="item-icon language">
+            <i class="fas fa-globe"></i>
+          </div>
+          <div class="item-content">
+            <div class="item-title">Change language</div>
+            <div class="item-value">English</div>
+          </div>
+          <i class="fas fa-chevron-right item-arrow"></i>
+        </div>
+      </div>
+
+      <!-- App Preferences/Interactions Section -->
+      <div class="settings-section">
+        <div class="settings-item" onclick="toggleChats()">
+          <div class="item-icon chats">
+            <i class="fas fa-comments"></i>
+          </div>
+          <div class="item-content">
+            <div class="item-title">Disable chats</div>
+            <div class="item-value">Enabled</div>
+          </div>
+          <i class="fas fa-chevron-right item-arrow"></i>
+        </div>
+
+        <div class="settings-item" onclick="toggleFeedback()">
+          <div class="item-icon feedback">
+            <i class="fas fa-smile"></i>
+          </div>
+          <div class="item-content">
+            <div class="item-title">Disable feedback</div>
+            <div class="item-value">Enabled</div>
+          </div>
+          <i class="fas fa-chevron-right item-arrow"></i>
+        </div>
+
+        <div class="settings-item" onclick="openManageNotifications()">
+          <div class="item-icon notifications">
+            <i class="fas fa-bell"></i>
+          </div>
+          <div class="item-content">
+            <div class="item-title">Manage notifications</div>
+          </div>
+          <i class="fas fa-chevron-right item-arrow"></i>
+        </div>
+      </div>
+
+      <!-- About Application Section -->
+      <div class="settings-section">
+        <div class="settings-item" onclick="openAbout()">
+          <div class="item-icon about">
+            <i class="fas fa-info-circle"></i>
+          </div>
+          <div class="item-content">
+            <div class="item-title">About HephAuto</div>
+          </div>
+          <i class="fas fa-chevron-right item-arrow"></i>
+        </div>
+
+        <div class="settings-item" onclick="checkConnection()">
+          <div class="item-icon connection">
+            <i class="fas fa-wifi"></i>
+          </div>
+          <div class="item-content">
+            <div class="item-title">Check connection</div>
+          </div>
+          <i class="fas fa-chevron-right item-arrow"></i>
+        </div>
+
+        <div class="settings-item" onclick="rateUs()">
+          <div class="item-icon rate">
+            <i class="fas fa-star"></i>
+          </div>
+          <div class="item-content">
+            <div class="item-title">Rate Us</div>
+          </div>
+          <i class="fas fa-chevron-right item-arrow"></i>
+        </div>
+
+        <div class="settings-item" onclick="toggleDarkMode()">
+          <div class="item-icon dark-mode">
+            <i class="fas fa-moon"></i>
+          </div>
+          <div class="item-content">
+            <div class="item-title">Dark mode</div>
+            <div class="item-value">System (default)</div>
+          </div>
+          <i class="fas fa-chevron-right item-arrow"></i>
+        </div>
+      </div>
+
+      <!-- Security & Logout Section -->
+      <div class="settings-section">
+        <div class="settings-item" onclick="openChangePassword()">
+          <div class="item-icon password">
+            <i class="fas fa-lock"></i>
+          </div>
+          <div class="item-content">
+            <div class="item-title">Change password</div>
+          </div>
+          <i class="fas fa-chevron-right item-arrow"></i>
+        </div>
+
+        <div class="settings-item" onclick="deleteAccount()" style="color: #dc3545;">
+          <div class="item-icon delete">
+            <i class="fas fa-trash"></i>
+          </div>
+          <div class="item-content">
+            <div class="item-title" style="color: #dc3545;">Delete my account permanently</div>
+          </div>
+          <i class="fas fa-chevron-right item-arrow"></i>
+        </div>
+
+        <div class="settings-item" onclick="logout()" style="color: #dc3545;">
+          <div class="item-icon logout">
+            <i class="fas fa-sign-out-alt"></i>
+          </div>
+          <div class="item-content">
+            <div class="item-title" style="color: #dc3545;">Log out</div>
+          </div>
+          <i class="fas fa-chevron-right item-arrow"></i>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Mobile Bottom Navigation Bar -->
+  <nav class="mobile-bottom-nav">
+    <a href="buy.html" class="mobile-bottom-nav__item">
+      <i class="fas fa-shopping-cart"></i>
+      <span>Buy</span>
+    </a>
+    <a href="saved.html" class="mobile-bottom-nav__item">
+      <i class="fas fa-bookmark"></i>
+      <span>Saved</span>
+    </a>
+    <a href="sell.html" class="mobile-bottom-nav__item">
+      <i class="fas fa-tag"></i>
+      <span>Sell</span>
+    </a>
+    <a href="messages.html" class="mobile-bottom-nav__item">
+      <i class="fas fa-comment-dots"></i>
+      <span>Messages</span>
+    </a>
+    <a href="profile.html" class="mobile-bottom-nav__item active">
+      <i class="fas fa-user"></i>
+      <span>Profile</span>
+    </a>
+  </nav>
+
+  <script src="Heph.js"></script>
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script>
+    // Initialize AOS
+    AOS.init({
+      duration: 800,
+      easing: 'ease-in-out',
+      once: true
+    });
+
+    // Settings functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      // Login button functionality
+      const loginBtn = document.getElementById('loginBtn');
+      if (loginBtn) {
+        loginBtn.addEventListener('click', function() {
+          alert('Login functionality - Redirect to login page or show login modal');
+        });
+      }
+
+      // Profile button functionality
+      const profileBtn = document.getElementById('profileBtn');
+      if (profileBtn) {
+        profileBtn.addEventListener('click', function() {
+          window.location.href = 'profile.html';
+        });
+      }
+
+      // Settings item click animations
+      const settingsItems = document.querySelectorAll('.settings-item');
+      settingsItems.forEach(item => {
+        item.addEventListener('click', function() {
+          // Add click animation
+          this.style.transform = 'scale(0.98)';
+          setTimeout(() => {
+            this.style.transform = '';
+          }, 150);
+        });
+      });
+    });
+
+    // Settings functions
+    function openPersonalDetails() {
+      alert('Opening Personal Details...');
+    }
+
+    function openBusinessInfo() {
+      alert('Opening Business Information...');
+    }
+
+    function openVerifiedId() {
+      alert('Opening Verified ID Information...');
+    }
+
+    function openPhoneNumbers() {
+      alert('Opening Phone Numbers Settings...');
+    }
+
+    function openChangeEmail() {
+      alert('Opening Change Email Settings...');
+    }
+
+    function openChangeLanguage() {
+      alert('Opening Language Settings...');
+    }
+
+    function toggleChats() {
+      alert('Toggling Chat Settings...');
+    }
+
+    function toggleFeedback() {
+      alert('Toggling Feedback Settings...');
+    }
+
+    function openManageNotifications() {
+      alert('Opening Notification Management...');
+    }
+
+    function openAbout() {
+      alert('Opening About HephAuto...');
+    }
+
+    function checkConnection() {
+      alert('Checking Connection Status...');
+    }
+
+    function rateUs() {
+      alert('Opening App Store/Play Store for rating...');
+    }
+
+    function toggleDarkMode() {
+      alert('Toggling Dark Mode...');
+    }
+
+    function openChangePassword() {
+      alert('Opening Change Password...');
+    }
+
+    function deleteAccount() {
+      if (confirm('Are you sure you want to permanently delete your account? This action cannot be undone.')) {
+        alert('Account deletion initiated...');
+      }
+    }
+
+    function logout() {
+      if (confirm('Are you sure you want to log out?')) {
+        alert('Logging out...');
+        // You can implement actual logout functionality here
+        // window.location.href = 'login.html';
+      }
+    }
+  </script>
+</body>
+</html> 

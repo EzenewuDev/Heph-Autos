@@ -1000,59 +1000,21 @@
       once: true
     });
 
-    // Product Rotation System
-    class ProductRotator {
+    // Product Shuffle System - ONLY shuffles ONCE at page load
+    class ProductShuffler {
       constructor() {
         this.container = document.querySelector('.product-cards-container');
         this.products = Array.from(document.querySelectorAll('.product-card'));
-        this.currentRotationIndex = 0;
-        this.rotationInterval = null;
-        this.lastProductCount = this.products.length;
         
         this.init();
       }
 
       init() {
-        // Start automatic rotation every hour
-        this.startHourlyRotation();
-        
-        // Check for new products every 5 minutes
-        this.startNewProductCheck();
-        
-        // Initial rotation
-        this.rotateProducts();
+        // Shuffle ONLY ONCE when the page loads
+        this.shuffleProducts();
       }
 
-      startHourlyRotation() {
-        // Rotate every hour (3600000 milliseconds)
-        this.rotationInterval = setInterval(() => {
-          this.rotateProducts();
-          console.log('Products rotated automatically (hourly)');
-        }, 3600000);
-      }
-
-      startNewProductCheck() {
-        // Check for new products every 5 minutes
-        setInterval(() => {
-          this.checkForNewProducts();
-        }, 300000);
-      }
-
-      checkForNewProducts() {
-        const currentProducts = document.querySelectorAll('.product-card');
-        const currentCount = currentProducts.length;
-        
-        if (currentCount > this.lastProductCount) {
-          // New products detected
-          this.products = Array.from(currentProducts);
-          this.lastProductCount = currentCount;
-          this.rotateProducts();
-          this.showNewProductNotification(currentCount - this.lastProductCount);
-          console.log(`New products detected! Rotating products. Added: ${currentCount - this.lastProductCount}`);
-        }
-      }
-
-      rotateProducts() {
+      shuffleProducts() {
         if (this.products.length === 0) return;
 
         // Shuffle the products array
@@ -1066,8 +1028,8 @@
           this.container.appendChild(product);
         });
 
-        // Add rotation animation
-        this.addRotationAnimation();
+        // Add fade-in animation
+        this.addFadeInAnimation();
       }
 
       shuffleArray(array) {
@@ -1077,7 +1039,7 @@
         }
       }
 
-      addRotationAnimation() {
+      addFadeInAnimation() {
         const products = document.querySelectorAll('.product-card');
         products.forEach((product, index) => {
           product.style.animation = 'none';
@@ -1085,70 +1047,10 @@
           product.style.animation = `fadeInUp 0.6s ease-out ${index * 0.1}s both`;
         });
       }
-
-      showNewProductNotification(count) {
-        // Create notification element
-        const notification = document.createElement('div');
-        notification.className = 'new-product-notification';
-        notification.innerHTML = `
-          <div class="notification-content">
-            <i class="fas fa-car"></i>
-            <span>${count} new vehicle${count > 1 ? 's' : ''} added! Products have been rotated.</span>
-            <button class="notification-close" onclick="this.parentElement.parentElement.remove()">
-              <i class="fas fa-times"></i>
-            </button>
-          </div>
-        `;
-        
-        // Add styles
-        notification.style.cssText = `
-          position: fixed;
-          top: 100px;
-          right: 20px;
-          background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
-          color: white;
-          padding: 15px 20px;
-          border-radius: 10px;
-          box-shadow: 0 4px 20px rgba(40, 167, 69, 0.3);
-          z-index: 10000;
-          animation: slideInRight 0.5s ease-out;
-          max-width: 300px;
-        `;
-        
-        // Add to page
-        document.body.appendChild(notification);
-        
-        // Auto remove after 5 seconds
-        setTimeout(() => {
-          if (notification.parentElement) {
-            notification.remove();
-          }
-        }, 5000);
-      }
-
-      // Manual rotation method (can be called from console or other functions)
-      manualRotate() {
-        this.rotateProducts();
-        console.log('Products rotated manually');
-      }
-
-      // Stop rotation
-      stopRotation() {
-        if (this.rotationInterval) {
-          clearInterval(this.rotationInterval);
-          console.log('Product rotation stopped');
-        }
-      }
-
-      // Resume rotation
-      resumeRotation() {
-        this.startHourlyRotation();
-        console.log('Product rotation resumed');
-      }
     }
 
-    // Initialize product rotator
-    const productRotator = new ProductRotator();
+    // Initialize product shuffler - runs ONCE at page load
+    const productShuffler = new ProductShuffler();
 
     // Add CSS for animations
     const style = document.createElement('style');
@@ -1197,8 +1099,8 @@
     `;
     document.head.appendChild(style);
 
-    // Make rotator available globally for testing
-    window.productRotator = productRotator;
+    // Make shuffler available globally for testing
+    window.productShuffler = productShuffler;
   </script>
   <!-- Logout Confirmation Modal (hidden by default) -->
   <div id="logoutConfirmModal" class="logout-modal" style="display:none;">

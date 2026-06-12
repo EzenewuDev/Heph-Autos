@@ -2,10 +2,14 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const cors = require('cors');
+const path = require('path');
 
 const app = express();
 app.use(cors());
 app.use(express.json());
+
+// Serve static files from the current directory
+app.use(express.static(__dirname));
 
 // Connect to MongoDB (update the URI if needed)
 mongoose.connect('mongodb://localhost:27017/hephauto', {
@@ -40,6 +44,11 @@ app.post('/api/signup', async (req, res) => {
   } catch (err) {
     res.status(500).json({ success: false, message: 'Server error.' });
   }
+});
+
+// Serve the home page
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'Heph.html'));
 });
 
 const PORT = process.env.PORT || 3000;

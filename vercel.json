@@ -1,5 +1,17 @@
 {
   "version": 2,
+  "builds": [
+    {
+      "src": "**/*.{html,css,js,png,jpg,jpeg,gif,svg,mp4,webm}",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/$1"
+    }
+  ],
   "headers": [
     {
       "source": "/(.*)",

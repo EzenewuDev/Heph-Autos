@@ -226,7 +226,7 @@
         data-seats="16"
         data-mileage="1500"
         data-price="₦40,000,000"
-        data-images="assets/assets1/coasterbus.jpg,assets/assets1/coasterbus1.jpg,assets/assets1/coasterbus2.jpg,assets/assets1/coasterbus3.jpg,assets/assets1/coasterbus4.jpg,assets/assets1/coasterbus5.jpg,assets/assets1/coasterbus6.jpg,assets/assets1/coasterbus7.jpg,assets/assets1/coasterbus8.jpg"
+        data-images="assets/assets1/Coasterbus.jpg,assets/assets1/coasterbus1.jpg,assets/assets1/coasterbus2.jpg,assets/assets1/coasterbus3.jpg,assets/assets1/coasterbus4.jpg,assets/assets1/coasterbus5.jpg,assets/assets1/coasterbus6.jpg,assets/assets1/coasterbus7.jpg,assets/assets1/coasterbus8.jpg"
       >
         <div class="image-gallery">
           <div class="view-image-icon">
@@ -394,7 +394,7 @@
         data-seats="5"
         data-mileage="31000"
         data-price="₦45,500,000"
-        data-images="assets/assets1/lexus/2018 LEXUS RX350   45.5M/rx191.JPG,assets/assets1/lexus/2018 LEXUS RX350   45.5M/rx192.JPG,assets/assets1/lexus/2018 LEXUS RX350   45.5M/rx193.JPG,assets/assets1/lexus/2018 LEXUS RX350   45.5M/rx194.JPG,assets/assets1/lexus/2018 LEXUS RX350   45.5M/rx195.JPG"
+        data-images="assets/assets1/lexus/2018 LEXUS RX350   45.5M/rx191.JPG,assets/assets1/lexus/2018 LEXUS RX350   45.5M/rx192.JPG,assets/assets1/lexus/2018 LEXUS RX350   45.5M/rx194.JPG,assets/assets1/lexus/2018 LEXUS RX350   45.5M/gle193.JPG,assets/assets1/lexus/2018 LEXUS RX350   45.5M/rx19.JPG"
       >
         <div class="image-gallery">
           <div class="view-image-icon">
@@ -856,7 +856,7 @@
         data-seats="5"
         data-mileage="22000"
         data-price="₦22,500,000"
-        data-images="assets/assets1/mercedes/2015 CLA250  22.5M/cla1.JPG,assets/assets1/mercedes/2015 CLA250  22.5M/cla2#.JPG,assets/assets1/mercedes/2015 CLA250  22.5M/cla3.JPG,assets/assets1/mercedes/2015 CLA250  22.5M/cla4.JPG,assets/assets1/mercedes/2015 CLA250  22.5M/cla5.JPG,assets/assets1/mercedes/2015 CLA250  22.5M/cla6.JPG,assets/assets1/mercedes/2015 CLA250  22.5M/cla7.JPG,assets/assets1/mercedes/2015 CLA250  22.5M/cla8.JPG"
+        data-images="assets/assets1/mercedes/2015 CLA250  22.5M/cla1.JPG,assets/assets1/mercedes/2015 CLA250  22.5M/cla2.JPG,assets/assets1/mercedes/2015 CLA250  22.5M/cla3.JPG,assets/assets1/mercedes/2015 CLA250  22.5M/cla4.JPG,assets/assets1/mercedes/2015 CLA250  22.5M/cla5.JPG,assets/assets1/mercedes/2015 CLA250  22.5M/cla6.JPG,assets/assets1/mercedes/2015 CLA250  22.5M/cla7.JPG,assets/assets1/mercedes/2015 CLA250  22.5M/cla8.JPG"
       >
         <div class="image-gallery">
           <div class="view-image-icon">
@@ -1101,6 +1101,68 @@
 
     // Make shuffler available globally for testing
     window.productShuffler = productShuffler;
+
+    // Populate product card image galleries
+    function populateProductCardImages() {
+      const productCards = document.querySelectorAll('.product-card');
+      
+      productCards.forEach(card => {
+        const imagesStr = card.dataset.images;
+        if (!imagesStr) return;
+        
+        const images = imagesStr.split(',');
+        const gallery = card.querySelector('.image-gallery');
+        const dotsContainer = card.querySelector('.card-navigation-dots');
+        
+        if (gallery && images.length > 0) {
+          // Set first image as background
+          gallery.style.backgroundImage = `url('${images[0]}')`;
+          gallery.style.backgroundSize = 'cover';
+          gallery.style.backgroundPosition = 'center';
+          
+          // Create dots for navigation
+          if (dotsContainer) {
+            dotsContainer.innerHTML = images.map((_, index) => 
+              `<span class="dot ${index === 0 ? 'active' : ''}" data-index="${index}"></span>`
+            ).join('');
+          }
+        }
+      });
+    }
+
+    // Handle Details button clicks
+    document.addEventListener('DOMContentLoaded', function() {
+      // Populate images first
+      populateProductCardImages();
+      
+      const detailsButtons = document.querySelectorAll('.buy-now-btn');
+      detailsButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+          e.preventDefault();
+          const productCard = this.closest('.product-card');
+          
+          const productData = {
+            name: productCard.querySelector('h3').textContent,
+            make: productCard.dataset.make,
+            model: productCard.dataset.model,
+            year: productCard.dataset.year,
+            color: productCard.dataset.color,
+            condition: productCard.dataset.condition,
+            transmission: productCard.dataset.transmission,
+            fuel: productCard.dataset.fuel,
+            engineSize: productCard.dataset.engineSize,
+            seats: productCard.dataset.seats,
+            mileage: productCard.dataset.mileage,
+            price: productCard.dataset.price,
+            images: productCard.dataset.images.split(','),
+            image: productCard.dataset.images.split(',')[0]
+          };
+          
+          localStorage.setItem('checkoutProduct', JSON.stringify(productData));
+          window.location.href = 'Viewdetails.html';
+        });
+      });
+    });
   </script>
   <!-- Logout Confirmation Modal (hidden by default) -->
   <div id="logoutConfirmModal" class="logout-modal" style="display:none;">
